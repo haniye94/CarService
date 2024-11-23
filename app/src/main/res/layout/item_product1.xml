@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        />
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="نام محصول"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="قیمت: ۰ تومان"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="4dp" />
+
+    <!-- Edit Product Button -->
+    <Button
+        android:id="@+id/editProductButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ویرایش محصول"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Category Button (e.g., روغن موتور) -->
+    <Button
+        android:id="@+id/categoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="روغن موتور"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

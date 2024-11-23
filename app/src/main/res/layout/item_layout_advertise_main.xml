@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    android:textDirection="ltr">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="170dp"
+
+        android:background="@drawable/shap_simple"
+        android:orientation="vertical"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_advertise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shap_rec"
+                android:elevation="0dp"
+                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:padding="8dp"
+                    android:layout_marginLeft="7dp"
+                    android:src="@drawable/ic_bg_produce" />
+
+                <TextView
+                    android:id="@+id/txt_description_advertise"
+                    android:layout_width="0sp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:scrollHorizontally="true"
+                    android:lineSpacingExtra="-0.1dp"
+                    android:text="sdcfvgbf"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/txt_see_more"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|left"
+                    android:background="@drawable/shap_un_select"
+                    android:gravity="center"
+                    android:lineSpacingExtra="-0.1dp"
+                    android:text="مشاهده بیشتر"
+                    android:textSize="11dp" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

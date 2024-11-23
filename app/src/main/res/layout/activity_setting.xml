@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:textDirection="rtl"
+    tools:context="com.servicea.ir.servicea.itemMain.SettingActivity">
+
+    <include layout="@layout/layout_action_bar_pages" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="10dp"
+        android:background="@drawable/shap_simple"
+        android:orientation="vertical"
+        android:paddingLeft="7dp"
+        android:paddingTop="20dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_charge_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30000"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="آخرین شارژ"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_charge_mande"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25000"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="شارژ مانده"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/buycredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="خرید شارژ پیامک"
+                    android:textColor="@color/button"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gotolog"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20dp"
+                    android:text="جزئیات پیامک"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shap_simple"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_margin="10dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_produce_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/entekhab_gorohkala"
+            android:drawableLeft="@drawable/jahat_chap"
+            android:gravity="center|right"
+            android:background="@drawable/shap_simple"
+            android:stateListAnimator="@null"
+            android:text="     تنظیمات گروه کالا"
+            android:textColor="@color/text_low_dark"
+            android:textSize="14dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_manage_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_simple"
+            android:drawableLeft="@drawable/jahat_chap"
+            android:gravity="center|right"
+            android:drawableRight="@drawable/modiriat_payamak"
+            android:stateListAnimator="@null"
+            android:text="     مدیریت پیامک"
+            android:textColor="@color/text_low_dark"
+            android:textSize="14dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_msglog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_simple"
+            android:drawableLeft="@drawable/jahat_chap"
+            android:gravity="center|right"
+            android:drawableRight="@drawable/modiriat_elanha"
+            android:stateListAnimator="@null"
+            android:text="     گزارش پیامک‌ها"
+            android:textColor="@color/text_low_dark"
+            android:textSize="14dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_simple"
+            android:drawableLeft="@drawable/jahat_chap"
+            android:gravity="center|right"
+            android:drawableRight="@drawable/moarefi_be_hamkar"
+            android:stateListAnimator="@null"
+            android:text="     معرفی به همکاران"
+            android:textColor="@color/text_low_dark"
+            android:textSize="14dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_menage_notif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_simple"
+            android:drawableRight="@drawable/modiriat_elanha"
+            android:drawableLeft="@drawable/jahat_chap"
+            android:gravity="center|right"
+            android:stateListAnimator="@null"
+            android:text="     مدیریت اعلان ها"
+            android:textColor="@color/text_low_dark"
+            android:textSize="14dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

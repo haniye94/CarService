@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:textDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/shap_simple_rec"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="13dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نام: "
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/txt_name_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="محمود جعفری همدانی"
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="خودرو: "
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/txt_name_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="خودرو 206"
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="شماره: "
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/txt_phone_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0918 445 5585"
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+            <include layout="@layout/item_plak_malolin"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/icon_menu"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:elevation="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="26dp"
+                android:src="@drawable/ic_menu_dot" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

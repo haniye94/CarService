@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView  xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="-40dp"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints">
+
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+  >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:gravity="center_vertical"
+
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            tools:context="com.servicea.ir.servicea.MainActivity">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/headerroot"
+                android:layout_height="?actionBarSize"
+                android:elevation="50dp"
+                android:gravity="left|center"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:textDirection="rtl">
+
+
+
+                <TextView
+                    android:id="@+id/txt_tile_action_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:elevation="8dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="عنوان"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/profile_iv2"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_alignParentTop="true"
+
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/backpro" />
+
+            <ImageView
+                android:id="@+id/profile_iv2x"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_bg"
+                android:padding="7dp"
+                android:src="@drawable/ic_photo_camera"
+                android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/user_profile_photo"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="5dp"
+
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+
+
+                android:orientation="vertical"
+                android:paddingTop="80dp"
+                android:scaleType="fitStart"
+                tools:ignore="UnusedAttribute">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+android:layout_marginBottom="-25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    app:cardBackgroundColor="#fff"
+                    app:cardCornerRadius="20dp"
+
+                    app:cardElevation="5dp">
+
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="8dp"
+
+                            android:background="@drawable/shap_simple_rec"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="60dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="10dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/edittext"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:hint="نام     "
+                                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                    app:boxStrokeWidthFocused="1dp"
+                                    app:placeholderText="نام خود را وارد کنید"
+                                    app:placeholderTextAppearance="@style/customFontStyle"
+                                    app:placeholderTextColor="#999999">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:nextFocusForward="@+id/edt_last_name"
+                                        android:id="@+id/edt_first_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="10dp"
+                                        android:inputType="text"
+                                        android:paddingRight="50dp"
+                                        android:textColor="@color/text_dark"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:textSize="12dp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/edittext"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:hint="نام خانوادگی     "
+                                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                    app:boxStrokeWidthFocused="1dp"
+                                    app:placeholderText="نام خانوادگی خود را وارد کنید"
+                                    app:placeholderTextAppearance="@style/customFontStyle"
+                                    app:placeholderTextColor="#999999">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:nextFocusForward="@+id/edt_phone"
+                                        android:id="@+id/edt_last_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="5dp"
+                                        android:inputType="text"
+                                        android:paddingRight="50dp"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:textColor="@color/text_dark"
+                                        android:textSize="12dp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/edt_phone"
+                                    style="@style/edittext"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:hint="شماره موبایل     "
+                                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                    app:boxStrokeWidthFocused="1dp"
+                                    app:placeholderText="شماره موبایل خود را وارد کنید"
+                                    app:placeholderTextAppearance="@style/customFontStyle"
+                                    app:placeholderTextColor="#999999">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edt_phone_number"
+                                        android:layout_width="match_parent"
+                                        android:nextFocusForward="@+id/edittext"
+                                        android:layout_height="45dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp"
+                                        android:inputType="number"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:maxLength="11"
+                                        android:paddingRight="50dp"
+                                        android:textColor="@color/text_dark"
+                                        android:textSize="12dp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/edittext"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:hint="نام اتو سرویس     "
+                                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                    app:boxStrokeWidthFocused="1dp"
+                                    app:placeholderText="نام اتوسرویس خود را وارد کنید"
+                                    app:placeholderTextAppearance="@style/customFontStyle"
+                                    app:placeholderTextColor="#999999">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edt_name_auto_service"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:layout_marginRight="10dp"
+                                        android:inputType="text"
+                                        android:paddingRight="50dp"
+                                        android:textColor="@color/text_dark"
+                                        android:textSize="12dp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/txt_name_ostan"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="15dp"
+                                        android:gravity="center"
+                                        android:text="استان"
+                                        android:textColor="@color/text_low_dark"
+                                        android:textSize="13dp" />
+
+                                    <Spinner
+                                        android:id="@+id/spinner_ostan"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="10dp"
+                                        android:background="@drawable/shape_spinner" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/txt_name_city"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="10dp"
+                                        android:gravity="center"
+                                        android:text="شهر"
+                                        android:textColor="@color/text_low_dark"
+                                        android:textSize="13dp" />
+
+                                    <Spinner
+                                        android:id="@+id/spinner_city"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="10dp"
+                                        android:background="@drawable/shape_spinner" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/edittext"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:hint="آدرس     "
+                                    android:inputType="number"
+                                    android:orientation="horizontal"
+                                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                    app:boxStrokeWidthFocused="1dp"
+                                    app:placeholderText="آدرس خود را وارد کنید"
+                                    app:placeholderTextAppearance="@style/customFontStyle"
+                                    app:placeholderTextColor="#999999">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edt_address"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:paddingRight="50dp"
+                                        android:textColor="@color/text_dark"
+                                        android:textSize="12dp" />
+
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <ImageView
+                                    android:id="@+id/img_pin"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_pin_drop"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="bottom"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="2.5"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/txt_type_job"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="15dp"
+                                        android:gravity="center"
+                                        android:text="انتخاب دسته شغلی"
+                                        android:textColor="@color/text_low_dark"
+                                        android:textSize="13dp" />
+
+                                    <Spinner
+                                        android:id="@+id/spinner_job"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginRight="10dp"
+                                        android:background="@drawable/shape_spinner" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom|left"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1.2">
+
+                                    <TextView
+                                        android:id="@+id/txt_detect_service"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:background="@drawable/shap_edittext"
+                                        android:gravity="center"
+                                        android:lineSpacingExtra="-0.1dp"
+                                        android:text="انتخاب نوع خدمت"
+                                        android:textColor="@color/text_low_dark"
+                                        android:textSize="11dp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:paddingTop="2dp">
+
+                                <CheckBox
+                                    android:id="@+id/sayar"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layoutDirection="rtl"
+                                    android:text="ارائه خدمات سیار"
+                                    android:textColor="#222"
+                                    android:textDirection="rtl"
+                                    android:textSize="11dp"
+                                    android:theme="@style/checkBoxStyle" />
+
+                                <CheckBox
+                                    android:id="@+id/karshenasi"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layoutDirection="rtl"
+                                    android:text="کارشناسی خودرو"
+                                    android:textColor="#222"
+                                    android:textDirection="rtl"
+                                    android:textSize="11dp"
+                                    android:theme="@style/checkBoxStyle" />
+
+                                <CheckBox
+                                    android:id="@+id/reservation"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layoutDirection="rtl"
+                                    android:text="امکان رزرو خدمات"
+                                    android:textColor="#222"
+                                    android:textDirection="rtl"
+                                    android:textSize="11dp"
+                                    android:theme="@style/checkBoxStyle" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:visibility="gone"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.1dp"
+                                    android:background="#939393"/>
+                                <ImageView
+                                    android:id="@+id/img_loc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:adjustViewBounds="true"
+                                    android:cropToPadding="true"
+                                    android:minHeight="100dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@null" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.1dp"
+                                    android:background="#939393"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginRight="8dp"
+                                        android:src="@drawable/ic_baseline_person_pin_circle_24" />
+
+                                    <TextView
+                                        android:id="@+id/txt_loc"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:ellipsize="end"
+                                        android:layoutDirection="rtl"
+                                        android:maxLines="1"
+                                        android:padding="8dp"
+                                        android:singleLine="true"
+                                        android:text="همدان، خیابان سیزده خانه، کوچه سوداگر، ساختمان ملت"
+                                        android:textDirection="rtl"
+                                        android:textSize="14dp" />
+
+                                    <ImageView
+                                        android:id="@+id/edit_loc"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginRight="8dp"
+                                        android:src="@drawable/ic_baseline_edit_24" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.1dp"
+                                    android:background="#939393"/>
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_save_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginEnd="30dp"
+                                android:layout_marginTop="40dp"
+                                android:layout_marginBottom="25dp"
+                                android:background="@drawable/shap_button"
+                                android:stateListAnimator="@null"
+                                android:text="ذخیره تغییرات"
+                                android:textColor="@color/white"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toTopOf="@+id/license"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+                            <LinearLayout
+                                android:id="@+id/changeNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:background="@drawable/ic_edit_phone" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:letterSpacing="-0.1"
+                                    android:text="تغییر شماره"
+                                    android:textColor="@color/text_low_gray"
+                                    android:textSize="13dp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/license"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="30dp"
+                                android:gravity="center"
+                                android:text="ServiceA  V.1"
+                                android:textColor="@color/text_low_gray"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+
+                android:elevation="15dp">
+
+                <ImageView
+                    android:id="@+id/profile_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="95dp"
+
+
+                    android:background="@drawable/user_profile_image_background"
+                    android:elevation="4dp"
+                    app:srcCompat="@drawable/ic_user" />
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ic_bg"
+                    android:elevation="5dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_photo_camera" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,2 @@
+include ':app', ':objectspinner', ':fingerprint'
+rootProject.name = "GuideCar"

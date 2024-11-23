@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tv_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ساخت محصول جدید"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+
+    <!-- Upload Image Section -->
+    <RelativeLayout
+        android:id="@+id/rl_upload_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/tv_header"
+        android:layout_marginBottom="16dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_upload_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_upload_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="از اینجا عکس محصولات رو آپلود کن!"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_below="@id/iv_upload_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tv_upload_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="حداکثر حجم فایل: ۵ مگابایت"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:layout_below="@id/tv_upload_instruction"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp" />
+    </RelativeLayout>
+
+    <!-- Product Name Field -->
+    <EditText
+        android:id="@+id/et_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_upload_image"
+        android:layout_marginBottom="16dp"
+        android:hint="نام محصول"
+        android:padding="12dp"
+        android:inputType="text"
+        android:textDirection="rtl"/>
+
+    <!-- Product Price Field -->
+    <EditText
+        android:id="@+id/et_product_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_product_name"
+        android:layout_marginBottom="16dp"
+        android:hint="قیمت محصول: تومان"
+        android:padding="12dp"
+        android:inputType="numberDecimal"
+        android:textDirection="rtl"/>
+
+    <!-- Product Brand Field -->
+    <EditText
+        android:id="@+id/et_product_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_product_price"
+        android:layout_marginBottom="16dp"
+        android:hint="برند محصول"
+        android:padding="12dp"
+        android:inputType="text"
+        android:textDirection="rtl"/>
+
+    <!-- Product Type Spinner -->
+    <Spinner
+        android:id="@+id/spinner_product_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_product_brand"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"
+        />
+
+    <!-- Product Description Field -->
+    <EditText
+        android:id="@+id/et_product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_product_type"
+        android:layout_marginBottom="16dp"
+        android:hint="توضیحاتی از محصول"
+        android:padding="12dp"
+        android:inputType="textMultiLine"
+        android:textDirection="rtl"
+        android:minHeight="100dp"/>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ارسال"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>

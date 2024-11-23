@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plk_azad_old_cities">
+        <item>ارس</item>
+        <item>اروند</item>
+        <item>انزلی</item>
+        <item>چابهار</item>
+        <item>قشم</item>
+        <item>کیش</item>
+        <item>ماکو</item>
+    </string-array>
+</resources>

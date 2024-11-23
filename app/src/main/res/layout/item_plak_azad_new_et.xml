@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ly_plak"
+    android:layout_width="wrap_content"
+    android:layout_height="55dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layoutDirection="ltr"
+    >
+    <EditText
+        android:id="@+id/edt1"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="true"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="rtl"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+    <EditText
+        android:id="@+id/edt2"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="1"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+    <EditText
+        android:id="@+id/edt3"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="1"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+    <EditText
+        android:id="@+id/edt4"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="1"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+
+    <EditText
+        android:id="@+id/edt5"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="1"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+    <EditText
+        android:id="@+id/edt6"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="1"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="1"
+        android:textColorHint="@color/text_hint_plak"/>
+
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/border_edt"
+        />
+
+
+
+    <EditText
+        android:id="@+id/edt7"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="5"
+        android:textColor="@color/text_low_dark"
+        android:textDirection="ltr"
+        android:textSize="25dp"
+        android:hint="11"
+        android:textColorHint="@color/text_hint_plak"/>
+</LinearLayout>

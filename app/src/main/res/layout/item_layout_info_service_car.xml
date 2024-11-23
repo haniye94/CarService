@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_type"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/state_shap_button"
+        android:padding="8dp"
+        android:stateListAnimator="@null"
+        android:text="روغن موتور"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/white"
+        android:textSize="11dp" />
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fingerprint_state_scanning">سنسور را لمس کنید</string>
+    <string name="fingerprint_state_success">اثرانگشت شناسایی شد</string>
+    <string name="fingerprint_state_failure">اثر انگشت شناسایی نشد. لطفا دوباره امتحان کنید.</string>
+    <string name="fingerprint_cancel">انصراف</string>3
+    <string name="fingerprint_use_password">ورود با رمز عبور</string>
+    <string name="fingerprint_icon_description">آیکون اثر انگشت</string>
+
+    <string name="password_confirm">تأیید</string>
+    <string name="password_cancel">انصراف</string>
+    <string name="password_incorrect">پسورد اشتباه است</string>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ir.servicea.activity.MapxActivity">
+
+    <ir.map.sdk_map.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraZoomMax="20"
+        mapbox:mapbox_cameraZoomMin="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:id="@+id/headerroot"
+        android:layout_height="?actionBarSize"
+
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:gravity="left|center"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:textDirection="rtl">
+
+
+
+        <TextView
+            android:id="@+id/txt_tile_action_bar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:text="انتخاب آدرس در نقشه"
+            android:textColor="@color/text_low_dark"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_close"
+            android:layout_marginLeft="25dp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/shap_button"
+        android:stateListAnimator="@null"
+        android:text="تأیید"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/license"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <!-- Implementation of find my location button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/myLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/register_btn"
+        android:layout_alignParentRight="true"
+
+
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp" />
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.servicea.ir.servicea.TextActivity">
+
+    <include layout="@layout/layout_action_bar_pages" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:lineSpacingExtra="11dp"
+            android:padding="14dp"
+            android:textSize="14dp"
+            android:justificationMode="inter_word"
+            android:textDirection="rtl"
+            android:textColor="#333333"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
+
+</LinearLayout>

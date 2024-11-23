@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/headerroot"
+    android:layout_height="?actionBarSize"
+    android:background="@color/background"
+    android:gravity="left|center"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:textDirection="rtl">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclickAlamrs"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:id="@+id/alarms"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_notifications" />
+
+        <LinearLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shap_plus_red"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/text_light"
+                android:textSize="12dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_tile_action_bar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="7dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="عنوان"
+        android:textColor="@color/text_low_dark"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <Space
+        android:id="@+id/img_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp" />
+
+</LinearLayout>

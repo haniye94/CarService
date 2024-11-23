@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:textDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right|center"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left"
+            android:scaleX="1"
+            android:theme="@style/checkBoxStyle"
+            android:scaleY="1" />
+
+        <TextView
+            android:id="@+id/txt_kala"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:lineSpacingExtra="-1dp"
+            android:textColor="@color/text_dark_gray"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:id="@+id/ly_check_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="-1dp"
+                android:text="ارسال پیام"
+                android:textColor="@color/text_dark_gray"
+                android:textSize="12dp" />
+
+            <CheckBox
+                android:id="@+id/chbox_message"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:theme="@style/checkBoxStyle"
+                android:scaleX="1"
+                android:scaleY="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="40dp"
+
+        android:background="@color/mtrl_textinput_default_box_stroke_color" />
+</LinearLayout>

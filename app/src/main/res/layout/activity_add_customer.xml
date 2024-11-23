@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:textDirection="rtl">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_action_bar_customer" />
+
+        <LinearLayout
+            android:id="@+id/plak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shap_simple_rec"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <include
+                    android:id="@+id/ly_plk_general"
+                    layout="@layout/item_plak_general_et" />
+
+                <include
+                    android:id="@+id/ly_plk_malolin"
+                    layout="@layout/item_plak_general_et"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_azad_new"
+                    layout="@layout/item_plak_azad_new_et"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_azad_old"
+                    layout="@layout/item_plak_azad_old_et"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_plk_type_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:letterSpacing="-0.1"
+                    android:text="@string/plk_type"
+                    android:background="@drawable/shap_button"
+                    android:backgroundTint="@color/gray_btn_bg_pressed_color"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/ly_pelak_type"
+                layout="@layout/layout_plak_type"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollviewx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/shap_simple_rec"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="30dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/edittext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_weight="1"
+                                android:hint="شماره موبایل"
+                                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                app:boxStrokeWidthFocused="1dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_phone_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="number"
+                                    android:maxLength="11"
+                                    android:nextFocusDown="@+id/edt_name_car"
+                                    android:singleLine="true"
+                                    android:textColor="@color/text_dark"
+                                    android:textColorHint="@color/text_color_hint"
+                                    android:textSize="13dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/edittext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:hint="نام"
+                                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                app:boxStrokeWidthFocused="1dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_first_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:nextFocusDown="@+id/edt_nameFamily"
+                                    android:singleLine="true"
+                                    android:textColor="@color/text_dark"
+                                    android:textColorHint="@color/text_color_hint"
+                                    android:textSize="13dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/edittext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:hint="نام خانوادگی"
+                                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                app:boxStrokeWidthFocused="1dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_last_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:nextFocusDown="@+id/edt_gender"
+                                    android:singleLine="true"
+                                    android:textColor="@color/text_dark"
+                                    android:textColorHint="@color/text_color_hint"
+                                    android:textSize="13dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <Spinner
+                                android:id="@+id/spin_gender"
+                                android:layout_width="0dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="0dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/shape_spinner"
+                                android:padding="7dp" />
+
+
+                            <!--                <com.google.android.material.textfield.TextInputLayout-->
+                            <!--                    style="@style/edittext"-->
+                            <!--                    android:layout_width="0dp"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--                    android:layout_marginLeft="10dp"-->
+                            <!--                    android:layout_weight="1"-->
+                            <!--                    android:hint="جنسیت"-->
+                            <!--                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"-->
+                            <!--                    app:boxStrokeWidthFocused="1dp">-->
+
+                            <!--                    <com.google.android.material.textfield.TextInputEditText-->
+                            <!--                        android:id="@+id/edt_gender"-->
+                            <!--                        android:layout_width="match_parent"-->
+                            <!--                        android:layout_height="45dp"-->
+                            <!--                        android:inputType="text"-->
+                            <!--                        android:nextFocusDown="@+id/txt_date_customer"-->
+                            <!--                        android:singleLine="true"-->
+                            <!--                        android:imeOptions="actionNext"-->
+                            <!--                        android:textColor="@color/text_dark"-->
+                            <!--                        android:textColorHint="@color/text_low_dark"-->
+                            <!--                        android:textSize="13dp" />-->
+                            <!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+                            <TextView
+                                android:id="@+id/txt_date_customer"
+                                android:layout_width="0dp"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/shap_date"
+                                android:gravity="center|right"
+                                android:hint="تاریخ تولد"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"
+                                android:nextFocusDown="@+id/edt_phone"
+                                android:paddingRight="20dp"
+                                android:singleLine="true"
+                                android:textColor="@color/text_low_dark"
+                                android:textColorHint="@color/text_color_hint"
+                                android:textSize="13dp"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/car_namesll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="19dp"
+                            android:orientation="horizontal">
+
+                            <kr.ry4nkim.objectspinner.ObjectSpinner
+                                android:id="@+id/car_modelsx"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="5dp"
+
+                                android:layout_weight="1"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                app:os_arrow_color="#d5d5d5"
+
+                                app:os_background_color="#FFF"
+                                app:os_hint="نام کمپانی"
+
+                                app:os_hint_color="#999"
+                                app:os_item_background_color="#FFF"
+                                app:os_item_padding_bottom="8dp"
+                                app:os_item_padding_left="16dp"
+                                app:os_item_padding_right="16dp"
+                                app:os_item_padding_top="8dp"
+                                app:os_item_text_color="#333"
+                                app:os_item_text_size="16dp"
+                                app:os_list_empty_text="موردی یافت نشد!"
+                                app:os_list_max_height="300dp"
+
+                                app:os_search_background_color="#F3F3F3"
+                                app:os_search_icon_color="#C0C0C0"
+                                app:os_search_text_color="#333"
+                                app:os_searchable="true"
+                                app:os_selected_item_background_color="#F3F3F3"
+                                app:os_selected_item_text_color="#222"
+                                app:os_selected_item_text_size="16dp"
+                                app:os_shadow="true"
+                                app:os_text_color="#333"
+                                app:os_text_size="16dp"
+
+
+                                >
+
+                            </kr.ry4nkim.objectspinner.ObjectSpinner>
+
+                            <kr.ry4nkim.objectspinner.ObjectSpinner
+                                android:id="@+id/car_names"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="1"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                app:os_arrow_color="#d5d5d5"
+
+                                app:os_background_color="#FFF"
+                                app:os_hint="نام خودرو"
+
+                                app:os_hint_color="#999"
+                                app:os_item_background_color="#FFF"
+                                app:os_item_padding_bottom="8dp"
+                                app:os_item_padding_left="16dp"
+                                app:os_item_padding_right="16dp"
+                                app:os_item_padding_top="8dp"
+                                app:os_item_text_color="#333"
+                                app:os_item_text_size="16dp"
+                                app:os_list_empty_text="موردی یافت نشد!"
+                                app:os_list_max_height="300dp"
+
+                                app:os_search_background_color="#F3F3F3"
+                                app:os_search_icon_color="#C0C0C0"
+                                app:os_search_text_color="#333"
+                                app:os_searchable="true"
+                                app:os_selected_item_background_color="#F3F3F3"
+                                app:os_selected_item_text_color="#222"
+                                app:os_selected_item_text_size="16dp"
+                                app:os_shadow="true"
+                                app:os_text_color="#333"
+                                app:os_text_size="16dp"
+
+
+                                />
+
+
+                            <!--                <com.google.android.material.textfield.TextInputLayout-->
+                            <!--                    style="@style/edittext"-->
+                            <!--                    android:layout_width="0dp"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--                    android:layout_marginRight="10dp"-->
+                            <!--                    android:layout_weight="1"-->
+                            <!--                    android:hint="نوع خودرو"-->
+                            <!--                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"-->
+                            <!--                    app:boxStrokeWidthFocused="1dp">-->
+
+                            <!--                    <com.google.android.material.textfield.TextInputEditText-->
+                            <!--                        android:id="@+id/edt_type_car"-->
+                            <!--                        android:layout_width="match_parent"-->
+                            <!--                        android:layout_height="45dp"-->
+                            <!--                        android:inputType="text"-->
+                            <!--                        android:textColor="@color/text_dark"-->
+                            <!--                        android:textColorHint="@color/text_color_hint"-->
+                            <!--                        android:textSize="13dp" />-->
+                            <!--                </com.google.android.material.textfield.TextInputLayout>-->
+                            <!--           -->
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/car_modelsxll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="16dp">
+
+
+                            <kr.ry4nkim.objectspinner.ObjectSpinner
+                                android:id="@+id/spin_type_car"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="1"
+
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                app:os_arrow_color="#d5d5d5"
+
+                                app:os_background_color="#FFF"
+                                app:os_hint="تیپ خودرو"
+
+                                app:os_hint_color="#999"
+                                app:os_item_background_color="#FFF"
+                                app:os_item_padding_bottom="8dp"
+                                app:os_item_padding_left="16dp"
+                                app:os_item_padding_right="16dp"
+                                app:os_item_padding_top="8dp"
+                                app:os_item_text_color="#333"
+                                app:os_item_text_size="16dp"
+                                app:os_list_empty_text="موردی یافت نشد!"
+                                app:os_list_max_height="300dp"
+
+                                app:os_search_background_color="#F3F3F3"
+                                app:os_search_icon_color="#C0C0C0"
+                                app:os_search_text_color="#333"
+                                app:os_searchable="true"
+                                app:os_selected_item_background_color="#F3F3F3"
+                                app:os_selected_item_text_color="#222"
+                                app:os_selected_item_text_size="16dp"
+                                app:os_shadow="true"
+                                app:os_text_color="#333"
+                                app:os_text_size="16dp"
+
+
+                                />
+
+                            <kr.ry4nkim.objectspinner.ObjectSpinner
+                                android:id="@+id/fuel_typesx"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+
+                                app:os_arrow_color="#d5d5d5"
+                                app:os_background_color="#FFF"
+
+                                app:os_hint="نوع سوخت"
+                                app:os_hint_color="#999"
+                                app:os_item_background_color="#FFF"
+                                app:os_item_padding_bottom="8dp"
+                                app:os_item_padding_left="16dp"
+                                app:os_item_padding_right="16dp"
+                                app:os_item_padding_top="8dp"
+                                app:os_item_text_color="#333"
+                                app:os_item_text_size="16dp"
+                                app:os_list_empty_text="موردی یافت نشد!"
+
+                                app:os_list_max_height="300dp"
+                                app:os_search_background_color="#F3F3F3"
+                                app:os_search_icon_color="#C0C0C0"
+                                app:os_search_text_color="#333"
+                                app:os_searchable="true"
+                                app:os_selected_item_background_color="#F3F3F3"
+                                app:os_selected_item_text_color="#222"
+                                app:os_selected_item_text_size="16dp"
+                                app:os_shadow="true"
+                                app:os_text_color="#333"
+
+
+                                app:os_text_size="16dp" />
+
+
+                            <!--                <com.google.android.material.textfield.TextInputLayout-->
+                            <!--                    style="@style/edittext"-->
+                            <!--                    android:layout_width="0dp"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--                    android:layout_marginRight="10dp"-->
+                            <!--                    android:layout_weight="1"-->
+                            <!--                    android:hint="نوع خودرو"-->
+                            <!--                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"-->
+                            <!--                    app:boxStrokeWidthFocused="1dp">-->
+
+                            <!--                    <com.google.android.material.textfield.TextInputEditText-->
+                            <!--                        android:id="@+id/edt_type_car"-->
+                            <!--                        android:layout_width="match_parent"-->
+                            <!--                        android:layout_height="45dp"-->
+                            <!--                        android:inputType="text"-->
+                            <!--                        android:textColor="@color/text_dark"-->
+                            <!--                        android:textColorHint="@color/text_color_hint"-->
+                            <!--                        android:textSize="13dp" />-->
+                            <!--                </com.google.android.material.textfield.TextInputLayout>-->
+                            <!--           -->
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/txt_benzini"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+
+                                android:background="@drawable/shap_select"
+                                android:gravity="center"
+                                android:text="بنزین"
+                                android:textColor="@color/text_light"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:id="@+id/txt_dezeli"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/shap_un_select"
+                                android:gravity="center"
+                                android:text="دیزل"
+                                android:textColor="@color/text_low_dark"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:id="@+id/txt_doghane"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/shap_un_select"
+                                android:gravity="center"
+                                android:text="دوگانه"
+                                android:textColor="@color/text_low_dark"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:id="@+id/txt_hibrid"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/shap_un_select"
+                                android:gravity="center"
+                                android:text="هیبرید"
+                                android:textColor="@color/text_low_dark"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_save"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shap_button"
+                        android:stateListAnimator="@null"
+                        android:text="ثبت اطلاعات"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_cancle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shap_button_gray"
+                        android:padding="10dp"
+                        android:stateListAnimator="@null"
+                        android:text="انصراف"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp" />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

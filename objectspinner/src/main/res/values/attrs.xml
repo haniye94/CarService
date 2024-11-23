@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="os_MaxHeightRecyclerView">
+        <attr name="os_max_height" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="os_ObjectSpinner">
+        <!-- Spinner Layout -->
+        <attr name="os_padding" format="reference|dimension" />
+        <attr name="os_padding_left" format="reference|dimension" />
+        <attr name="os_padding_top" format="reference|dimension" />
+        <attr name="os_padding_right" format="reference|dimension" />
+        <attr name="os_padding_bottom" format="reference|dimension" />
+
+        <attr name="os_text_size" format="reference|dimension" />
+        <attr name="os_text_color" format="reference|color" />
+        <attr name="os_background_color" format="reference|color" />
+
+        <attr name="os_hint" format="reference|string" />
+        <attr name="os_hint_color" format="reference|color" />
+
+        <attr name="os_arrow_color" format="reference|color" />
+        <attr name="os_shadow" format="reference|boolean" />
+
+        <!-- Spinner List Layout -->
+        <attr name="os_list_max_height" format="reference|dimension" />
+        <attr name="os_list_empty_text" format="reference|string" />
+
+        <!-- Spinner Item Layout -->
+        <attr name="os_item_padding" format="reference|dimension" />
+        <attr name="os_item_padding_left" format="reference|dimension" />
+        <attr name="os_item_padding_top" format="reference|dimension" />
+        <attr name="os_item_padding_right" format="reference|dimension" />
+        <attr name="os_item_padding_bottom" format="reference|dimension" />
+
+        <attr name="os_item_text_size" format="reference|dimension" />
+        <attr name="os_item_text_color" format="reference|color" />
+        <attr name="os_item_background_color" format="reference|color" />
+
+        <!-- Spinner Selected Item Layout -->
+        <attr name="os_selected_item_text_size" format="reference|dimension" />
+        <attr name="os_selected_item_text_color" format="reference|color" />
+        <attr name="os_selected_item_background_color" format="reference|color" />
+
+        <!-- Spinner Search Layout -->
+        <attr name="os_search_text_color" format="reference|color" />
+        <attr name="os_search_icon_color" format="reference|color" />
+        <attr name="os_search_background_color" format="reference|color" />
+
+        <!-- Feature -->
+        <attr name="os_searchable" format="reference|boolean" />
+    </declare-styleable>
+</resources>

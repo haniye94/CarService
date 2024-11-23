@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@android:color/transparent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:textDirection="rtl">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="نوع خدمت را مشخص کنید"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="left"
+                    android:background="@drawable/ic_bg"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_close" />
+            </LinearLayout>
+
+            <kr.ry4nkim.objectspinner.ObjectSpinner
+                android:id="@+id/edt_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                app:os_arrow_color="#d5d5d5"
+
+                app:os_background_color="#FFF"
+                app:os_hint="انتخاب محصول"
+
+                app:os_hint_color="#999"
+                app:os_item_background_color="#FFF"
+                app:os_item_padding_bottom="8dp"
+                app:os_item_padding_left="16dp"
+                app:os_item_padding_right="16dp"
+                app:os_item_padding_top="8dp"
+                app:os_item_text_color="#333"
+                app:os_item_text_size="16dp"
+                app:os_list_empty_text="موردی یافت نشد!"
+                app:os_list_max_height="300dp"
+
+                app:os_search_background_color="#F3F3F3"
+                app:os_search_icon_color="#C0C0C0"
+                app:os_search_text_color="#333"
+                app:os_searchable="true"
+                app:os_selected_item_background_color="#F3F3F3"
+                app:os_selected_item_text_color="#222"
+                app:os_selected_item_text_size="16dp"
+                app:os_shadow="true"
+                app:os_text_color="#333"
+                app:os_text_size="16dp"
+
+
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edt_titleX"
+                style="@style/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="عنوان محصول"
+                android:inputType="text"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidthFocused="1dp"
+                app:helperText="اگر در لیست بالا محصول یافت نشد در این قسمت بنویسید"
+                app:helperTextEnabled="true"
+                app:helperTextTextAppearance="@style/customFontStyle"
+                app:helperTextTextColor="@color/button">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/edt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="@color/text_low_dark"
+                    android:textSize="13dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="مقدار"
+                android:inputType="text"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidthFocused="1dp">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/edt_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="@color/text_low_dark"
+                    android:textSize="13dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_save"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/shap_button"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="ثبت"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_action_bar_pages" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="#fff"
+
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    app:cardBackgroundColor="#fff"
+    app:cardElevation="1dp"
+    app:cardCornerRadius="5dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/map_trafic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="ورود با اثر انگشت"
+            android:textColor="#656565"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/map_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="ورود با رمز عبور"
+            android:textColor="#656565"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/shap_button"
+            android:letterSpacing="-0.1"
+            android:stateListAnimator="@null"
+            android:text="ذخیره"
+            android:textColor="@color/text_light"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
+</LinearLayout>

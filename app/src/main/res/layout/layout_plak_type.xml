@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/shap_simple_rec"
+    android:elevation="1dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_plk_type_general"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="-0.1"
+        android:text="@string/menu_plk_general"
+        android:textColor="@color/button"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tv_plk_type_azad_old"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="-0.1"
+        android:text="@string/menu_plk_azad_old"
+        android:textColor="@color/button"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tv_plk_type_azad_new"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="-0.1"
+        android:text="@string/menu_plk_azad_new"
+        android:textColor="@color/button"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        />
+</LinearLayout>

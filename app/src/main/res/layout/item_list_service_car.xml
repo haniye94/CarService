@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:textDirection="rtl">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/desc"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:text="برای ارسال یادآوری سرویس دوره‌ای به مشتریان\nکالا و خدمات ارائه شده را در لیست زیر تعیین کنید."
+        android:textColor="@color/text_low_dark"
+        android:textSize="13.5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shap_simple_rec"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/txt_name_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lineSpacingExtra="-0.1dp"
+            android:text="روغن موتور"
+            android:textColor="@color/text_low_dark"
+            android:textSize="12.5dp" />
+
+        <LinearLayout
+            android:id="@+id/baztaviz"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2"
+            android:background="@drawable/shap_btn_simple"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_bazdid"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="بازدید"
+                android:textColor="@color/text_low_dark"
+                android:textSize="12.5dp" />
+
+            <TextView
+                android:id="@+id/txt_center"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/border"
+                android:textSize="12.5dp" />
+
+            <TextView
+                android:id="@+id/txt_taviz"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="تعویض"
+                android:textColor="@color/text_low_dark"
+                android:textSize="12.5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_detect_type"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/shap_btn_simple"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="نوع"
+            android:textColor="@color/text_color_hint"
+            android:textSize="12.5dp"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_marginBottom="30dp"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:text="در صورتی که گروه کالای مورد نظر خود را در لیست بالا مشاهده نکردید اینجا + کلیک کنید و گروه مورد نظر را به لیست بالا اضافه کنید."
+        android:textColor="@color/text_low_dark"
+        android:textSize="13.5dp" />
+</LinearLayout>
