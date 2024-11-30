@@ -65,7 +65,7 @@ public static TextView show_msg ;
         G.context = this;
         FindView();
         onClick();
-        txt_tile_action_bar.setText("مدیریت پیامک\u200Cها");
+        txt_tile_action_bar.setText("مدیریت پیامک\u200Cbtn_saveها");
         txt_tile_action_bar.setTypeface(G.Bold);
         swipeRefreshLayout = findViewById(R.id.swipe);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.button));

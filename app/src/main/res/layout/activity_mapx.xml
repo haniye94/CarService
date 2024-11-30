@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="ir.servicea.activity.MapxActivity">
 
-    <ir.map.sdk_map.maps.MapView
-        android:id="@+id/map_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        mapbox:mapbox_cameraZoomMax="20"
-        mapbox:mapbox_cameraZoomMin="1" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:visibility="visible"
-        android:id="@+id/headerroot"
-        android:layout_height="?actionBarSize"
 
-        android:layout_marginTop="10dp"
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/marker" />
+
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/marker"
+        android:maxWidth="130dp"
+        android:padding="4dp"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:background="@drawable/address_bubble"
+        android:text="جستجوی آدرس..."
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:id="@+id/headerroot"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:gravity="left|center"
         android:layoutDirection="rtl"
         android:orientation="horizontal"
-        android:textDirection="rtl">
-
+        android:textDirection="rtl"
+        android:visibility="visible">
 
 
         <TextView
@@ -45,8 +66,8 @@
             android:id="@+id/img_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_close"
-            android:layout_marginLeft="25dp" />
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/ic_close" />
 
     </LinearLayout>
 
@@ -64,10 +85,8 @@
         android:textColor="@color/white"
         android:textSize="15dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/license"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Implementation of find my location button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,13 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/register_btn"
-        android:layout_alignParentRight="true"
-
-
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_baseline_my_location_24"
         app:borderWidth="0dp"

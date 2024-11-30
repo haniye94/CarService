@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="افزودن"
-                android:textColor="@color/mdtp_light_gray"
+                android:textColor="@color/text_low_gray"
                 android:textSize="12dp" />
 
 

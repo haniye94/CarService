@@ -1,12 +1,13 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId "ir.servicea"
-        minSdk 19
-        targetSdkVersion 33
+        minSdk 21
+        targetSdkVersion 34
         versionCode 1137
         versionName "1.1.37"
         multiDexEnabled true
@@ -35,49 +36,59 @@ android {
 //password= 1400autoservice
 dependencies {
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.2'
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:2.0.3'
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.7.1'
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.8.0'
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.justzak:dilatingdotsprogressbar:1.0.1'
-    implementation 'com.github.smarteist:autoimageslider:1.4.0'
-    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+//    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.smarteist:Android-Image-Slider:1.4.0'
+//    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.github.thomper:sweet-alert-dialog:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.yalantis:ucrop:2.2.6-native'
+    implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
-    implementation 'com.zarinpal:purchase:0.0.10'
+//    implementation 'com.zarinpal:purchase:0.0.10'
     implementation 'com.github.Cutta:GifView:1.4'
-    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+//    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation project(':objectspinner')
-    implementation "androidx.transition:transition:1.3.1"
-    implementation "androidx.transition:transition-ktx:1.4.0-beta01"
+    implementation "androidx.transition:transition:1.5.1"
+    implementation "androidx.transition:transition-ktx:1.5.1"
     implementation project(':fingerprint')
-    implementation 'com.google.android.gms:play-services-location:21.0.0'
-    implementation 'ir.map:map-sdk:5.0.3' //این خط اضافه شده است
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+//    implementation 'ir.map:map-sdk:5.0.3' //این خط اضافه شده است
     implementation 'com.github.deano2390:MaterialShowcaseView:1.3.7'
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.pusher:pusher-java-client:2.2.1'
     implementation 'com.pusher:push-notifications-android:1.9.0'
-    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+//    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+    implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     //noinspection GradleDependency
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
 
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
     //for remove header and footer from webview
-    implementation 'org.jsoup:jsoup:1.10.3'
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+    // Dependency to include Maps SDK for Android
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

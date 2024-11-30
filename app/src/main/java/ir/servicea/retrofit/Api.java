@@ -4,12 +4,15 @@ package ir.servicea.retrofit;
 import java.util.List;
 
 import ir.servicea.model.ReserveProduct;
+import ir.servicea.model.SendZarinInfo;
+import ir.servicea.model.ZarinVerify;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -119,10 +122,10 @@ public interface Api {
     Call<ResponseBody> manageMessage();
 
     @GET("api.php/records/msg_log_details")
-    Call<ResponseBody> msg_log(@Query("filter") String filter, @Query("filter1") String filter1, @Query("filter2") String filter2,@Query("order") String order);
+    Call<ResponseBody> msg_log(@Query("filter") String filter, @Query("filter1") String filter1, @Query("filter2") String filter2, @Query("order") String order);
 
     @GET("api.php/records/msg_timing?join=users&user_id=id")
-    Call<ResponseBody> msg_timing(@Query("filter") String filter,@Query("order") String order);
+    Call<ResponseBody> msg_timing(@Query("filter") String filter, @Query("order") String order);
 
     @GET("api.php/records/cars_name?join=cars_company&order=id,desc")
     Call<ResponseBody> cars_name();
@@ -167,31 +170,33 @@ public interface Api {
 
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL&order=service_id,desc")
-    Call<ResponseBody> listService(@Query("filter") String filter,@Query("page") int page);
+    Call<ResponseBody> listService(@Query("filter") String filter, @Query("page") int page);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL&order=service_id,desc")
-    Call<ResponseBody> searchService(@Query("filter") String filter, @Query("filter1") String filter1,@Query("page") int page);
+    Call<ResponseBody> searchService(@Query("filter") String filter, @Query("filter1") String filter1, @Query("page") int page);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL&size=1")
-    Call<ResponseBody> queueService(@Query("filter") String filter,@Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order );
+    Call<ResponseBody> queueService(@Query("filter") String filter, @Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL")
-    Call<ResponseBody> nextService(   @Query("filter") String filter1,
-                                      @Query("filter") String filter2,
-                                      @Query("filter") String filter3,
-                                      @Query("order") String order,
-                                      @Query("size") int size);
+    Call<ResponseBody> nextService(@Query("filter") String filter1,
+                                   @Query("filter") String filter2,
+                                   @Query("filter") String filter3,
+                                   @Query("order") String order,
+                                   @Query("size") int size);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL&size=1")
-    Call<ResponseBody> previousService(@Query("filter") String filter,@Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order );
+    Call<ResponseBody> previousService(@Query("filter") String filter, @Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order);
 
     @PUT("api.php/records/services/{id}")
     Call<ResponseBody> deleteService(@Path("id") String id, @Body RequestBody body);
 
     @GET("api.php/records/slider?filter=status,gt,0&filter=place_of_use,eq,0")
     Call<ResponseBody> getSlider();
+
     @GET("api.php/records/provinces?filter=status,gt,0")
     Call<ResponseBody> getProvince();
+
     @GET("api.php/records/cities?filter=status,gt,0")
     Call<ResponseBody> getCity(@Query("filter") String filter);
 
@@ -216,7 +221,7 @@ public interface Api {
     Call<ResponseBody> listProductGroupAvailable(@Query("filter") String filter);
 
     @GET("api.php/records/service_center_product_groups")
-    Call<ResponseBody> checkProductGroupAvailable(@Query("filter") String filter,@Query("filter") String filter2);
+    Call<ResponseBody> checkProductGroupAvailable(@Query("filter") String filter, @Query("filter") String filter2);
 
     @POST("api.php/records/service_center_product_groups")
     Call<ResponseBody> addProductGroupAvailable(@Body RequestBody body);
@@ -241,12 +246,14 @@ public interface Api {
     Call<ResponseBody> addScoreForServiceCenter(@Body RequestBody body);
 
     @GET("api-reports.php?action=checkServiceIsReserved")
-    Call<ResponseBody> checkServiceIsReserved(@Query("service_id")String service_id, @Query("center_id")String center_id, @Query("car_id")String car_id, @Query("service_date_time")String service_date_time);
+    Call<ResponseBody> checkServiceIsReserved(@Query("service_id") String service_id, @Query("center_id") String center_id, @Query("car_id") String car_id, @Query("service_date_time") String service_date_time);
 
     @DELETE("api.php/records/services_timing/{id}")
     Call<ResponseBody> deleteServicesTiming(@Path("id") String id);
+
     @GET("api.php/records/services_timing_details?include=id")
-    Call<ResponseBody> getServicesTiming(@Query("filter") String filter,@Query("filter") String filter2,@Query("filter") String filter3);
+    Call<ResponseBody> getServicesTiming(@Query("filter") String filter, @Query("filter") String filter2, @Query("filter") String filter3);
+
     @POST("api.php/records/services_timing")
     Call<ResponseBody> addServicesTiming(@Body RequestBody body);
 
@@ -255,6 +262,7 @@ public interface Api {
 
     @DELETE("api.php/records/average_function/{id}")
     Call<ResponseBody> deleteAverageFunction(@Path("id") String id);
+
     @PUT("api.php/records/average_function/{id}")
     Call<ResponseBody> editAverageFunction(@Path("id") String id, @Body RequestBody body);
 
@@ -285,12 +293,14 @@ public interface Api {
 
 
     @GET("api.php/records/ticket")
-    Call<ResponseBody> getTicket(@Query("filter") String filter, @Query("filter1") String filter1, @Query("filter2") String filter2,@Query("order") String order);
+    Call<ResponseBody> getTicket(@Query("filter") String filter, @Query("filter1") String filter1, @Query("filter2") String filter2, @Query("order") String order);
 
     @GET("api-reports.php?action=getNotificationsList")
     Call<ResponseBody> getNotificationsList(@Query("user_id") String user_id, @Query("key") String key);
+
     @GET("api.php/records/cars_company?order=id,asc")
     Call<ResponseBody> cars_company();
+
     @GET("api.php/records/cars_name?order=id,asc")
     Call<ResponseBody> cars_name(@Query("filter") String filter);
 
@@ -298,15 +308,17 @@ public interface Api {
     Call<ResponseBody> check_update();
 
     @GET("api.php/records/comments_service_center?filter=deleted_at,is,NULL&filter=status,gt,0&join=users&order=id,desc")
-    Call<ResponseBody> getComments(@Query("filter") String filter,@Query("size") String size);
+    Call<ResponseBody> getComments(@Query("filter") String filter, @Query("size") String size);
 
     @POST("api.php/records/charging_package_log")
     Call<ResponseBody> addChargingPackageLog(@Body RequestBody body);
 
 
     @GET("api.php/records/user_accesses?filter=deleted_at,is,NULL&order=id,desc")
-    Call<ResponseBody> getUserAccess(@Query("filter") String filter,@Query("filter1") String filter1);
+    Call<ResponseBody> getUserAccess(@Query("filter") String filter, @Query("filter1") String filter1);
 
+    @GET("api-reports.php?action=getMapAddress")
+    Call<ResponseBody> getMapAddress(@Query("lat") String lat, @Query("lng") String lng);
 
     @GET("api.php/records/user_accesses?filter=deleted_at,is,NULL&order=id,desc&size=1")
     Call<ResponseBody> loginUserAccess(@Query("filter") String filter);
@@ -333,4 +345,11 @@ public interface Api {
 
     @POST("api.php/records/services_center_product_groups")
     Call<ResponseBody> addServicesCenterProductGroup(@Body RequestBody body);
+
+    @POST("/pg/v4/payment/request.json")
+    Call<ResponseBody> sendZarinPallInfo(@Header("accept") String accept, @Header("content-type") String content, @Body SendZarinInfo sendZarinInfo);
+
+    @POST("/pg/v4/payment/verify.json")
+    Call<ResponseBody> verifyZarinPall(@Header("accept") String accept, @Header("content-type") String content, @Body ZarinVerify zarinVerify);
+
 }

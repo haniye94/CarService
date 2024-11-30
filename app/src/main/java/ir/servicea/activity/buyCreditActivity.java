@@ -15,12 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
+import ir.servicea.app.Constants;
 import ir.servicea.app.G;
+import ir.servicea.model.SendZarinInfo;
+import ir.servicea.model.ZarinMetadata;
 import ir.servicea.retrofit.Api;
 import ir.servicea.retrofit.RetrofitClient;
-import com.zarinpal.ewallets.purchase.OnCallbackRequestPaymentListener;
-import com.zarinpal.ewallets.purchase.PaymentRequest;
-import com.zarinpal.ewallets.purchase.ZarinPal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +31,16 @@ import ir.servicea.R;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class buyCreditActivity extends AppCompatActivity {
 
     TextView txt_tile_action_bar, takhfif_darsad, takhfif_mablagh, ghablepardakht;
     Button btn_menage_notif;
-
+    private String authority;
     ImageView img_back;
     private CardView pay25, pay50, pay100, pay200;
     private ViewGroup select25, select50, select100, select200;
@@ -46,12 +49,14 @@ public class buyCreditActivity extends AppCompatActivity {
     public int id1 = 0, id2 = 0, id3 = 0, id4 = 0;
     public int amount1 = 0, amount2 = 0, amount3 = 0, amount4 = 0;
     public int discont1 = 0, discont2 = 0, discont3 = 0, discont4 = 0;
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         G.Activity = this;
         G.context = this;
     }
+
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(context));
@@ -143,7 +148,7 @@ public class buyCreditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (finalCost > 0) {
                     G.toast("لطفأ صبر کنید...");
-                    requestPayment(finalCost,finalAmount,finalId);
+                    sendZarinPallInfo(finalCost, finalAmount, finalId);
                 }
             }
         });
@@ -194,131 +199,187 @@ public class buyCreditActivity extends AppCompatActivity {
         select200.setVisibility(View.GONE);
     }
 
-    private void requestPayment(int amount,int final_amount,int final_id) {
-//        amount = amount*10;
-        try {
+//    private void requestPayment(int amount, int final_amount, int final_id) {
+//        amount = amount * 10;
+//        try {
+//            G.preference.edit().putInt("amount_charge", final_amount).apply();
+//            G.preference.edit().putInt("charge_package_id", final_id).apply();
+//            ZarinPal purchase = ZarinPal.getPurchase(G.context);
+//            PaymentRequest payment = ZarinPal.getPaymentRequest();
+//            payment.setMerchantID(G.MerchantID);
+//            if (G.debug) {
+//                amount = 1000;
+//            }
+//            payment.setAmount(amount);
+//            payment.setDescription("پرداخت آنلاین");
+//            payment.setCallbackURL("paymentzarrin://app");
+//            payment.setMobile(G.preference.getString("phone_user", ""));
+//            //payment.setEmail("imannamix@gmail.com");
+//            purchase.startPayment(payment, new OnCallbackRequestPaymentListener() {
+//                @Override
+//                public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
+//                    if (status == 100) {
+//                        try {
+//                            startActivity(intent);
+//                        } catch (Exception e) {
+//                            G.toast("مرورگری برای پرداخت یافت نشد!");
+//                        }
+//                    } else {
+//                        G.toast("پرداخت آنلاین به مشکل برخورده");
+//                    }
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//            G.toast("مشکل در درگاه پرداخت!!");
+//        }
+//
+//    }
+
+    public void sendZarinPallInfo(int amount, int final_amount, int final_id) {
+
+        finalAmount = amount * 10;
+        G.preference.edit().putInt("amount_charge", final_amount).apply();
+        G.preference.edit().putInt("charge_package_id", final_id).apply();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.zarinPallBaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api apiService = retrofit.create(Api.class);
+        ZarinMetadata zarinMetadata = new ZarinMetadata();
+
+        zarinMetadata.setEmail("imannamix@gmail.com");
+        zarinMetadata.setMobile(G.preference.getString("phone_user", ""));
+        SendZarinInfo sendZarinInfo = new SendZarinInfo();
+        sendZarinInfo.setMerchant_id(G.MerchantID);
+        sendZarinInfo.setCurrency("IRR");
+        sendZarinInfo.setAmount(finalAmount);
+        sendZarinInfo.setZarinMetadata(zarinMetadata);
+        sendZarinInfo.setDescription(Constants.reserve_description);
+        sendZarinInfo.setCallback_url("paymentzarrin://app");
+
+        Call<ResponseBody> call = apiService.sendZarinPallInfo(Constants.reserve_service_accept, Constants.reserve_service_content, sendZarinInfo);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                String result = G.getResult(response);
+                try {
+                    JSONObject getInfoResponse = new JSONObject(result);
+                    JSONObject data = getInfoResponse.getJSONObject("data");
+                    authority = data.getString("authority");
+                    G.saveAuthority(authority, finalAmount, false);
+                    String url = Constants.reserve_service_payment_base_url + authority;
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(browserIntent);
 
 
-            G.preference.edit().putInt("amount_charge", final_amount).apply();
-            G.preference.edit().putInt("charge_package_id", final_id).apply();
-            ZarinPal purchase = ZarinPal.getPurchase(G.context);
-            PaymentRequest payment = ZarinPal.getPaymentRequest();
-            payment.setMerchantID(G.MerchantID);
-            if(G.debug){
-                amount = 1000;
+                } catch (JSONException e) {
+                    G.toast("مشکل در درگاه پرداخت!!");
+                }
+
+
             }
-            payment.setAmount(amount);
-            payment.setDescription("پرداخت آنلاین");
-            payment.setCallbackURL("paymentzarrin://app");
-            payment.setMobile(G.preference.getString("phone_user", ""));
-            //payment.setEmail("imannamix@gmail.com");
-            purchase.startPayment(payment, new OnCallbackRequestPaymentListener() {
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    public void ListSmsPackage() {
+        try {
+            G.loading(this);
+            Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
+            Call<ResponseBody> request = api.listSmsPackage();
+            request.enqueue(new retrofit2.Callback<ResponseBody>() {
                 @Override
-                public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
-                    if (status == 100) {
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    String result = G.getResult(response);
+                    JSONObject object = G.StringtoJSONObject(result);
+                    JSONArray array = G.ObjecttoArray(object, "records");
+
+                    if (array != null && array.length() > 0) {
+
                         try {
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            G.toast("مرورگری برای پرداخت یافت نشد!");
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject obj = array.getJSONObject(i);
+                                int msg_count = obj.getInt("msg_count");
+                                String name = obj.getString("name");
+                                String description = obj.getString("description");
+                                int id = obj.getInt("id");
+                                int price = obj.getInt("price");
+                                price = price / 10;
+                                int discount = obj.getInt("discount_percent");
+                                int total_price = obj.getInt("total_price");
+                                double persentx = ((discount * price) / 100);
+                                String persent = (persentx + "").replace(".0", "");
+                                persent = (persent + "").replace("null", "").replace(" ", "");
+                                if (i == 0) {
+                                    pay25.setVisibility(View.VISIBLE);
+                                    amount1 = price;
+                                    id1 = id;
+                                    discont1 = discount;
+                                    p1.setText((price / 1000) + " هزار تومان ");
+                                    d1.setText((discount) + " درصد تخفیف ");
+                                } else if (i == 1) {
+                                    pay50.setVisibility(View.VISIBLE);
+                                    amount2 = price;
+                                    id2 = id;
+                                    discont2 = discount;
+                                    p2.setText((price / 1000) + " هزار تومان ");
+                                    d2.setText((discount) + " درصد تخفیف ");
+                                } else if (i == 2) {
+                                    pay100.setVisibility(View.VISIBLE);
+                                    amount3 = price;
+                                    id3 = id;
+                                    discont3 = discount;
+                                    p3.setText((price / 1000) + " هزار تومان ");
+                                    d3.setText((discount) + " درصد تخفیف ");
+                                } else if (i == 3) {
+                                    pay200.setVisibility(View.VISIBLE);
+                                    amount4 = price;
+                                    id4 = id;
+                                    discont4 = discount;
+                                    p4.setText((price / 1000) + " هزار تومان ");
+                                    d4.setText((discount) + " درصد تخفیف ");
+                                }
+
+                            }
+
+                            findViewById(R.id.details).setVisibility(View.VISIBLE);
+                            findViewById(R.id.buy).setVisibility(View.VISIBLE);
+                            Cost(amount1);
+
+                        } catch (JSONException e) {
+                            G.toast("مشکل در دریافت اطلاعات");
+                            finish();
+                            e.printStackTrace();
                         }
-                    } else {
-                        G.toast("پرداخت آنلاین به مشکل برخورده");
+
+
                     }
 
+                    G.stop_loading();
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                    G.stop_loading();
+                    G.toast("مشکل در برقراری ارتباط");
                 }
             });
         } catch (Exception e) {
-            G.toast("مشکل در درگاه پرداخت!!");
+            G.toast("مشکل در انتخاب طرح ها!!");
         }
-
-    }
-
-
-    public void ListSmsPackage() {
-        try{
-        G.loading(this);
-        Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
-        Call<ResponseBody> request = api.listSmsPackage();
-        request.enqueue(new retrofit2.Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                String result = G.getResult(response);
-                JSONObject object = G.StringtoJSONObject(result);
-                JSONArray array = G.ObjecttoArray(object, "records");
-
-                if (array != null && array.length() > 0) {
-
-                    try {
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            int msg_count = obj.getInt("msg_count");
-                            String name = obj.getString("name");
-                            String description = obj.getString("description");
-                            int id = obj.getInt("id");
-                            int price = obj.getInt("price");
-                            price= price/10;
-                            int discount = obj.getInt("discount_percent");
-                            int total_price = obj.getInt("total_price");
-                            double persentx = ((discount * price) /100 );
-                            String persent = (persentx + "").replace(".0", "");
-                            persent = (persent + "").replace("null", "").replace(" ", "");
-                            if (i == 0) {
-                                pay25.setVisibility(View.VISIBLE);
-                                amount1 = price;
-                                id1 = id;
-                                discont1 = discount;
-                                p1.setText((price / 1000) + " هزار تومان ");
-                                d1.setText((discount) + " درصد تخفیف ");
-                            } else if (i == 1) {
-                                pay50.setVisibility(View.VISIBLE);
-                                amount2 = price;
-                                id2 = id;
-                                discont2 = discount;
-                                p2.setText((price / 1000) + " هزار تومان ");
-                                d2.setText((discount) + " درصد تخفیف ");
-                            } else if (i == 2) {
-                                pay100.setVisibility(View.VISIBLE);
-                                amount3 = price;
-                                id3 = id;
-                                discont3 =discount;
-                                p3.setText((price / 1000) + " هزار تومان ");
-                                d3.setText((discount) + " درصد تخفیف ");
-                            } else if (i == 3) {
-                                pay200.setVisibility(View.VISIBLE);
-                                amount4 = price;
-                                id4 = id;
-                                discont4 = discount;
-                                p4.setText((price / 1000) + " هزار تومان ");
-                                d4.setText((discount) + " درصد تخفیف ");
-                            }
-
-                        }
-
-                        findViewById(R.id.details).setVisibility(View.VISIBLE);
-                        findViewById(R.id.buy).setVisibility(View.VISIBLE);
-                        Cost(amount1);
-
-                    } catch (JSONException e) {
-                        G.toast("مشکل در دریافت اطلاعات");
-                        finish();
-                        e.printStackTrace();
-                    }
-
-
-                }
-
-                G.stop_loading();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                G.stop_loading();
-                G.toast("مشکل در برقراری ارتباط");
-            }
-        });
-    } catch (Exception e) {
-        G.toast("مشکل در انتخاب طرح ها!!");
-    }
 
     }
 }

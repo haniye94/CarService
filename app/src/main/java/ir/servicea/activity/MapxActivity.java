@@ -6,13 +6,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
+import android.graphics.Matrix;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,48 +28,47 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEngineCallback;
-import com.mapbox.android.core.location.LocationEngineResult;
-import com.mapbox.android.gestures.MoveGestureDetector;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
-import java.lang.ref.WeakReference;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
-import ir.map.sdk_map.MapirStyle;
-import ir.map.sdk_map.maps.MapView;
+import ir.servicea.R;
 import ir.servicea.app.G;
 import ir.servicea.app.GPSTrack;
-import ir.servicea.R;
+import ir.servicea.retrofit.Api;
+import ir.servicea.retrofit.RetrofitClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 
-public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCameraIdleListener, MapboxMap.OnCameraMoveListener {
-    MapboxMap map;
-    Style mapStyle;
-    MapView mapView;
-    private MarkerOptions markerOptions;
+public class MapxActivity extends AppCompatActivity implements OnMapReadyCallback {
+    GoogleMap gMap;
+    private MarkerOptions markerOptions = new MarkerOptions();
     Button registerBtn;
     FloatingActionButton myLocationBtn;
     private LatLng samplePoint = new LatLng(34.798510, 48.514853);
     private LatLng location = new LatLng(34.798510, 48.514853);
+    private LatLng selectedLocation = new LatLng(34.798510, 48.514853);
 
     private Intent intent;
+    private Handler handler;
+    private SupportMapFragment mapFragment;
+    private TextView addressTextView; // Optional: For displaying the address under the marker
+    private ImageView imgMarker;
+    private boolean permissionGranted = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -71,7 +78,13 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mapx);
+        setContentView(R.layout.activity_maps);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        addressTextView = findViewById(R.id.addressTextView); // Add in your layout if needed
+        imgMarker = findViewById(R.id.marker);
         G.Activity = this;
         G.context = this;
         TextView txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
@@ -84,141 +97,51 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
         });
         intent = getIntent();
         registerBtn = findViewById(R.id.register_btn);
-        myLocationBtn = findViewById(R.id.myLocationButton);
-        if (intent.hasExtra("lat") && intent.hasExtra("lon")) {
-            samplePoint = new LatLng(intent.getDoubleExtra("lat", 0), intent.getDoubleExtra("lon", 0));
-        }
-        if (G.preference.getString("location_lat", "0").length() > 3 && G.preference.getString("location_lon", "0").length() > 3) {
-            samplePoint = new LatLng(Double.parseDouble(G.preference.getString("location_lat", "0")), Double.parseDouble(G.preference.getString("location_lon", "0")));
-        }
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DecimalFormat df = new DecimalFormat("#.0000000");
-                double lat = Double.parseDouble(G.converToEn(df.format(location.getLatitude())));
-                double lon = Double.parseDouble(G.converToEn(df.format(location.getLongitude())));
+                double lat = Double.parseDouble(G.converToEn(df.format(selectedLocation.latitude)));
+                double lon = Double.parseDouble(G.converToEn(df.format(selectedLocation.longitude)));
                 G.preference.edit().putString("location_lat", lat + "").apply();
                 G.preference.edit().putString("location_lon", lon + "").apply();
+//                G.toast((lat + lon) + "");
+//                getMapAddress(selectedLocation.latitude + "", selectedLocation.longitude + "");
                 G.toast("با موفقیت ذخیره شد.");
                 finish();
             }
         });
-        mapView = findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                map = mapboxMap;
-                markerOptions = new MarkerOptions();
-                map.getUiSettings().setCompassEnabled(false);
-                map.getUiSettings().setLogoEnabled(false);
-                map.getUiSettings().setRotateGesturesEnabled(true);
-                map.clear();
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(samplePoint, 14f));
-                MarkerOptions markerOptions = new MarkerOptions().position(samplePoint);
-                map.addMarker(markerOptions);
-                if (!(G.preference.getString("location_lat", "0").length() > 3 && G.preference.getString("location_lon", "0").length() > 3)) {
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            myLocationBtn.performClick();
+        handler = new Handler();
 
-                        }
-                    }, 1000);
-                }
-                myLocationBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("id")) {
+            editId = intent.getStringExtra("id");
+            String lat = intent.getStringExtra("lat");
+            String lng = intent.getStringExtra("lng");
 
-                        int MyVersion = Build.VERSION.SDK_INT;
-                        if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
-                            if (!checkIfAlreadyhavePermission()) {
-                                requestForSpecificPermission();
-                            } else {
-                                GPS();
-                            }
-                        } else {
-                            GPS();
-                        }
+            if (lat.length() > 5 && lat.contains(".") && lng.length() > 5 && lng.contains(".")) {
+                txt_tile_action_bar.setText("ویرایش آدرس");
+                selectedLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                gMap.clear();
+//                markerOptions.position(selectedLocation);
+//                changelocation.setLatitude(Double.parseDouble(lat));
+//                changelocation.setLongitude(Double.parseDouble(lng));
 
-
-                    }
-                });
-                map.setStyle(new Style.Builder().fromUri(MapirStyle.MAIN_MOBILE_VECTOR_STYLE), new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        mapStyle = style;
-                        map = mapboxMap;
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(samplePoint, 16f));
-                        map.addOnCameraMoveListener(MapxActivity.this);
-                        map.addOnCameraIdleListener(MapxActivity.this);
-                        map.addMarker(markerOptions.position(samplePoint));
-                        map.addOnMoveListener(new MapboxMap.OnMoveListener() {
-
-                            @Override
-                            public void onMoveBegin(@NonNull MoveGestureDetector detector) {
-                            }
-
-                            @Override
-                            public void onMove(@NonNull MoveGestureDetector detector) {
-
-                            }
-
-                            @Override
-                            public void onMoveEnd(@NonNull MoveGestureDetector detector) {
-
-                            }
-                        });
-
-
-                        map.setStyle(new Style.Builder().fromUri(MapirStyle.MAIN_MOBILE_VECTOR_STYLE), new Style.OnStyleLoaded() {
-                            @Override
-                            public void onStyleLoaded(@NonNull Style style) {
-                                mapStyle = style;
-                                addSymbolSourceAndLayerToMap();
-                            }
-                        });
-                    }
-                });
+            } else {
+                editId = "";
             }
-        });
+        } else {
+            editId = "";
+        }
     }
 
-    private void addSymbolSourceAndLayerToMap() {
-        List<Feature> samplePointsFeatures = new ArrayList<>();
-        Feature sampleFeature = Feature.fromGeometry(Point.fromLngLat(samplePoint.getLongitude(), samplePoint.getLatitude()));
-        samplePointsFeatures.add(sampleFeature);
-        FeatureCollection featureCollection = FeatureCollection.fromFeatures(samplePointsFeatures);
-        GeoJsonSource geoJsonSource = new GeoJsonSource("sample_source_id", featureCollection);
-        mapStyle.addSource(geoJsonSource);
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.mapbox_marker_icon_default);
-        mapStyle.addImage("sample_image_id", icon);
-        SymbolLayer symbolLayer = new SymbolLayer("sample_layer_id", "sample_source_id");
-        symbolLayer.setProperties(
-                PropertyFactory.iconImage("sample_image_id"),
-                PropertyFactory.iconSize(1.5f),
-                PropertyFactory.iconOpacity(.8f),
-                PropertyFactory.textColor("#ff5252")
-        );
-        mapStyle.addLayer(symbolLayer);
-    }
-
-    @Override
-    public void onCameraIdle() {
-        location = map.getCameraPosition().target;
-        MarkerOptions markerOptions = new MarkerOptions().position(map.getCameraPosition().target);
-        map.addMarker(markerOptions);
-    }
-
-    @Override
-    public void onCameraMove() {
-        map.clear();
-    }
+    public String editId = "";
 
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 
@@ -240,6 +163,7 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
         switch (requestCode) {
             case 101:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    permissionGranted = true;
                     myLocationBtn.performClick();
                 } else {
                     G.toast("دسترسی به لوکیشن داده نشده است!");
@@ -257,17 +181,22 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
             if (longitude != 0 && latitude != 0) {
-                location.setLatitude(gps.getLatitude());
-                location.setLongitude(gps.getLongitude());
+                location = new LatLng(gps.getLatitude(), gps.getLongitude());
+//                location.setLatitude(gps.getLatitude());
+//                location.setLongitude(gps.getLongitude());
                 new Handler().postDelayed(() -> {
-                    location.setLatitude(gps.getLatitude());
-                    location.setLongitude(gps.getLongitude());
+                    location = new LatLng(gps.getLatitude(), gps.getLongitude());
+
+//                    location.setLatitude(gps.getLatitude());
+//                    location.setLongitude(gps.getLongitude());
                 }, 1000);
 
-                map.clear();
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
-                MarkerOptions markerOptions = new MarkerOptions().position(location);
-                map.addMarker(markerOptions);
+                gMap.clear();
+                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16f));
+//                MarkerOptions markerOptions = new MarkerOptions().position(location);
+//                markerOptions.position(location);
+//                gMap.addMarker(markerOptions);
+
 
             } else {
                 new Handler().postDelayed(this::GPS, 1000);
@@ -281,7 +210,7 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(intent);
                 }
-            },1000);
+            }, 1000);
 
             return false;
         }
@@ -291,7 +220,7 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
     @Override
     public void onStart() {
         super.onStart();
-        mapView.onStart();
+        mapFragment.onStart();
     }
 
     @Override
@@ -299,70 +228,197 @@ public class MapxActivity extends AppCompatActivity implements MapboxMap.OnCamer
         super.onResume();
         G.context = this;
         G.Activity = this;
-        mapView.onResume();
+        mapFragment.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        mapFragment.onPause();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mapView.onStop();
+        mapFragment.onStop();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+        mapFragment.onLowMemory();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        mapFragment.onDestroy();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+        mapFragment.onSaveInstanceState(outState);
     }
 
-    LatLng lastKnowLatLng = null;
-    private LocationEngine locationEngine;
-    private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
-    private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
-    private MapxActivity.MyLocationCallback callback = new MapxActivity.MyLocationCallback(this);
 
-    private static class MyLocationCallback implements LocationEngineCallback<LocationEngineResult> {
-        private final WeakReference<MapxActivity> activityWeakReference;
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        final LatLng[] newCenter = new LatLng[1];
+        gMap = googleMap;
+        myLocationBtn = findViewById(R.id.myLocationButton);
 
-        MyLocationCallback(MapxActivity activity) {
-            this.activityWeakReference = new WeakReference<>(activity);
+        gMap.getUiSettings().setCompassEnabled(false);
+        gMap.getUiSettings().setRotateGesturesEnabled(true);
+//            gMap.clear();
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f));
+//        markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+        ;
+//        markerOptions.draggable(true);
+//        markerOptions.position(location);
+//        gMap.addMarker(markerOptions);
+        if (intent.hasExtra("lat") && intent.hasExtra("lon")) {
+            selectedLocation = new LatLng(intent.getDoubleExtra("lat", 0), intent.getDoubleExtra("lon", 0));
+//            markerOptions.position(selectedLocation);
+//            gMap.addMarker(markerOptions);
+
+
         }
+        if (G.preference.getString("location_lat", "0").length() > 3 && G.preference.getString("location_lon", "0").length() > 3) {
+            selectedLocation = new LatLng(Double.parseDouble(G.preference.getString("location_lat", "0")), Double.parseDouble(G.preference.getString("location_lon", "0")));
+//            markerOptions.position(selectedLocation);
+//            gMap.addMarker(markerOptions);
 
-        @Override
-        public void onSuccess(LocationEngineResult result) {
-            MapxActivity activity = activityWeakReference.get();
-            if (activity != null) {
-                Location location = result.getLastLocation();
-                if (location == null)
-                    return;
-                activity.lastKnowLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                if (activity.map != null && result.getLastLocation() != null)
-                    activity.map.getLocationComponent().forceLocationUpdate(result.getLastLocation());
+        }
+        gMap.setOnCameraIdleListener(() -> {
+            gMap.clear();
+            selectedLocation = gMap.getCameraPosition().target;
+            getMapAddress(selectedLocation.latitude + "", selectedLocation.longitude + "");
+        });
+
+//        gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//
+//                selectedLocation = latLng;
+//                gMap.clear();
+////                markerOptions.position(selectedLocation);
+////                gMap.addMarker(markerOptions);
+//
+//            }
+//        });
+
+//        gMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+//            @Override
+//            public void onCameraIdle() {
+//                // Get the current position of the camera
+//                selectedLocation = gMap.getCameraPosition().target;
+//
+//                // Set the marker at the center of the map
+//                gMap.clear();  // Clear existing markers
+////                markerOptions.position(selectedLocation);
+////                gMap.addMarker(markerOptions);
+//            }
+//        });
+
+//        gMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+//            @Override
+//            public void onCameraMoveStarted(int reason) {
+//                // Get the current position of the camera
+//                selectedLocation = gMap.getCameraPosition().target;
+//
+//                // Set the marker at the center of the map
+////                gMap.clear();  // Clear existing markers
+////                markerOptions.position(selectedLocation);
+////                gMap.addMarker(markerOptions);
+//            }
+//        });
+        if (editId.length() == 0) {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    myLocationBtn.performClick();
+
+                }
+            }, 1000);
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 16f));
+
+                }
+            }, 700);
+        }
+        myLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int MyVersion = Build.VERSION.SDK_INT;
+                if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    if (!checkIfAlreadyhavePermission()) {
+                        requestForSpecificPermission();
+                    } else {
+                        GPS();
+                    }
+                } else {
+                    GPS();
+                }
             }
-        }
-
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-            MapxActivity activity = activityWeakReference.get();
-        }
+        });
     }
+
+    public void getMapAddress(String lat, String lng) {
+//        G.loading(this);
+        Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
+        Call<ResponseBody> request = api.getMapAddress(lat, lng);
+        request.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                G.Log(call.request().toString());
+                G.stop_loading();
+                if (response.body() != null) {
+                    try {
+                        String result = response.body().string();
+                        G.Log(result);
+                        JSONObject object = G.StringtoJSONObject(result);
+                        if (object.has("status")) {
+                            String status = object.getString("status");
+                            if (status.equals("OK")) {
+                                String neighbourhood = (object.getString("neighbourhood") + "").replace("null", "");
+                                String formatted_address = (object.getString("formatted_address") + "").replace("null", "");
+                                if (neighbourhood.length() == 0 && object.has("formatted_address")) {
+                                    String[] addressTitle = object.getString("formatted_address").split("،");
+                                    neighbourhood = addressTitle[1] + "،" + addressTitle[2];
+                                }
+                                String city = object.getString("city").trim();
+                                addressTextView.setText(formatted_address); // Show the address in the TextView
+
+//                                G.toast(formatted_address);
+                            } else {
+                                G.toast("اطلاعات آدرس دریافت نشد!");
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        G.toast("مشکل در تجزیه اطلاعات آدرس");
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط");
+            }
+        });
+
+
+    }
+
 }
+
 
 

@@ -492,8 +492,6 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
 
 
                                     edt_address.setText(address);
-                                    txt_loc.setText(edt_address.getText().toString());
-
                                     edt_first_name.setText(name);
                                     edt_last_name.setText(lastname);
                                     edt_phone_number.setText(phone);
@@ -749,7 +747,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
 
     }
 
-    private void addScoreForServiceCenter( String phone) {
+    private void addScoreForServiceCenter(String phone) {
 
         String created_at = G.converToEn(DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date()).toString());
 
@@ -778,7 +776,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 G.stop_loading();
                 G.toast("مشکل در برقراری ارتباط با سرور");
-                G.Log("addScoreForServiceCenter:failed/"+ t.getMessage());
+                G.Log("addScoreForServiceCenter:failed/" + t.getMessage());
             }
         });
 
@@ -986,6 +984,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
         ImagePicker.with(this).compress(1024).maxResultSize(1080, 1080).start();
 
     }
+
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE);
@@ -1082,7 +1081,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
             Toast.makeText(this, "خطایی رخ داده است", Toast.LENGTH_SHORT).show();
             final Throwable cropError = UCrop.getError(data);
             if (cropError != null) {
-                G.Log("ProfileActivity"+"Crop error: " + cropError.getMessage()+cropError);
+                G.Log("ProfileActivity" + "Crop error: " + cropError.getMessage() + cropError);
             }
         }
     }
@@ -1337,11 +1336,13 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
                 if (G.preference.getString("location_lat", "").length() > 4 && G.preference.getString("location_lon", "").length() > 4) {
                     String lat = G.preference.getString("location_lat", "");
                     String lon = G.preference.getString("location_lon", "");
-                    txt_loc.setText(edt_address.getText().toString());
+//                    String address = G.preference.getString("formatted_address", "");
+//                    txt_loc.setText(address);
                     location.setVisibility(View.VISIBLE);
                     String loc_imgl = "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-m-star+23a2cd(" + lon + "," + lat + ")/" + lon + "," + lat + ",15,0,30/600x300@2x?attribution=false&logo=false&access_token=pk.eyJ1IjoiZXJmYW5zYiIsImEiOiJjbGJraXQzZWcwMHFpM3ZtZTR4cXMxcGpkIn0.b5C8oRkOZzqvpZh2EStNwg";
 //                    Log.e("loc_imgl", loc_imgl);
 
+                    getMapAddress(lat, lon);
                     Picasso.get().load(loc_imgl).error(R.drawable.noimage).placeholder(R.drawable.noimage).into(img_loc);
                     btn_save_info.setText("ثبت اطلاعات");
                 } else {
@@ -1351,4 +1352,52 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
         }, 1000);
 
     }
+
+    public void getMapAddress(String lat, String lng) {
+        G.loading(this);
+        Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
+        Call<ResponseBody> request = api.getMapAddress(lat, lng);
+        request.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                G.Log(call.request().toString());
+                G.stop_loading();
+                if (response.body() != null) {
+                    try {
+                        String result = response.body().string();
+                        G.Log(result);
+                        JSONObject object = G.StringtoJSONObject(result);
+                        if (object.has("status")) {
+                            String status = object.getString("status");
+                            if (status.equals("OK")) {
+                                String neighbourhood = (object.getString("neighbourhood") + "").replace("null", "");
+                                String formatted_address = (object.getString("formatted_address") + "").replace("null", "");
+                                if (neighbourhood.length() == 0 && object.has("formatted_address")) {
+                                    String[] addressTitle = object.getString("formatted_address").split("،");
+                                    neighbourhood = addressTitle[1] + "،" + addressTitle[2];
+                                }
+                                String city = object.getString("city").trim();
+                                txt_loc.setText(formatted_address);
+                            } else {
+                                G.toast("اطلاعات آدرس دریافت نشد!");
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        G.toast("مشکل در تجزیه اطلاعات آدرس");
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط");
+            }
+        });
+
+
+    }
+
 }

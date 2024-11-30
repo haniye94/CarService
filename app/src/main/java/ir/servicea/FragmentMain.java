@@ -48,7 +48,6 @@ import ir.servicea.activity.AddCustomerActivity;
 import ir.servicea.activity.AddServicesActivity;
 import ir.servicea.activity.AlarmsActivity;
 import ir.servicea.activity.ListReserveActivity;
-import ir.servicea.activity.SimpleScannerActivity;
 import ir.servicea.activity.WebViewActivity;
 import ir.servicea.activity.buyCreditActivity;
 import ir.servicea.adapter.AdapterListAdvertise;
@@ -530,7 +529,7 @@ public class FragmentMain extends Fragment {
         txt_search_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SimpleScannerActivity.class));
+//                startActivity(new Intent(getActivity(), SimpleScannerActivity.class));
 //                if (txt_search_phone.getText().equals("جستجو شماره موبایل")) {
 //                    txt_search_phone.setText("جستجو پلاک");
 //                    edt1.setText("");

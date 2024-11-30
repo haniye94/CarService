@@ -70,14 +70,12 @@
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_down_24"
         android:layout_gravity="center"/>
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+    <net.cachapa.expandablelayout.ExpandableLayout
         android:id="@+id/expandableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:ael_duration="500"
-        app:ael_expanded="true"
-        app:ael_interpolator="accelerateDecelerate"
-        app:ael_orientation="vertical">
+        app:el_duration="500"
+        app:el_expanded="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +109,6 @@
                     android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:lineSpacingExtra="8dp"
                     android:text="..."
                     android:textColor="@color/text_dark_gray"
@@ -122,6 +119,6 @@
 
 
         </LinearLayout>
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+    </net.cachapa.expandablelayout.ExpandableLayout>
 
 </LinearLayout>

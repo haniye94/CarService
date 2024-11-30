@@ -279,7 +279,7 @@ public class AddServicesActivity extends AppCompatActivity {
         edt_km_now.addTextChangedListener(new MyNumberWatcher(edt_km_now));
         edt_all_price.addTextChangedListener(new MyNumberWatcher(edt_all_price));
         edt_km_next.addTextChangedListener(new MyNumberWatcher(edt_km_next));
-        edt_km_next.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edt_km_now.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (G.preference.getBoolean("ChangeAvgKm", false)) {

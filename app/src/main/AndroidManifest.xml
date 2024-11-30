@@ -33,7 +33,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.GuideCar"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.ProductsActivity"
             android:exported="false" />
@@ -61,10 +61,10 @@
             android:name=".activity.WebViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
+     <!--   <activity
             android:name=".activity.SimpleScannerActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".activity.TextActivity"
             android:exported="false"
@@ -104,7 +104,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -225,7 +225,7 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -242,8 +242,8 @@
 
         <service
             android:name=".app.NotificationsMessagingService"
-            android:exported="true" >
-            <intent-filter android:priority="1" >
+            android:exported="true">
+            <intent-filter android:priority="1">
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
@@ -254,6 +254,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/white" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDr56J8hGFmEj667xXeEIDmm52QZnZ0Q_U" />
     </application>
 
 </manifest>

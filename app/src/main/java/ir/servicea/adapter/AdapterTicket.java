@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+
+import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class AdapterTicket extends RecyclerView.Adapter<AdapterTicket.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView char_count, user, user_phone, date, price, content;
-        ExpandableRelativeLayout expandableLayout;
+        ExpandableLayout expandableLayout;
         ImageView toggle;
         ViewGroup root;
         public ViewHolder(@NonNull View itemView) {

@@ -57,10 +57,8 @@ import java.util.StringTokenizer;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
-import ir.map.sdk_map.Mapir;
 import ir.servicea.R;
 import ir.servicea.activity.AlarmsActivity;
-import ir.servicea.activity.MainActivity;
 import ir.servicea.model.ModelServicesCustomer;
 import ir.servicea.model.StructTask;
 import ir.servicea.retrofit.Api;
@@ -86,6 +84,8 @@ public class G extends Application {
     public static String LINK_BLOG_Car = "https://autoservicea.ir/blog/";
     public static String server = "https://api.autoservicea.ir/";
     public static String api_upload = "https://autoservicea.ir/public/image/api_upload.php?pushe=";
+
+    public static String zarinPallBaseUrl = "https://payment.zarinpal.com";
 
     public static String Pusher_Cluster = "ap2";
 
@@ -124,7 +124,7 @@ public class G extends Application {
     public void onCreate() {
         super.onCreate();
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Mapir.getInstance(this, getResources().getString(R.string.mapir_token));
+//            Mapir.getInstance(this, getResources().getString(R.string.mapir_token));
         }
 
         Normal = Typeface.createFromAsset(getAssets(), font);
@@ -706,7 +706,8 @@ public class G extends Application {
                     Log.d(TAG, "onResponse:sendSMSProv:result: " + result);
                     if (result.contains("The user does not have enough charge")) {
                         //Toast.makeText(G.context, "\"پیامک ارسال نشد شارژ کافی ندارید\"", Toast.LENGTH_SHORT).show();
-                        if (from_service_list) Toast.makeText(G.context, "\"پیامک ارسال نشد شارژ کافی ندارید\"", Toast.LENGTH_SHORT).show();
+                        if (from_service_list)
+                            Toast.makeText(G.context, "\"پیامک ارسال نشد شارژ کافی ندارید\"", Toast.LENGTH_SHORT).show();
                         else G.Log("پیامک ارسال نشد شارژ کافی ندارید");
 
 
@@ -749,5 +750,14 @@ public class G extends Application {
 
     public static void saveProveService(int msg_id) {
         G.preference.edit().putInt(Constants.PROV_ADD_SERVICE, msg_id).apply();
+    }
+
+    public static void saveAuthority(String authority, int amount, Boolean verified) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("AUTHORITY_PREFS_NAME", MODE_PRIVATE).edit();
+        editor.putString("authority", authority);
+        editor.putInt("amount", amount);
+        editor.putBoolean("verified", verified);
+        editor.apply();
+
     }
 }

@@ -8,7 +8,7 @@
         android:height="20dp"
         android:width="40dp" />
 
-    <solid android:color="@color/mdtp_light_gray" />
+    <solid android:color="@color/text_low_gray" />
 
 
 </shape>

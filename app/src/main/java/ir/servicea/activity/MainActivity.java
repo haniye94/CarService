@@ -2,6 +2,7 @@ package ir.servicea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -17,9 +18,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
-import com.zarinpal.ewallets.purchase.OnCallbackVerificationPaymentListener;
-import com.zarinpal.ewallets.purchase.PaymentRequest;
-import com.zarinpal.ewallets.purchase.ZarinPal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,15 +28,19 @@ import java.util.Date;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.servicea.R;
 import ir.servicea.adapter.AdapterTabLayout;
+import ir.servicea.app.Constants;
 import ir.servicea.app.CustomViewPager;
 import ir.servicea.app.G;
 import ir.servicea.app.PreferenceUtil;
+import ir.servicea.model.ZarinVerify;
 import ir.servicea.retrofit.Api;
 import ir.servicea.retrofit.RetrofitClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -101,37 +103,38 @@ public class MainActivity extends AppCompatActivity {
 
         Uri data = getIntent().getData();
 
-        ZarinPal.getPurchase(this).verificationPayment(data, new OnCallbackVerificationPaymentListener() {
-            @Override
-            public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
-//                final ArrayList<NameValuePair> params = new ArrayList<>();
-//                params.add(new BasicNameValuePair("user_id", "" + G.preferences.getString("ID", "")));
-//                if (isPaymentSuccess)
-//                    params.add(new BasicNameValuePair("isPaymentSuccess", 1 + ""));
-//                else
-//                    params.add(new BasicNameValuePair("isPaymentSuccess", 0 + ""));
-//                params.add(new BasicNameValuePair("refID", "" + refID));
-//                params.add(new BasicNameValuePair("amount", "" + paymentRequest.getAmount()));
-                if (G.debug) {
-                    String message = "پرداخت با موفقیت انجام شد";
-                    changeCharge(G.preference.getInt("amount_charge", 0));
-                    G.toast(message);
-                } else {
-                    if (isPaymentSuccess) {
-                        String message = "پرداخت با موفقیت انجام شد";
-                        changeCharge(G.preference.getInt("amount_charge", 0));
-                        G.toast(message);
-                    } else {
-
-                        String message = "پرداخت انجام نشد";
-                        G.toast(message);
-                    }
-                }
-//                payment(params, paymentRequest.getAmount() + "");
-
-
-            }
-        });
+//        ZarinPal.getPurchase(this).verificationPayment(data, new OnCallbackVerificationPaymentListener() {
+//            @Override
+//            public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
+////                final ArrayList<NameValuePair> params = new ArrayList<>();
+////                params.add(new BasicNameValuePair("user_id", "" + G.preferences.getString("ID", "")));
+////                if (isPaymentSuccess)
+////                    params.add(new BasicNameValuePair("isPaymentSuccess", 1 + ""));
+////                else
+////                    params.add(new BasicNameValuePair("isPaymentSuccess", 0 + ""));
+////                params.add(new BasicNameValuePair("refID", "" + refID));
+////                params.add(new BasicNameValuePair("amount", "" + paymentRequest.getAmount()));
+//                if (G.debug) {
+//                    String message = "پرداخت با موفقیت انجام شد";
+//                    changeCharge(G.preference.getInt("amount_charge", 0));
+//                    G.toast(message);
+//                } else {
+//                    if (isPaymentSuccess) {
+//                        String message = "پرداخت با موفقیت انجام شد";
+//                        changeCharge(G.preference.getInt("amount_charge", 0));
+//                        G.toast(message);
+//                    } else {
+//
+//                        String message = "پرداخت انجام نشد";
+//                        G.toast(message);
+//                    }
+//                }
+////                payment(params, paymentRequest.getAmount() + "");
+//
+//
+//            }
+//        });
+        getZarinPallVerify();
         cheack_update();
     }
 
@@ -208,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
 //                b_date, category, service, openTime, closeTime, numOfBranch, waiting, catering, province, city, address
         temp_charge_remain = G.preference.getInt("charge_remain", 0) + charge;
         try {
-            object.put("charge_total", charge*10);
-            object.put("charge_remain", temp_charge_remain*10);
+            object.put("charge_total", charge * 10);
+            object.put("charge_remain", temp_charge_remain * 10);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -232,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 G.stop_loading();
                 int package_id = G.preference.getInt("charge_package_id", 0);
-                addChargingPackageLog(package_id,charge*10);
+                addChargingPackageLog(package_id, charge * 10);
             }
 
             @Override
@@ -244,15 +247,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void addChargingPackageLog(int package_id,int amount) {
+    public void addChargingPackageLog(int package_id, int amount) {
         String d_id = PreferenceUtil.getD_id();
-        String created_at =G.converToEn(DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date()).toString());
+        String created_at = G.converToEn(DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date()).toString());
         JSONObject object = new JSONObject();
         try {
             object.put("service_center_id", d_id);
             object.put("charging_package_id", package_id);
             object.put("amount", amount);
-            object.put("pay_type",1 );
+            object.put("pay_type", 1);
             object.put("created_at", created_at);
             object.put("updated_at", created_at);
             object.put("deleted_at", JSONObject.NULL);
@@ -266,8 +269,8 @@ public class MainActivity extends AppCompatActivity {
         request.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                G.Log(call.request().toString()+"");
-                G.Log(G.getResult(response)+"");
+                G.Log(call.request().toString() + "");
+                G.Log(G.getResult(response) + "");
                 G.stop_loading();
             }
 
@@ -373,5 +376,69 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1000);
 
+    }
+
+    public void getZarinPallVerify() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.zarinPallBaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        SharedPreferences prefs = getSharedPreferences("AUTHORITY_PREFS_NAME", MODE_PRIVATE);
+        String authority = prefs.getString("authority", "");
+        int amount = prefs.getInt("amount", 0);
+        Boolean verified = prefs.getBoolean("verified", false);
+
+        Api apiService = retrofit.create(Api.class);
+        ZarinVerify zarinVerify = new ZarinVerify();
+        zarinVerify.setMerchant_id(G.MerchantID);
+        zarinVerify.setAmount(amount);
+        zarinVerify.setAuthority(authority);
+        Call<ResponseBody> call = apiService.verifyZarinPall(Constants.reserve_service_accept, Constants.reserve_service_content, zarinVerify);
+      if (!verified){        call.enqueue(new Callback<ResponseBody>() {
+          @Override
+          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+              String result = G.getResult(response);
+        /*        if (result.equals("") && !verified) {
+                    try {
+                        result = G.getErrorResult(response);
+                        JSONObject errorResponse = new JSONObject(result);
+                        JSONObject errors = errorResponse.getJSONObject("errors");
+                        int code = errors.getInt("code");
+                        G.Log("zarin Error code = " + code);
+                        G.saveAuthority(authority, amount, true);
+                        startActivity(new Intent(MainActivity.this, ReservePaymentResultActivity.class).putExtra(Constants.reserve_payment_result, false));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {*/
+              try {
+                  JSONObject verifyResponse = new JSONObject(result);
+                  JSONObject data = verifyResponse.getJSONObject("data");
+                  String message = data.getString("message");
+                  int code = data.getInt("code");
+
+                  if (code == 100) {
+                      if (message.equals("Paid")) {
+                          G.saveAuthority(authority, amount, true);
+                          changeCharge(G.preference.getInt("amount_charge", 0));
+                          G.toast("پرداخت با موفقیت انجام شد");
+                      }
+                  } else {
+                      G.toast("پرداخت انجام نشد");
+                  }
+              } catch (JSONException e) {
+              }
+          }
+
+//            }
+
+          @Override
+          public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+          }
+      });
+      }
     }
 }
