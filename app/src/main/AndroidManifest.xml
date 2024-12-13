@@ -23,31 +23,31 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name=".app.G"
+        android:name="ir.tehranOil.app.G"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GuideCar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.ProductsActivity"
+            android:name="ir.tehranOil.activity.ProductsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.EditProductActivity"
+            android:name="ir.tehranOil.activity.EditProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AddProductActivity"
+            android:name="ir.tehranOil.activity.AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ProductsActivity1"
+            android:name="ir.tehranOil.activity.ProductsActivity1"
             android:exported="false" />
         <activity
-            android:name=".activity.CommentsActivity"
+            android:name="ir.tehranOil.activity.CommentsActivity"
             android:exported="false" />
 
         <uses-library
@@ -55,10 +55,10 @@
             android:required="false" />
 
         <activity
-            android:name=".activity.ActivateActivity"
+            android:name="ir.tehranOil.activity.ActivateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.WebViewActivity"
+            android:name="ir.tehranOil.activity.WebViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
      <!--   <activity
@@ -66,43 +66,43 @@
             android:exported="false"
             android:screenOrientation="portrait" />-->
         <activity
-            android:name=".activity.TextActivity"
+            android:name="ir.tehranOil.activity.TextActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AlarmsActivity"
+            android:name="ir.tehranOil.activity.AlarmsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ShowServiceCustomerActivity"
+            android:name="ir.tehranOil.activity.ShowServiceCustomerActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ManageMessageActivity"
+            android:name="ir.tehranOil.activity.ManageMessageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MessageLogActivity"
+            android:name="ir.tehranOil.activity.MessageLogActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.UserAccessActivity"
+            android:name="ir.tehranOil.activity.UserAccessActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SupportActivity"
+            android:name="ir.tehranOil.activity.SupportActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.NotificationsActivity"
+            android:name="ir.tehranOil.activity.NotificationsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ShopActivity"
+            android:name="ir.tehranOil.activity.ShopActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="ir.tehranOil.activity.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -119,110 +119,110 @@
             android:windowSoftInputMode="stateHidden|adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.IntroductionActivity"
+            android:name="ir.tehranOil.activity.IntroductionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MapxActivity"
+            android:name="ir.tehranOil.activity.MapxActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.passwordActivity"
+            android:name="ir.tehranOil.activity.passwordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ConfigActivity"
+            android:name="ir.tehranOil.activity.ConfigActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.Config2Activity"
+            android:name="ir.tehranOil.activity.Config2Activity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.buyCreditActivity"
+            android:name="ir.tehranOil.activity.buyCreditActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FAQActivity"
+            android:name="ir.tehranOil.activity.FAQActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="ir.tehranOil.activity.SettingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ReportCustomerActivity"
+            android:name="ir.tehranOil.activity.ReportCustomerActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.InformationCustomersActivity"
+            android:name="ir.tehranOil.activity.InformationCustomersActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.InformationServiceCarActivity"
+            android:name="ir.tehranOil.activity.InformationServiceCarActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SendMessageActivity"
+            android:name="ir.tehranOil.activity.SendMessageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ListServiceCarActivity"
+            android:name="ir.tehranOil.activity.ListServiceCarActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddServicesActivity"
+            android:name="ir.tehranOil.activity.AddServicesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddCustomerActivity"
+            android:name="ir.tehranOil.activity.AddCustomerActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".activity.CreateTextMessageActivity"
+            android:name="ir.tehranOil.activity.CreateTextMessageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ReportSalesActivity"
+            android:name="ir.tehranOil.activity.ReportSalesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ProductGroupActivity"
+            android:name="ir.tehranOil.activity.ProductGroupActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DetectServiceActivity"
+            android:name="ir.tehranOil.activity.DetectServiceActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LastServiseDoneActivity"
+            android:name="ir.tehranOil.activity.LastServiseDoneActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CustomerActivity"
+            android:name="ir.tehranOil.activity.CustomerActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginInfoActivity"
+            android:name="ir.tehranOil.activity.LoginInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SendSmsActivity"
+            android:name="ir.tehranOil.activity.SendSmsActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="ir.tehranOil.activity.RegisterActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".activity.ListReserveActivity"
+            android:name="ir.tehranOil.activity.ListReserveActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="ir.tehranOil.activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
@@ -241,7 +241,7 @@
             android:required="false" />
 
         <service
-            android:name=".app.NotificationsMessagingService"
+            android:name="ir.tehranOil.app.NotificationsMessagingService"
             android:exported="true">
             <intent-filter android:priority="1">
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

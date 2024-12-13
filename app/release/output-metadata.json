@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "ir.servicea",
+  "applicationId": "ir.tehranOil",
   "variantName": "release",
   "elements": [
     {
@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 1137,
       "versionName": "1.1.37",
-      "outputFile": "app-release.apk"
+      "outputFile": "tehran_oil_2024-12-14.apk"
     }
   ],
   "elementType": "File"

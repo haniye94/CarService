@@ -5,7 +5,7 @@ plugins {
 android {
     compileSdkVersion 34
     defaultConfig {
-        applicationId "ir.servicea"
+        applicationId "ir.tehranOil"
         minSdk 21
         targetSdkVersion 34
         versionCode 1137
@@ -30,6 +30,21 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    applicationVariants.all { variant ->
+        def variantName = variant.name
+        def buildType = variant.buildType.name
+        def flavor = variant.productFlavors*.name.join("")
+        def formattedDate = new Date().format('yyyy-MM-dd')
+
+
+        // Set the APK name
+        variant.outputs.all { output ->
+//            def apkName = "${variantName}-${flavor}${buildType}"  // Customize your APK name pattern here
+            def apkName = "tehran_oil_" // Customize your APK name pattern here
+            apkName += formattedDate + ".apk"
+            output.outputFileName = apkName
+        }
     }
 }
 //username= kazemian

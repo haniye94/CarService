@@ -14,7 +14,7 @@
         android:layout_height="65dp"
         android:background="@color/background"
         android:gravity="left|center"
-        android:layoutDirection="rtl"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
         android:textDirection="rtl">
 
@@ -22,7 +22,7 @@
             android:id="@+id/alarms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="20dp"
             android:onClick="onclickAlamrs">
 
             <ImageView
@@ -68,15 +68,15 @@
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="2dp"
-
+            android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:padding="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/titlelogo" />
+            android:src="@drawable/app_logo" />
 
     </LinearLayout>
 

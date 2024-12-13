@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:367358640919:android:472e6fc2b03777f483ad52",
         "android_client_info": {
-          "package_name": "ir.servicea"
+          "package_name": "ir.tehranOil"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "367358640919-ffp65j00f20i782i1c5pj9ui4tm6eadu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "ir.servicea",
+            "package_name": "ir.tehranOil",
             "certificate_hash": "d4d3d6023006283da4bd2bdfc07696fb86b0a3c1"
           }
         },

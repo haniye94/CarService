@@ -7,7 +7,7 @@
     android:layoutDirection="rtl"
     android:orientation="vertical"
     android:textDirection="rtl"
-    tools:context="ir.servicea.activity.ProductGroupActivity">
+    tools:context="ir.tehranOil.activity.ProductGroupActivity">
 
     <include layout="@layout/layout_action_bar_messages" />
 

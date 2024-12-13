@@ -11,7 +11,7 @@
     tools:context="com.servicea.ir.servicea.MainActivity">
 
 
-    <ir.servicea.app.CustomViewPager
+    <ir.tehranOil.app.CustomViewPager
         android:id="@+id/viewPager"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"

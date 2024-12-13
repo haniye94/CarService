@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
 
-                            android:text="تماس با پشتیبانی سرویسا"
+                            android:text="تماس با پشتیبانی تهران روغن"
                             android:textColor="#222"
                             android:textDirection="rtl"
                             android:textSize="15dp" />
