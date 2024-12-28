@@ -14,41 +14,15 @@
         android:layout_height="65dp"
         android:background="@color/background"
         android:gravity="left|center"
-        android:layoutDirection="rtl"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
         android:textDirection="rtl">
 
-        <RelativeLayout
-            android:id="@+id/alarms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:onClick="onclickAlamrs">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_notifications" />
-
-            <LinearLayout
-                android:layout_width="20dp"
-                android:layout_height="19dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/shap_plus_red"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-
-                    android:textColor="@color/text_light"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-        </RelativeLayout>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_notifications" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -64,14 +38,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
-
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:padding="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/titlelogo" />
+            android:src="@drawable/app_logo" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -144,13 +118,14 @@
 
                 android:textSize="14dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
-            android:paddingRight="10dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="12dp"
@@ -168,16 +143,17 @@
                 android:textColor="@color/text_dark"
                 android:textSize="16dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/searchpelak"
             android:layout_width="match_parent"
-            android:elevation="1dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/shap_simple_rec"
+            android:elevation="1dp"
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -405,6 +381,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -416,174 +393,169 @@
             android:orientation="vertical">
 
 
-
-
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/gridView_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clipChildren="true"
+                        android:clipToPadding="true"
+                        android:layoutDirection="ltr" />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="6dp">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/sliderView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_bg_produce" />
+
+                        <TextView
+                            android:id="@+id/txt_title_advertisetopx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="-0.1dp"
+                            android:text="پیشنهاد ویژه"
+                            android:textColor="@color/text_dark"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_advertise_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center">
+                        android:layout_margin="7dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/gridView_main"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:layout_gravity="center"
-                            android:clipChildren="true"
-                            android:clipToPadding="true"
-                            android:layoutDirection="ltr" />
-                    </LinearLayout>
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_bg_car_info" />
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        app:cardCornerRadius="6dp">
-
-                        <com.smarteist.autoimageslider.SliderView
-                            android:id="@+id/sliderView"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            app:sliderAnimationDuration="600"
-                            app:sliderAutoCycleDirection="back_and_forth"
-                            app:sliderAutoCycleEnabled="true"
-                            app:sliderIndicatorAnimationDuration="600"
-                            app:sliderIndicatorGravity="center_horizontal|bottom"
-                            app:sliderIndicatorMargin="15dp"
-                            app:sliderIndicatorOrientation="horizontal"
-                            app:sliderIndicatorPadding="3dp"
-                            app:sliderIndicatorRadius="2dp"
-                            app:sliderIndicatorSelectedColor="#5A5A5A"
-                            app:sliderIndicatorUnselectedColor="#FFF"
-                            app:sliderScrollTimeInSec="1"
-                            app:sliderStartAutoCycle="true" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/txt_title_advertise1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="7dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingRight="10dp">
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/ic_bg_produce" />
-
-                            <TextView
-                                android:id="@+id/txt_title_advertisetopx"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:lineSpacingExtra="-0.1dp"
-                                android:text="پیشنهاد ویژه"
-                                android:textColor="@color/text_dark"
-                                android:textSize="16dp" />
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycle_advertise_top"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
+                            android:lineSpacingExtra="-0.1dp"
+                            android:text="مجله خودرو"
+                            android:textColor="@color/text_dark"
+                            android:textSize="16dp" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_advertise_one"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="7dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingRight="10dp">
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/ic_bg_car_info" />
-
-                            <TextView
-                                android:id="@+id/txt_title_advertise1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:lineSpacingExtra="-0.1dp"
-                                android:text="مجله خودرو"
-                                android:textColor="@color/text_dark"
-                                android:textSize="16dp" />
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycle_advertise_one"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="7dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingRight="10dp">
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/ic_bg_car_info" />
-
-                            <TextView
-                                android:id="@+id/txt_title_advertise2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:lineSpacingExtra="-0.1dp"
-                                android:text="مجله آموزشی"
-                                android:textColor="@color/text_dark"
-                                android:textSize="16dp" />
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycle_advertise_two"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="25dp" />
-
-                    </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_bg_car_info" />
+
+                        <TextView
+                            android:id="@+id/txt_title_advertise2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="-0.1dp"
+                            android:text="مجله آموزشی"
+                            android:textColor="@color/text_dark"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_advertise_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp" />
+
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
