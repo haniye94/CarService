@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    private EditText etProductName, etProductPrice, etProductBrand, etProductDescription;
+    private EditText etProductName, etProductPrice, etProductBrand, etProductGrade, etProductDescription;
     private Spinner spinnerProductType;
     private Button btnSubmit;
 
@@ -52,6 +52,7 @@ public class AddProductActivity extends AppCompatActivity {
         String productName = etProductName.getText().toString().trim();
         String productPrice = etProductPrice.getText().toString().trim();
         String productBrand = etProductBrand.getText().toString().trim();
+        String productGrade = etProductGrade.getText().toString().trim();
         String productDescription = etProductDescription.getText().toString().trim();
         String productType = spinnerProductType.getSelectedItem().toString();
 
@@ -63,8 +64,8 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         // Create product object
-        ReserveProduct product = new ReserveProduct(productName, productPrice, productBrand, productType, productDescription, 0);
-
+//        ReserveProduct product = new ReserveProduct(productName, productPrice, productBrand, productGrade, productType, productDescription, 0);
+        ReserveProduct product = new ReserveProduct();
         // Make the API call
         Api apiService = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         Call<ReserveProduct> call = apiService.addProduct(product);

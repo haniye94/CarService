@@ -83,16 +83,19 @@ public class PreferenceUtil {
         editor_id_user.putString("d_id", d_id);
         editor_id_user.apply();
     }
+
     public static void cashUser_id(String d_id) {
         SharedPreferences.Editor editor_id_user = preferenceUtil.edit();
         editor_id_user.putString("user_id", d_id);
         editor_id_user.apply();
     }
+
     public static void cashS_id(String d_id) {
         SharedPreferences.Editor editor_id_user = preferenceUtil.edit();
         editor_id_user.putString("s_id", d_id);
         editor_id_user.apply();
     }
+
     public static void cashIdUser(int id) {
         SharedPreferences.Editor editor_id_user = preferenceUtil.edit();
         editor_id_user.putInt("id_user", id);

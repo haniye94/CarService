@@ -2,11 +2,16 @@ package ir.servicea.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,9 +36,13 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
     LayoutInflater layoutInflater;
     List<ModelProduceGroup> models;
     PreferenceUtil preferenceUtil;
+    static String newvage = "";
     public static HashMap save_khedmat;
+    static boolean edit_mode = true;//1 for enable and 2 fro confirm edit
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
-    public AdapterListProduceGroup(Context context, List<ModelProduceGroup> models, AdapterListProduceGroup.OnItemClickListener listener) {
+    public AdapterListProduceGroup(Context context, List<ModelProduceGroup> models, OnItemClickListener listener) {
         this.context = context;
         this.models = models;
         this.listener = listener;
@@ -47,55 +56,59 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
         return new ViewHolder(layoutInflater.inflate(R.layout.item_layout_produce_group, parent, false));
     }
 
-    private AdapterListProduceGroup.OnItemClickListener listener;
+    private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(ModelProduceGroup model, CheckBox item, AdapterListProduceGroup.ViewHolder holder, int position);
+        void onItemClick(ModelProduceGroup model, CheckBox item, ViewHolder holder, int position);
+
+        void onWageChange(ModelProduceGroup model, String changeWage, int position);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.txt_kala.setTypeface(G.ExtraBold);
-
-        holder.txt_kala.setText(models.get(position).getOnvan().toString());
-        holder.checkbox.setChecked(models.get(position).isCheck());
-        if (models.get(position).isCheck()) {
+        holder.txt_kala.setText(models.get(position).getTitle());
+        holder.edt_vage.setText(models.get(position).getChange_wage());
+        holder.checkbox.setChecked(models.get(position).isExist());
+        if (models.get(position).isExist()) {
             holder.ly_check_msg.setVisibility(View.GONE);
         } else {
             holder.ly_check_msg.setVisibility(View.GONE);
         }
-//        List<CheckBox> items = new ArrayList<CheckBox>();
-//
-//        for (CheckBox item : items) {
-//            if (item.isChecked()) {
-//                preferenceUtil.cashType_service(item.getText().toString());
-//                Toast.makeText(context, "" + item.getText().toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        holder.checkbox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CheckBox checkBox = (CheckBox) view;
-//                if (checkBox.isChecked()) {
-//                    Toast.makeText(context, checkBox.isChecked()+"", Toast.LENGTH_SHORT).show();
-//                    save_khedmat.put(models.get(position).getOnvan(),checkBox.isChecked());
-//                    holder.ly_check_msg.setVisibility(View.VISIBLE);
-//                } else holder.ly_check_msg.setVisibility(View.GONE);
-//
-//            }
-//        });
+
+        holder.edt_vage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Before text changed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+
+            public void afterTextChanged(Editable s) {
+                newvage = s.toString();
+
+
+            }
+        });
+
 
         holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (compoundButton.isPressed()) {
 
-                    models.get(position).setCheck(b);
+                    models.get(position).setExist(b);
                     if (b) {
-                        addProductGroup(models.get(position).getId(), models.get(position).getOnvan(), models.get(position).getKm_usage());
+                        addProductGroup(models.get(position).getProductGroupId(), models.get(position).getTitle());
                         holder.ly_check_msg.setVisibility(View.GONE);
                     } else {
-                        removeProductGroup(models.get(position).getId());
+                        removeProductGroup(models.get(position).getProductGroupId());
                         holder.ly_check_msg.setVisibility(View.GONE);
                     }
 
@@ -119,23 +132,21 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
                 // }
             }
         });
-        holder.chbox_message.setChecked(models.get(position).isSend_msg());
 
         holder.bind(context, models.get(position), holder, listener);
     }
 
-    public void addProductGroup(int id, String title, int km) {
+    public void addProductGroup(String product_group_id, String title) {
         try {
             JSONArray array = new JSONArray(G.preference.getString("myProductGroups", "[]"));
             for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
-                if (object.getInt("id") == (id)) {
+                if (object.getString("product_group_id") == (product_group_id)) {
                     array.remove(i);
                 }
             }
             JSONObject object = new JSONObject();
-            object.put("id", id);
-            object.put("km_usage", km);
+            object.put("product_group_id", product_group_id);
             object.put("title", title);
             array.put(object);
             G.preference.edit().putString("myProductGroups", array.toString()).apply();
@@ -144,12 +155,12 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
         }
     }
 
-    public void removeProductGroup(int id) {
+    public void removeProductGroup(String product_group_id) {
         try {
             JSONArray array = new JSONArray(G.preference.getString("myProductGroups", "[]"));
             for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
-                if (object.getInt("id") == (id)) {
+                if (object.getString("product_group_id").equals(product_group_id)) {
                     array.remove(i);
                 }
             }
@@ -168,8 +179,20 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
         TextView txt_kala;
         CheckBox checkbox, chbox_message;
         LinearLayout ly_check_msg;
+        ImageView iv_edit;
+        EditText edt_vage;
 
-        public void bind(Context context, final ModelProduceGroup item, final AdapterListProduceGroup.ViewHolder holder, final AdapterListProduceGroup.OnItemClickListener listener) {
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txt_kala = itemView.findViewById(R.id.txt_title);
+            checkbox = itemView.findViewById(R.id.checkbox);
+            chbox_message = itemView.findViewById(R.id.chbox_message);
+            ly_check_msg = itemView.findViewById(R.id.ly_check_msg);
+            iv_edit = itemView.findViewById(R.id.iv_edit_wage);
+            edt_vage = itemView.findViewById(R.id.edt_wage);
+        }
+
+        public void bind(Context context, final ModelProduceGroup item, final ViewHolder holder, final OnItemClickListener listener) {
 
             checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -180,16 +203,31 @@ public class AdapterListProduceGroup extends RecyclerView.Adapter<AdapterListPro
                     }
                 }
             });
+            iv_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (edit_mode) {
+                        if (item.isExist()) {
+                            edt_vage.setEnabled(true);
+                            G.toast("برای تغییر اجرت روی تیک کلیک کنید");
+                            iv_edit.setImageResource(R.drawable.ic_confirm);
+                            edit_mode = false;
+                        } else {
+                            G.toast("ابتدا گروه کالا را انتخاب کنید");
+                        }
+                    } else {
+                        newvage = edt_vage.getText().toString();
+                        iv_edit.setImageResource(R.drawable.ic_edit);
+                        G.toast("اجرت با موفقیت تغییر داده شد.");
+                        edt_vage.setEnabled(false);
+                        edit_mode = true;
+                        listener.onWageChange(item, newvage, getAdapterPosition());
+
+                    }
+                }
+            });
         }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            txt_kala = itemView.findViewById(R.id.txt_kala);
-            checkbox = itemView.findViewById(R.id.checkbox);
-            chbox_message = itemView.findViewById(R.id.chbox_message);
-            ly_check_msg = itemView.findViewById(R.id.ly_check_msg);
-        }
     }
-
 
 }

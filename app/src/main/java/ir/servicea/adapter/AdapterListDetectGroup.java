@@ -92,15 +92,14 @@ public class AdapterListDetectGroup extends RecyclerView.Adapter<AdapterListDete
             checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if(compoundButton.isPressed())
-                    listener.onItemClick(item, checkbox, holder, getAdapterPosition());
+                    if(compoundButton.isPressed()) listener.onItemClick(item, checkbox, holder, getAdapterPosition());
                 }
             });
         }
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_kala = itemView.findViewById(R.id.txt_kala);
+            txt_kala = itemView.findViewById(R.id.txt_title);
             checkbox = itemView.findViewById(R.id.checkbox);
             chbox_message = itemView.findViewById(R.id.chbox_message);
             ly_check_msg = itemView.findViewById(R.id.ly_check_msg);

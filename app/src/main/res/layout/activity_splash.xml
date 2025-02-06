@@ -8,8 +8,7 @@
     android:layoutDirection="rtl"
     android:orientation="vertical"
     android:textDirection="rtl"
-    android:background="@color/white"
-   >
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,8 +16,7 @@
         android:gravity="center"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        android:textDirection="rtl"
-    >
+        android:textDirection="rtl">
 
         <ImageView
             android:layout_width="match_parent"
@@ -26,39 +24,10 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerInside"
-            android:src="@drawable/splash" />
-
-        <!--        <TextView-->
-<!--            android:id="@+id/textView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginTop="198dp"-->
-<!--            android:layout_marginBottom="119dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Auto Service"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="30dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginTop="89dp"-->
-<!--            android:layout_marginBottom="15dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="1.0.0"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="10dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+            android:src="@drawable/splash"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="151dp"
+            tools:layout_editor_absoluteY="-366dp" />
 
         <com.cunoraz.gifview.library.GifView
             android:id="@+id/imageView"
@@ -70,7 +39,20 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.413" />
+            app:layout_constraintVertical_bias="0.413"
+            android:visibility="gone" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="240dp"
+            android:layout_height="200dp"
+            android:elevation="999dp"
+            android:src="@drawable/logo_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
 
         <com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar
             android:id="@+id/progress"

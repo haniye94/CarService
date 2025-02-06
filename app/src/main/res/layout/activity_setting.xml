@@ -1,209 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:textDirection="rtl"
-    tools:context="com.servicea.ir.servicea.itemMain.SettingActivity">
+    android:textDirection="rtl">
 
     <include layout="@layout/layout_action_bar_pages" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_margin="10dp"
-        android:background="@drawable/shap_simple"
-        android:orientation="vertical"
-        android:paddingLeft="7dp"
-        android:paddingTop="20dp"
-        android:paddingRight="7dp"
-        android:paddingBottom="7dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:background="@drawable/shap_simple_rec"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txt_charge_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30000"
-                    android:textColor="@color/text_low_dark"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="آخرین شارژ"
-                    android:textColor="@color/text_low_dark"
-                    android:textSize="13dp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/iran"
+                    android:text="شارژ مانده"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/text_low_dark"
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/txt_charge_mande"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="center"
                     android:text="25000"
                     android:textColor="@color/text_low_dark"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textSize="24dp" />
 
                 <TextView
-                    android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="شارژ مانده"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="تومان"
                     android:textColor="@color/text_low_dark"
-                    android:textSize="13dp" />
+                    android:textSize="12dp" />
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/buycredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/iran"
+                android:gravity="center"
+                android:layout_marginLeft="16dp"
+                android:text="خرید شارژ پیامک"
+                android:textColor="@color/button"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/white"
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:background="@drawable/shap_simple_rec"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_service_list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/service_list"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     لیست گروه خدمات"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
 
-                <TextView
-                    android:id="@+id/buycredit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="خرید شارژ پیامک"
-                    android:textColor="@color/button"
-                    android:textSize="13dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gotolog"
-                android:layout_width="0dp"
-
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_introduce_product"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/introduce_product"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     معرفی محصولات"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="20dp"
-                    android:text="جزئیات پیامک"
-                    android:textColor="@color/text_low_dark"
-                    android:textSize="13dp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_my_product_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/introduce_product"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     لیست کالای من"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
 
-            </LinearLayout>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_manage_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/modiriat_payamak"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     مدیریت پیامک"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
 
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_msglog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/modiriat_elanha"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     گزارش پیامک‌ها"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_bank_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/bank_card"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     کارت های بانکی"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/moarefi_be_hamkar"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     معرفی به همکاران"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_menage_notif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_simple"
+                android:drawableLeft="@drawable/jahat_chap"
+                android:drawableRight="@drawable/modiriat_elanha"
+                android:gravity="center|right"
+                android:stateListAnimator="@null"
+                android:text="     مدیریت اعلان ها"
+                android:textColor="@color/text_low_dark"
+                android:textSize="14dp"
+                android:visibility="gone" />
         </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shap_simple"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_margin="10dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_produce_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/entekhab_gorohkala"
-            android:drawableLeft="@drawable/jahat_chap"
-            android:gravity="center|right"
-            android:background="@drawable/shap_simple"
-            android:stateListAnimator="@null"
-            android:text="     تنظیمات گروه کالا"
-            android:textColor="@color/text_low_dark"
-            android:textSize="14dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_manage_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shap_simple"
-            android:drawableLeft="@drawable/jahat_chap"
-            android:gravity="center|right"
-            android:drawableRight="@drawable/modiriat_payamak"
-            android:stateListAnimator="@null"
-            android:text="     مدیریت پیامک"
-            android:textColor="@color/text_low_dark"
-            android:textSize="14dp" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_msglog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shap_simple"
-            android:drawableLeft="@drawable/jahat_chap"
-            android:gravity="center|right"
-            android:drawableRight="@drawable/modiriat_elanha"
-            android:stateListAnimator="@null"
-            android:text="     گزارش پیامک‌ها"
-            android:textColor="@color/text_low_dark"
-            android:textSize="14dp" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_intro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shap_simple"
-            android:drawableLeft="@drawable/jahat_chap"
-            android:gravity="center|right"
-            android:drawableRight="@drawable/moarefi_be_hamkar"
-            android:stateListAnimator="@null"
-            android:text="     معرفی به همکاران"
-            android:textColor="@color/text_low_dark"
-            android:textSize="14dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_menage_notif"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shap_simple"
-            android:drawableRight="@drawable/modiriat_elanha"
-            android:drawableLeft="@drawable/jahat_chap"
-            android:gravity="center|right"
-            android:stateListAnimator="@null"
-            android:text="     مدیریت اعلان ها"
-            android:textColor="@color/text_low_dark"
-            android:textSize="14dp"
-            android:visibility="gone" />
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

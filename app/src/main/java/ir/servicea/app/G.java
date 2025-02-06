@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -759,5 +760,28 @@ public class G extends Application {
         editor.putBoolean("verified", verified);
         editor.apply();
 
+    }
+
+    public static ArrayAdapter<String> setFontToSpinner(List<String> list) {
+        ArrayAdapter<String> adapterCustomSpinner = new ArrayAdapter<String>(context, R.layout.item_spiner, list) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = view.findViewById(R.id.txt_name);
+                textView.setTypeface(G.Normal);
+//                G.getDecimalFormattedString(textView.getText().toString());
+
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = view.findViewById(R.id.txt_name);
+                textView.setTypeface(G.Normal);
+                return view;
+            }
+        };
+        return adapterCustomSpinner;
     }
 }

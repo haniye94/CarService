@@ -89,6 +89,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
     private List<Integer> citiesListIDS;
     private final List<String> listJobs = new ArrayList<>();
     private final List<Integer> listJobsIds = new ArrayList<>();
+    private final List<Boolean> listJobsReservation = new ArrayList<>();
     private SQLiteDatabase mDatabase;
     private List<State> stateList;
     private List<Integer> stateListIDS;
@@ -117,7 +118,9 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
     private static final int PICK_IMAGE = 1;
 
     private File croppedImageFile;
+    int spSelectedPosition = 0;
 
+    boolean reserve_status = false;
 
     @Override
     protected void attachBaseContext(Context context) {
@@ -308,14 +311,23 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
     public void getJob_categories() {
         listJobs.clear();
         listJobsIds.clear();
+        listJobsReservation.clear();
         spinnerAdapter = new ArrayAdapter(LoginInfoActivity.this, R.layout.item_spiner, listJobs);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_job.setAdapter(spinnerAdapter);
+
         spinner_job.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 G.preference.edit().putString("job_category_name", listJobs.get(position)).apply();
                 G.preference.edit().putInt("job_category_id", listJobsIds.get(position)).apply();
+                if (!listJobsReservation.get(position)) {
+                    reservation.setChecked(false);
+                    reservation.setEnabled(false);
+                }
+                else  {
+                    reservation.setEnabled(true);
+                }
             }
 
             @Override
@@ -337,15 +349,15 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
                         JSONObject object = G.StringtoJSONObject(result);
                         JSONArray records = object.getJSONArray("records");
                         if (records.length() > 0) {
-                            List<SliderItem> sliderItemList = new ArrayList<>();
 
                             for (int i = 0; i < records.length(); i++) {
                                 JSONObject obj = records.getJSONObject(i);
-                                SliderItem sliderItem = new SliderItem();
                                 int id = obj.getInt("id");
                                 String title = obj.getString("title");
+                                boolean reserve_status = obj.getBoolean("reserve_status");
                                 listJobs.add(title);
                                 listJobsIds.add(id);
+                                listJobsReservation.add(reserve_status);
                             }
 
                             spinnerAdapter.notifyDataSetChanged();
@@ -384,12 +396,10 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
             request.enqueue(new retrofit2.Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-//                    G.Log(call.request().toString());
                     if (response.body() != null) {
                         assert response.body() != null;
                         try {
                             String result = response.body().string();
-//                        G.Log(result);
                             JSONObject object = G.StringtoJSONObject(result);
                             JSONArray records = object.getJSONArray("records");
                             if (records.length() > 0) {
@@ -486,6 +496,23 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
                                             G.preference.edit().putInt("job_category_id", jobcat).apply();
                                         } catch (NumberFormatException nfe) {
                                             System.out.println("Could not parse " + nfe);
+                                        }
+
+                                    }
+
+                                    for (int j = 0; j < listJobsIds.size(); j++) {
+                                        if (Integer.parseInt(job_category) == listJobsIds.get(j)) {
+                                            spSelectedPosition = j;
+                                            spinner_job.setSelection(spSelectedPosition);
+                                            G.preference.edit().putString("job_category_name", listJobs.get(j)).apply();
+                                            if (!listJobsReservation.get(j)) {
+                                                reservation.setChecked(false);
+                                                reservation.setEnabled(false);
+                                            }
+                                            else  {
+                                                reservation.setEnabled(true);
+                                            }
+
                                         }
 
                                     }
@@ -807,7 +834,7 @@ public class LoginInfoActivity extends RuntimePermissionsActivity {
                         d_id = result;
                     }
 
-                    if (isNewUser) {
+                    if (!isNewUser) {
                         addScoreForServiceCenter(phone);
                     }
 

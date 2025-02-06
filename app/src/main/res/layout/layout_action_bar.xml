@@ -22,7 +22,7 @@
         android:lineSpacingExtra="-0.1dp"
         android:text="تاپ سرویس آقاجانی"
         android:textColor="@color/text_low_dark"
-        android:textSize="17dp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:layout_width="50dp"

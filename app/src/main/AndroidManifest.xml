@@ -35,16 +35,16 @@
         android:theme="@style/Theme.GuideCar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.ProductsActivity"
+            android:name=".activity.ServiceCenterProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.EditProductActivity"
-            android:exported="false" />
+            android:name=".activity.ProductsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".activity.AddProductActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ProductsActivity1"
             android:exported="false" />
         <activity
             android:name=".activity.CommentsActivity"
@@ -61,10 +61,12 @@
             android:name=".activity.WebViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-     <!--   <activity
-            android:name=".activity.SimpleScannerActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />-->
+        <!--
+   <activity
+               android:name=".activity.SimpleScannerActivity"
+               android:exported="false"
+               android:screenOrientation="portrait" />
+        -->
         <activity
             android:name=".activity.TextActivity"
             android:exported="false"

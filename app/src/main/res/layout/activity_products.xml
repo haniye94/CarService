@@ -1,120 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:layoutDirection="rtl">
+    tools:context=".activity.ProductsActivity">
 
     <!-- Toolbar/Header Section -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <!-- Add Product Button -->
         <ImageView
             android:id="@+id/iv_add_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_black"
-            android:contentDescription="Add Product"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:contentDescription="Add Product"
+            android:src="@drawable/ic_add_black"
+             />
+
         <TextView
             android:id="@+id/tv_add_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="6dp"
+            android:layout_toLeftOf="@id/iv_add_product"
             android:text="افزودن کالا"
+            android:textColor="@color/text_low_dark"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginRight="4dp"
-            android:layout_toLeftOf="@id/iv_add_product" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="معرفی محصولات"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true" />
+            android:textColor="@color/text_low_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:contentDescription="Back"
-            android:layout_alignParentLeft= "true"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/ic_back" />
     </RelativeLayout>
 
-    <!-- Banner/Image Section -->
-    <ImageView
-        android:id="@+id/iv_banner"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/products_banner_img"
-        android:contentDescription="Banner Image" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center">
 
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/shap_edittext"
+            android:drawableLeft="@drawable/ic_search_gray"
+            android:drawablePadding="5dp"
+            android:imeOptions="actionSearch"
+            android:maxLength="50"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/text_low_dark"
+            android:textSize="12.5dp" />
+    </LinearLayout>
     <!-- Category Buttons Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:paddingHorizontal="16dp">
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal">
 
-        <!-- All Button -->
-        <Button
-            android:id="@+id/btn_all"
+        <LinearLayout
+            android:id="@+id/ll_filter"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="همه"
-            android:textSize="12dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:background="@drawable/btn_category_back"
-            android:textColor="@color/gray_border" />
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_filter" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp"
+                android:text=" فیلتر"
+                android:textColor="#292929"
+                android:textSize="16sp" />
+        </LinearLayout>
         <!-- Product Group Button -->
-        <Button
-            android:id="@+id/btn_group"
+        <LinearLayout
+            android:id="@+id/ll_group"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="گروه کالا"
-            android:textSize="12dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:background="@drawable/btn_category_background_selected"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/item_job_category_false"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <!-- Brand Button -->
-        <Button
-            android:id="@+id/btn_brand"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:src="@drawable/ic_cancel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_group"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingEnd="8dp"
+                android:stateListAnimator="@null"
+                android:text="گروه کالا"
+                android:textColor="@color/gray_border"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_brand"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="برند کالا"
-            android:textSize="12dp"
-            android:padding="8dp"
-            android:background="@drawable/btn_category_back"
-            android:textColor="@color/gray_border" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/item_job_category_false"
+            android:gravity="center"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:src="@drawable/ic_cancel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingEnd="8dp"
+                android:stateListAnimator="@null"
+                android:text="برند کالا"
+                android:textColor="@color/gray_border"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Product List Section -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_products"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
-        tools:listitem="@layout/item_product"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        android:scrollbarStyle="insideOverlay" />
+        android:layout_height="wrap_content">
 
+        <!-- Product List Section -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_products"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:layoutDirection="ltr"
+            android:padding="16dp"
+            android:scrollbarStyle="insideOverlay"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_product" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

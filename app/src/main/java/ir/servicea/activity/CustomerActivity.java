@@ -121,7 +121,7 @@ public class CustomerActivity extends AppCompatActivity {
 
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-                if (!isLoading && productList.size() >= 20 && last_key.length()==0) {
+                if (!isLoading && productList.size() >= 20 && last_key.length() == 0) {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == productList.size() - 1) {
                         isLoading = true;
                         page++;
@@ -141,7 +141,7 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         G.Activity = this;
         G.context = this;
@@ -166,7 +166,8 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
-String last_key = "";
+    String last_key = "";
+
     public void listCustomer(String key) {
         last_key = key;
         if (key.length() > 0) {
@@ -225,7 +226,7 @@ String last_key = "";
                                 String car_model = "";
                                 String car_type = "";
                                 String fuel_type = "";
-                                int car_name_id = 0, car_tip_id = 0, car_model_id = 0, fuel_type_id = 0,car_company_id=0;
+                                int car_name_id = 0, car_tip_id = 0, car_model_id = 0, fuel_type_id = 0, car_company_id = 0;
                                 if (info.has("car_id")) {
                                     car_id = info.getInt("car_id");
                                     car_tag = info.getString("car_plate");
@@ -269,10 +270,10 @@ String last_key = "";
                                 modelCustomer.setCar_company_id(car_company_id);
                                 modelCustomer.setFuel_type_id(fuel_type_id);
                                 modelCustomer.setCar_id(car_id);
-                                Log.d("Service!", "onClick: 1" + "id_car:"+car_id);
+                                Log.d("Service!", "onClick: 1" + "id_car:" + car_id);
 
                                 modelCustomer.setDate_save_customer(register_date);
-                                String full_name = name+" "+lastname;
+                                String full_name = name + " " + lastname;
                                 if (finalKey.length() >= 1) {
                                     if (full_name.contains(finalKey) || name.contains(finalKey) || lastname.contains(finalKey) || phone.contains(finalKey)) {
                                         productList.add(modelCustomer);
@@ -548,10 +549,10 @@ String last_key = "";
                                 }
                             }
                         }, 0);
-                        Log.d("Service!", "onClick: " + "id_car:"+ model.getCar_id());
+                        Log.d("Service!", "onClick: " + "id_car:" + model.getCar_id());
                         Intent intent = new Intent(CustomerActivity.this, AddServicesActivity.class);
                         intent.putExtra("idCustomer", model.getId() + "");
-                        intent.putExtra(Constants.CAR_ID, model.getCar_id()+"");
+                        intent.putExtra(Constants.CAR_ID, model.getCar_id() + "");
                         Log.d("CARRRR", "onResponse:CustomerActivity:onClick " + model.getCar_id());
                         intent.putExtra("firstName", model.getFirst_name());
                         intent.putExtra("lastName", model.getLast_name());

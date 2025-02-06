@@ -2,42 +2,52 @@ package ir.servicea.model;
 
 public class ReserveProduct {
 
-    private int id;
-    private  String name;
-    private  String price;
-    private  String brand;
-    private  String type;
-    private  String description;
-    private int imageResId;
+    private int product_id;
+    private String product_name;
+    private String price;
+    private int brandId;
+    private int productGroupId;
+    private String productGroupTitle;
+    private String brandName;
+    private String gradeName;
+    private String qualityTypeName;
+    private String description;
+    private String imageUrl;
+    private Boolean exist;
 
-    public ReserveProduct(){
+    public ReserveProduct() {
     }
 
-    public ReserveProduct(String name, String price, String brand, String type, String description, int imageResId) {
-        this.name = name;
-        this.price = price;
-        this.brand = brand;
-        this.type = type;
-        this.description = description;
-        this.imageResId = imageResId;
+    public ReserveProduct(String product_name, String price, int brandId, int productGroupId, String productGroupTitle, String brandName, String gradeName, String qualityTypeName, String description, String imageUrl, Boolean exist) {
+        this.product_name = product_name;
+        this.setPrice(price);
+        this.setBrandId(brandId);
+        this.setProductGroupId(productGroupId);
+        this.setProductGroupTitle(productGroupTitle);
+        this.setBrandName(brandName);
+        this.setGradeName(gradeName);
+        this.setQualityTypeName(qualityTypeName);
+        this.setDescription(description);
+        this.setImageUrl(imageUrl);
+        this.setExist(exist);
 
 
     }
 
-    public int getId() {
-        return id;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
-    public String getName() {
-        return name;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getPrice() {
@@ -48,20 +58,37 @@ public class ReserveProduct {
         this.price = price;
     }
 
-    public String getBrand() {
-        return brand;
+
+    public String getProductGroupTitle() {
+        return productGroupTitle;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setProductGroupTitle(String productGroupTitle) {
+        this.productGroupTitle = productGroupTitle;
     }
 
-    public String getType() {
-        return type;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
+    public String getQualityTypeName() {
+        return qualityTypeName;
+    }
+
+    public void setQualityTypeName(String qualityTypeName) {
+        this.qualityTypeName = qualityTypeName;
     }
 
     public String getDescription() {
@@ -72,12 +99,35 @@ public class ReserveProduct {
         this.description = description;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageResId(int imageResId) {
-        this.imageResId = imageResId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
+    }
+
+    public int getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(int productGroupId) {
+        this.productGroupId = productGroupId;
+    }
+
+    public Boolean getExist() {
+        return exist;
+    }
+
+    public void setExist(Boolean exist) {
+        this.exist = exist;
     }
 }
-

@@ -6,14 +6,15 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/job_category"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="28dp"
         android:background="@drawable/item_job_category_false"
-        android:padding="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:stateListAnimator="@null"
         android:text="همه"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:textColor="@color/white"
-        android:textSize="11dp" />
+        android:textSize="13dp" />
 
 </LinearLayout>

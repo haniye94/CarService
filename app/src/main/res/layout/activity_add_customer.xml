@@ -321,10 +321,8 @@
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 app:os_arrow_color="#d5d5d5"
-
                                 app:os_background_color="#FFF"
                                 app:os_hint="نام خودرو"
-
                                 app:os_hint_color="#999"
                                 app:os_item_background_color="#FFF"
                                 app:os_item_padding_bottom="8dp"

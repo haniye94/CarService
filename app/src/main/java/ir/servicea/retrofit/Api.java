@@ -97,7 +97,6 @@ public interface Api {
     Call<ResponseBody> deleteCustomer(@Path("id") String id, @Body RequestBody body);
 
     @GET("api.php/records/customers?filter=cust_deleted_at,is,NULL&order=cust_id,desc")
-//&filter=center_id,gt,0
     Call<ResponseBody> listCustomer(@Query("filter1") String filter, @Query("filter2") String filter2, @Query("page") int page);
 
     @GET("api.php/records/customers?filter=cust_deleted_at,is,NULL&order=cust_id,desc&filter=center_id,gt,0")
@@ -191,8 +190,11 @@ public interface Api {
     @PUT("api.php/records/services/{id}")
     Call<ResponseBody> deleteService(@Path("id") String id, @Body RequestBody body);
 
-    @GET("api.php/records/slider?filter=status,gt,0&filter=place_of_use,eq,0")
-    Call<ResponseBody> getSlider();
+    @GET("api.php/records/slider?filter=status,gt,0&filter=place_of_use,eq,2")
+    Call<ResponseBody> getSliderFragmnetMain();
+
+    @GET("api.php/records/slider?filter=status,gt,0&filter=place_of_use,eq,3")
+    Call<ResponseBody> getSliderServiceCenterProduct();
 
     @GET("api.php/records/provinces?filter=status,gt,0")
     Call<ResponseBody> getProvince();
@@ -225,6 +227,9 @@ public interface Api {
 
     @POST("api.php/records/service_center_product_groups")
     Call<ResponseBody> addProductGroupAvailable(@Body RequestBody body);
+
+    @PUT("api.php/records/service_center_product_groups/{id}")
+    Call<ResponseBody> updateProductGroupAvailable(@Path("id") int id, @Body RequestBody body);
 
     @DELETE("api.php/records/service_center_product_groups/{id}")
     Call<ResponseBody> deleteProductGroupAvailable(@Path("id") String id);
@@ -346,10 +351,32 @@ public interface Api {
     @POST("api.php/records/services_center_product_groups")
     Call<ResponseBody> addServicesCenterProductGroup(@Body RequestBody body);
 
+    @POST("api.php/records/service_center_products")
+    Call<ResponseBody> addServicesCenterProduct(@Body RequestBody body);
+
+    @PUT("api.php/records/service_center_products/{id}")
+    Call<ResponseBody> editServicesCenterProduct(@Path("id") int id, @Body RequestBody body);
+
     @POST("/pg/v4/payment/request.json")
     Call<ResponseBody> sendZarinPallInfo(@Header("accept") String accept, @Header("content-type") String content, @Body SendZarinInfo sendZarinInfo);
 
     @POST("/pg/v4/payment/verify.json")
     Call<ResponseBody> verifyZarinPall(@Header("accept") String accept, @Header("content-type") String content, @Body ZarinVerify zarinVerify);
+
+    @GET("api-reports.php?action=getProducts")
+    Call<ResponseBody> getProducts(@Query("service_center_id") int service_center_id, @Query("product_group_id") String group_id, @Query("brand_id") String brand_id, @Query("filter") String filter);
+
+    @GET("api-reports.php?action=getProductsOfCenter")
+    Call<ResponseBody> getProductsOfCenter(@Query("service_center_id") int service_center_id, @Query("product_group_id") String group_id, @Query("brand_id") String brand_id);
+
+    @GET("api-reports.php?action=getProductsInfoByProductgroup")
+    Call<ResponseBody> getProductsGroupAndBrand(@Query("service_center_id") int service_center_id);
+
+    @GET("api-reports.php?action=getProductGroups")
+    Call<ResponseBody> getProductGroups(@Query("service_center_id") int service_center_id, @Query("job_category_id") String job_category_id);
+
+
+    @POST("api.php/records/products_name")
+    Call<ResponseBody> addNewProducts(@Body RequestBody body);
 
 }

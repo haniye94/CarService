@@ -98,7 +98,7 @@ public class FragmentMain extends Fragment {
     public ViewGroup searchpelak;
     private ViewGroup chargepanel;
 
-    private ViewGroup ly_plk_general,ly_plk_azad_new,ly_plk_azad_old, ly_pelak_type;
+    private ViewGroup ly_plk_general, ly_plk_azad_new, ly_plk_azad_old, ly_pelak_type;
 
     private PLAK_TYPE plak_type = PLAK_TYPE.PLAK_GENERAL;
     private ViewGroup plak_layout;
@@ -303,11 +303,11 @@ public class FragmentMain extends Fragment {
                             intent.putExtra("phone", phone);
                             intent.putExtra("plak", car_tag);
                             intent.putExtra(Constants.CAR_PLATE_TYPE, plak_type);
-                            Log.d("TestPlakLayout", "setPlakLayout2: " + plak_type );
+                            Log.d("TestPlakLayout", "setPlakLayout2: " + plak_type);
                             intent.putExtra("nameCar", car_name);
                             intent.putExtra("id_customer", user_id + "");
 
-                            intent.putExtra(Constants.CAR_ID, car_id + "" );
+                            intent.putExtra(Constants.CAR_ID, car_id + "");
                             Log.d("CARRRR", "onResponse:FragmentMain:CheckTag " + car_id);
 
                             intent.putExtra("gender", sex);
@@ -499,15 +499,15 @@ public class FragmentMain extends Fragment {
             public void onClick(View view) {
                 String plak = getPlakValueForSearch();
 
-               // String plak = edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString() + edt5.getText().toString() + edt6.getText().toString() + edt7.getText().toString() + edt8.getText().toString();
+                // String plak = edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString() + edt5.getText().toString() + edt6.getText().toString() + edt7.getText().toString() + edt8.getText().toString();
                 String phone = edt_phone_number.getText().toString();
-                Log.d("PLAK", "onClick:plkk: " + plak );
+                Log.d("PLAK", "onClick:plkk: " + plak);
 //                String endPlak = edt8.getText().toString();
                 if (!TextUtils.isEmpty(phone) || !TextUtils.isEmpty(plak)) {
                     if (phone.equals("")) {
-                        if ((plak.length()>=8)) {
+                        if ((plak.length() >= 8)) {
                             checkTag(plak);
-                        } else if ((plak.length()<8)) edt1.setError("پلاک را به درستی وارد کنید");
+                        } else if ((plak.length() < 8)) edt1.setError("پلاک را به درستی وارد کنید");
                     } else if (plak.equals("")) {
                         if (isValidMobile(phone)) {
                             checkPhone(phone);
@@ -554,18 +554,18 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        tv_plk_type_menu.setOnClickListener(v->{
+        tv_plk_type_menu.setOnClickListener(v -> {
             isVisiblePlakLayout = !isVisiblePlakLayout;
             showPlakTypeMenu(isVisiblePlakLayout);
         });
 
-        tv_plk_type_general.setOnClickListener(v->{
+        tv_plk_type_general.setOnClickListener(v -> {
             onClickPlakType(R.id.tv_plk_type_general);
         });
-        tv_plk_type_azad_new.setOnClickListener(v->{
+        tv_plk_type_azad_new.setOnClickListener(v -> {
             onClickPlakType(R.id.tv_plk_type_azad_new);
         });
-        tv_plk_type_azad_old.setOnClickListener(v->{
+        tv_plk_type_azad_old.setOnClickListener(v -> {
             onClickPlakType(R.id.tv_plk_type_azad_old);
         });
     }
@@ -574,19 +574,19 @@ public class FragmentMain extends Fragment {
         ly_pelak_type.setVisibility((isVisible ? View.VISIBLE : View.GONE));
     }
 
-    private void onClickPlakType(int id){
-        switch (id){
+    private void onClickPlakType(int id) {
+        switch (id) {
             case R.id.tv_plk_type_general: {
                 plak_type = PLAK_TYPE.PLAK_GENERAL;
                 plak_layout = ly_plk_general;
                 break;
             }
-            case R.id.tv_plk_type_azad_old:{
+            case R.id.tv_plk_type_azad_old: {
                 plak_type = PLAK_TYPE.PLAK_AZAD_OLD;
                 plak_layout = ly_plk_azad_old;
                 break;
             }
-            case R.id.tv_plk_type_azad_new:{
+            case R.id.tv_plk_type_azad_new: {
                 plak_type = PLAK_TYPE.PLAK_AZAD_NEW;
                 plak_layout = ly_plk_azad_new;
                 break;
@@ -598,7 +598,7 @@ public class FragmentMain extends Fragment {
     }
 
     private void changePlakLayout() {
-        switch (plak_type){
+        switch (plak_type) {
             case PLAK_GENERAL: {
                 ly_plk_general.setVisibility(View.VISIBLE);
                 ly_plk_azad_new.setVisibility(View.GONE);
@@ -618,31 +618,31 @@ public class FragmentMain extends Fragment {
                 break;
             }
         }
-     }
+    }
 
-     private void setPlakAzadOldSpinner(){
+    private void setPlakAzadOldSpinner() {
 
-         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                 R.array.plk_azad_old_cities, R.layout.plak_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.plk_azad_old_cities, R.layout.plak_spinner_item);
 
-         adapter.setDropDownViewResource(R.layout.plak_spinner_item);
+        adapter.setDropDownViewResource(R.layout.plak_spinner_item);
 
-         spinner_plk_azad_old.setAdapter(adapter);
+        spinner_plk_azad_old.setAdapter(adapter);
 
-         spinner_plk_azad_old.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-             @Override
-             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                 selectedCityForPlk = parentView.getItemAtPosition(position).toString();
-                 selectedCityForPlkIndex = position;
-             }
+        spinner_plk_azad_old.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedCityForPlk = parentView.getItemAtPosition(position).toString();
+                selectedCityForPlkIndex = position;
+            }
 
-             @Override
-             public void onNothingSelected(AdapterView<?> parentView) {
-                 selectedCityForPlkIndex = 0;
-                 selectedCityForPlk = parentView.getItemAtPosition(0).toString();
-             }
-         });
-     }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                selectedCityForPlkIndex = 0;
+                selectedCityForPlk = parentView.getItemAtPosition(0).toString();
+            }
+        });
+    }
 
     private boolean keydel = false;
 
@@ -665,7 +665,8 @@ public class FragmentMain extends Fragment {
             }
             return false;
         });
-      }
+    }
+
     private void setDeletionListener(List<EditText> editTexts) {
         for (final EditText editText : editTexts) {
             editText.setOnKeyListener(new View.OnKeyListener() {
@@ -763,9 +764,9 @@ public class FragmentMain extends Fragment {
         sequence.setConfig(config);
 
         android.app.Activity activity = getActivity();
-        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity,searchpelak, getString(R.string.showcase_search_plak), getString(R.string.next_showcase)));
-        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity,AdapterListGridMain.listCustView, getString(R.string.showcase_list_cust_view), getString(R.string.next_showcase)));
-        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity,AdapterListGridMain.listServiceView, getString(R.string.showcase_list_service_view), getString(R.string.close_showcase)));
+        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity, searchpelak, getString(R.string.showcase_search_plak), getString(R.string.next_showcase)));
+        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity, AdapterListGridMain.listCustView, getString(R.string.showcase_list_cust_view), getString(R.string.next_showcase)));
+        sequence.addSequenceItem(Utils.createCustomShowcaseView(activity, AdapterListGridMain.listServiceView, getString(R.string.showcase_list_service_view), getString(R.string.close_showcase)));
         sequence.start();
     }
 
@@ -774,7 +775,7 @@ public class FragmentMain extends Fragment {
 //        G.loading(G.Activity);
         String d_id = PreferenceUtil.getD_id();
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
-        Call<ResponseBody> request = api.getSlider();
+        Call<ResponseBody> request = api.getSliderFragmnetMain();
         request.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -896,11 +897,11 @@ public class FragmentMain extends Fragment {
                                 if (services_center.has("charge_total") && services_center.has("charge_remain")) {
                                     int charge_total = services_center.getInt("charge_total");
                                     int charge_remain = services_center.getInt("charge_remain");
-                                    if(charge_total>10){
-                                        charge_total = charge_total/10;
+                                    if (charge_total > 10) {
+                                        charge_total = charge_total / 10;
                                     }
-                                    if(charge_remain>10){
-                                        charge_remain = charge_remain/10;
+                                    if (charge_remain > 10) {
+                                        charge_remain = charge_remain / 10;
                                     }
                                     G.preference.edit().putInt("charge_total", charge_total).apply();
                                     G.preference.edit().putInt("charge_remain", charge_remain).apply();
@@ -1099,11 +1100,11 @@ public class FragmentMain extends Fragment {
         List<EditText> editTextsInPlakLayout = findEditTextsInLayout(plak_layout);
         StringBuilder plak = new StringBuilder("");
         String endPlak = "";
-        for (int i = 0; i < editTextsInPlakLayout.size() ; i++) {
+        for (int i = 0; i < editTextsInPlakLayout.size(); i++) {
             EditText currentEditText = editTextsInPlakLayout.get(i);
-            if(i == 2 && (plak_type!= PLAK_TYPE.PLAK_AZAD_NEW && plak_type!= PLAK_TYPE.PLAK_AZAD_OLD)){
+            if (i == 2 && (plak_type != PLAK_TYPE.PLAK_AZAD_NEW && plak_type != PLAK_TYPE.PLAK_AZAD_OLD)) {
                 endPlak = currentEditText.getText().toString();
-            }else if ((plak_type == PLAK_TYPE.PLAK_AZAD_NEW || plak_type == PLAK_TYPE.PLAK_AZAD_OLD) && i == 2) {
+            } else if ((plak_type == PLAK_TYPE.PLAK_AZAD_NEW || plak_type == PLAK_TYPE.PLAK_AZAD_OLD) && i == 2) {
                 plak.append(currentEditText.getText().toString());
             } else if ((plak_type == PLAK_TYPE.PLAK_AZAD_NEW || plak_type == PLAK_TYPE.PLAK_AZAD_OLD) && i == editTextsInPlakLayout.size()) {
                 break;
@@ -1115,10 +1116,10 @@ public class FragmentMain extends Fragment {
             plak.append(endPlak);
             setPlakTypeBasedEndPlak(endPlak);
         }
-        if(plak_type == PLAK_TYPE.PLAK_AZAD_OLD ){
+        if (plak_type == PLAK_TYPE.PLAK_AZAD_OLD) {
             plak.append(selectedCityForPlk);
         }
-        Log.d("getPlakValue22:", "getPlakValue: "+plak );
+        Log.d("getPlakValue22:", "getPlakValue: " + plak);
         return plak.toString();
     }
 
@@ -1126,17 +1127,17 @@ public class FragmentMain extends Fragment {
         List<EditText> editTextsInPlakLayout = findEditTextsInLayout(plak_layout);
         StringBuilder plak = new StringBuilder("");
         String endPlak = "";
-        for (int i = 0; i < editTextsInPlakLayout.size() ; i++) {
+        for (int i = 0; i < editTextsInPlakLayout.size(); i++) {
             EditText currentEditText = editTextsInPlakLayout.get(i);
             if ((plak_type == PLAK_TYPE.PLAK_AZAD_NEW || plak_type == PLAK_TYPE.PLAK_AZAD_OLD)) {
                 plak.append(currentEditText.getText().toString());
             } else if ((plak_type == PLAK_TYPE.PLAK_AZAD_NEW || plak_type == PLAK_TYPE.PLAK_AZAD_OLD) && i == editTextsInPlakLayout.size()) {
                 break;
-            } else{
+            } else {
                 plak.append(currentEditText.getText().toString());
             }
         }
-        if(plak_type == PLAK_TYPE.PLAK_AZAD_OLD ){
+        if (plak_type == PLAK_TYPE.PLAK_AZAD_OLD) {
             plak.append(selectedCityForPlk);
         }
         //String plak = edt1.getText().toString() + edt2.getText().toString() + edt4.getText().toString() + edt5.getText().toString() + edt6.getText().toString() + edt7.getText().toString() + edt8.getText().toString() + edt3.getText().toString();
@@ -1145,18 +1146,18 @@ public class FragmentMain extends Fragment {
 
     private void clearPlakEditText() {
         List<EditText> editTextsInPlakLayout = findEditTextsInLayout(plak_layout);
-        for (int i = 0; i < editTextsInPlakLayout.size() ; i++) {
+        for (int i = 0; i < editTextsInPlakLayout.size(); i++) {
             editTextsInPlakLayout.get(i).setText("");
         }
     }
 
     private void setPlakTypeBasedEndPlak(String endPlak) {
-        if(endPlak.equals("ع") || endPlak.equals("ت")) plak_type = PLAK_TYPE.PLAK_TAXI;
-        else if (endPlak.equals("ا"))  plak_type = PLAK_TYPE.PLAK_EDARI;
-        else if (endPlak.equals("پ") || endPlak.equals("ث"))  plak_type = PLAK_TYPE.PLAK_ENTEZAMI;
-        else if (endPlak.equals("#"))  plak_type = PLAK_TYPE.PLAK_MAOLOIN;
+        if (endPlak.equals("ع") || endPlak.equals("ت")) plak_type = PLAK_TYPE.PLAK_TAXI;
+        else if (endPlak.equals("ا")) plak_type = PLAK_TYPE.PLAK_EDARI;
+        else if (endPlak.equals("پ") || endPlak.equals("ث")) plak_type = PLAK_TYPE.PLAK_ENTEZAMI;
+        else if (endPlak.equals("#")) plak_type = PLAK_TYPE.PLAK_MAOLOIN;
         else plak_type = PLAK_TYPE.PLAK_GENERAL;
-        Log.d("TestPlakLayout", "setPlakLayout:1 " + plak_type );
+        Log.d("TestPlakLayout", "setPlakLayout:1 " + plak_type);
 
     }
 

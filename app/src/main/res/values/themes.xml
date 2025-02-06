@@ -19,13 +19,6 @@
     </style>
 
 
-    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
-        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
-        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-
-    </style>
-
-
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
 
         <item name="android:background">@android:color/transparent</item>
@@ -55,7 +48,7 @@
 
     <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
         <item name="colorAccent">@color/button</item>
-        <item name="android:textColorSecondary">@color/graymenu</item>
+        <item name="android:textColorSecondary">@color/check_box_border</item>
     </style>
 
     <style name="Theme.GuideCar.NoActionBar">
@@ -66,4 +59,11 @@
     <style name="Theme.GuideCar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.GuideCar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
 </resources>

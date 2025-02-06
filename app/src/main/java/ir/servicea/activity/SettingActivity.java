@@ -20,15 +20,17 @@ import ir.servicea.R;
 public class SettingActivity extends AppCompatActivity {
 
     TextView txt_tile_action_bar;
-    TextView txt_charge_total, txt_charge_mande;
-    Button btn_produce_group, btn_manage_message, btn_intro,btn_msglog, btn_menage_notif;
+    TextView /*txt_charge_total,*/ txt_charge_mande;
+    Button btn_produce_group, btn_manage_message, btn_intro, btn_msglog, btn_menage_notif, btn_introduce_product, btn_my_product_list;
     ImageView img_back;
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         G.Activity = this;
         G.context = this;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +42,10 @@ public class SettingActivity extends AppCompatActivity {
         txt_tile_action_bar.setText("تنظیمات");
         txt_tile_action_bar.setTypeface(G.Bold);
         Typeface bold = Typeface.createFromAsset(getResources().getAssets(), "Fonts/IRANSans-Bold-web.ttf");
-        txt_charge_total.setTypeface(bold);
+//        txt_charge_total.setTypeface(bold);
         txt_charge_mande.setTypeface(bold);
-        txt_charge_total.setText(G.getDecimalFormattedString(G.preference.getInt("charge_total",0)+""));
-        txt_charge_mande.setText(G.getDecimalFormattedString(G.preference.getInt("charge_remain",0)+""));
+//        txt_charge_total.setText(G.getDecimalFormattedString(G.preference.getInt("charge_total", 0) + ""));
+        txt_charge_mande.setText(G.getDecimalFormattedString(G.preference.getInt("charge_remain", 0) + ""));
 
     }
 
@@ -53,16 +55,18 @@ public class SettingActivity extends AppCompatActivity {
 
     private void FindView() {
         txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
-        btn_produce_group = findViewById(R.id.btn_produce_group);
+        btn_produce_group = findViewById(R.id.btn_service_list);
+        btn_introduce_product = findViewById(R.id.btn_introduce_product);
+        btn_my_product_list = findViewById(R.id.btn_my_product_list);
         btn_manage_message = findViewById(R.id.btn_manage_message);
         btn_intro = findViewById(R.id.btn_intro);
         btn_msglog = findViewById(R.id.btn_msglog);
         btn_menage_notif = findViewById(R.id.btn_menage_notif);
         img_back = findViewById(R.id.img_back);
-        txt_charge_total = findViewById(R.id.txt_charge_total);
+//        txt_charge_total = findViewById(R.id.txt_charge_total);
         txt_charge_mande = findViewById(R.id.txt_charge_mande);
-        txt_charge_mande.setText(G.getDecimalFormattedString(txt_charge_mande.getText().toString()+""));
-        txt_charge_total.setText(G.getDecimalFormattedString(txt_charge_total.getText().toString()+""));
+        txt_charge_mande.setText(G.getDecimalFormattedString(txt_charge_mande.getText().toString() + ""));
+//        txt_charge_total.setText(G.getDecimalFormattedString(txt_charge_total.getText().toString() + ""));
 
     }
 
@@ -73,16 +77,23 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(new Intent(SettingActivity.this, buyCreditActivity.class));
             }
         });
-        findViewById(R.id.gotolog).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SettingActivity.this, MessageLogActivity.class));
-            }
-        });
         btn_produce_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, ProductGroupActivity.class));
+            }
+        });
+        btn_introduce_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, ProductsActivity.class));
+            }
+        });
+        btn_my_product_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, ServiceCenterProductActivity.class));
+
             }
         });
 
@@ -91,7 +102,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, ManageMessageActivity.class));
             }
-        });  btn_msglog.setOnClickListener(new View.OnClickListener() {
+        });
+        btn_msglog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, MessageLogActivity.class));

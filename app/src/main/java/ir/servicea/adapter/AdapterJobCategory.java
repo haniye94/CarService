@@ -42,7 +42,7 @@ public class AdapterJobCategory extends RecyclerView.Adapter<AdapterJobCategory.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.job_category.setTypeface(G.ExtraBold);
+        holder.job_category.setTypeface(G.Normal);
         if (models.get(position).getStatus()==1) {
             holder.job_category.setText(models.get(position).getTitle().toString());
             holder.job_category.setBackgroundResource(R.drawable.item_job_category);
@@ -50,7 +50,7 @@ public class AdapterJobCategory extends RecyclerView.Adapter<AdapterJobCategory.
         } else {
             holder.job_category.setText(models.get(position).getTitle().toString());
             holder.job_category.setBackgroundResource(R.drawable.item_job_category_false);
-            holder.job_category.setTextColor(Color.parseColor("#222222"));
+            holder.job_category.setTextColor(Color.parseColor("#646464"));
         }
 
     }

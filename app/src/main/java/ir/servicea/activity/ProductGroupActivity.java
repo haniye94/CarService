@@ -41,6 +41,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -71,7 +73,6 @@ public class ProductGroupActivity extends AppCompatActivity {
     private CheckBox checkAll;
     private boolean check = false;
 
-    private Button btn_save;
     private AlertDialog alertDialogs_offer_group;
     private DataBaseHelper mDBHelper;
     private SQLiteDatabase mDatabase;
@@ -91,7 +92,7 @@ public class ProductGroupActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        G.preference.edit().putInt("CasheSelectedJobCategory", -1).apply();
+        G.preference.edit().putInt("CasheSelectedJobCategory", 0).apply();
         G.Activity = this;
         context = this;
     }
@@ -113,7 +114,7 @@ public class ProductGroupActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 check = b;
                 for (int i = 0; i < listGroup.size(); i++) {
-                    listGroup.get(i).setCheck(check);
+                    listGroup.get(i).setExist(check);
                 }
                 adapterListProduceGroup.notifyDataSetChanged();
             }
@@ -121,10 +122,16 @@ public class ProductGroupActivity extends AppCompatActivity {
         onItemClickListener = new AdapterListProduceGroup.OnItemClickListener() {
             @Override
             public void onItemClick(ModelProduceGroup model, CheckBox item, AdapterListProduceGroup.ViewHolder holder, int position) {
-                G.Log(model.getId() + " - " + model.isCheck());
-                model.setCheck(item.isChecked());
+                G.Log(model.getProductGroupId() + " - " + model.isExist());
+                model.setExist(item.isChecked());
 
-                addServiceAvailable(position, model.isCheck());
+                updateCheckServiceAvailable(position, model.isExist());
+
+            }
+
+            @Override
+            public void onWageChange(ModelProduceGroup model, String changeWage, int position) {
+                updateWageProductGroup(model, changeWage);
 
             }
         };
@@ -152,13 +159,11 @@ public class ProductGroupActivity extends AppCompatActivity {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
             }
@@ -197,7 +202,7 @@ public class ProductGroupActivity extends AppCompatActivity {
         public PG() {
         }
 
-        public int id;
+        public String id;
         public boolean status;
     }
 
@@ -206,8 +211,8 @@ public class ProductGroupActivity extends AppCompatActivity {
     public void getJob_categories() {
         listJobs.clear();
         listJobsIds.clear();
-        listJobs.add("دسته شغلی");
-        listJobsIds.add(0);
+//        listJobs.add("دسته شغلی");
+//        listJobsIds.add(0);
         spinnerAdapter = new ArrayAdapter(ProductGroupActivity.this, R.layout.item_spiner, listJobs);
         ((ArrayAdapter) spinnerAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_job.setAdapter(spinnerAdapter);
@@ -238,23 +243,13 @@ public class ProductGroupActivity extends AppCompatActivity {
                     JSONObject object = G.StringtoJSONObject(result);
                     JSONArray records = object.getJSONArray("records");
                     if (records.length() > 0) {
-                        List<SliderItem> sliderItemList = new ArrayList<>();
-                        int posi = 0;
                         List<ModelJobCategory> listJobCategory = new ArrayList<>();
                         ModelJobCategory modelJobCategory = new ModelJobCategory();
-                        modelJobCategory.setId(-1);
-                        modelJobCategory.setTitle("همه");
-                        modelJobCategory.setStatus(1);
 
-                        listJobCategory.add(modelJobCategory);
                         for (int i = 0; i < records.length(); i++) {
                             JSONObject obj = records.getJSONObject(i);
-                            SliderItem sliderItem = new SliderItem();
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
-                            if (id == G.preference.getInt("job_category_id", 1)) {
-                                posi = i + 1;
-                            }
                             modelJobCategory = new ModelJobCategory();
                             modelJobCategory.setId(id);
                             modelJobCategory.setTitle(title);
@@ -264,42 +259,37 @@ public class ProductGroupActivity extends AppCompatActivity {
                             listJobs.add(title);
                             listJobsIds.add(id);
                         }
-                        recycle_done_service_type = findViewById(R.id.recycle_done_service_type);
-                        recycle_done_service_type.setLayoutManager(new LinearLayoutManager(ProductGroupActivity.this, RecyclerView.HORIZONTAL, false));
-                        AdapterJobCategory adapterJobCategory = new AdapterJobCategory(ProductGroupActivity.this, listJobCategory);
-                        recycle_done_service_type.setAdapter(adapterJobCategory);
-                        recycle_done_service_type.addOnItemTouchListener(
-                                new RecyclerItemClickListener(context, recycle_done_service_type, new RecyclerItemClickListener.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        for (int i = 0; i < listJobCategory.size(); i++) {
-                                            listJobCategory.get(i).setStatus(0);
-                                        }
-                                        saveIds();
-                                        listJobCategory.get(position).setStatus(1);
-                                        adapterJobCategory.notifyDataSetChanged();
-                                        G.preference.edit().putInt("CasheSelectedJobCategory", listJobCategory.get(position).getId()).apply();
-                                        getJob_services("", G.preference.getInt("CasheSelectedJobCategory", 0));
-                                    }
-
-                                    @Override
-                                    public void onLongItemClick(View view, int position) {
-                                        // do whatever
-                                    }
-                                })
-                        );
-                        spinnerAdapter.notifyDataSetChanged();
-                        int finalPosi = posi;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 spinner_job.post(new Runnable() {
                                     public void run() {
-                                        spinner_job.setSelection(finalPosi);
+                                        String title = G.preference.getString("job_category_name", "");
+                                        ModelJobCategory doctorCategory = null;
+
+                                        // Find the doctor category
+                                        for (ModelJobCategory jc : listJobCategory) {
+                                            if (jc.getTitle().equalsIgnoreCase(title)) {
+                                                doctorCategory = jc;
+                                                break;
+                                            }
+                                        }
+
+                                        // If doctor category is found, remove it from the list and add it to the front
+                                        if (doctorCategory != null) {
+                                            listJobCategory.remove(doctorCategory);
+                                            listJobCategory.add(0, doctorCategory);
+                                            listJobCategory.get(0).setStatus(1);
+                                            spinner_job.setSelection(0);
+                                        }
+
+                                        initRecycle(listJobCategory);
                                     }
                                 });
                             }
                         }, 10);
+
+                        spinnerAdapter.notifyDataSetChanged();
                         getJob_services("", G.preference.getInt("CasheSelectedJobCategory", 0));
                     } else {
                         G.toast("هیچ دسته شغلی یافت نشد!");
@@ -321,17 +311,43 @@ public class ProductGroupActivity extends AppCompatActivity {
 
     }
 
+    public void initRecycle(List<ModelJobCategory> listJobCategory) {
+        recycle_done_service_type = findViewById(R.id.recycle_done_service_type);
+        recycle_done_service_type.setLayoutManager(new LinearLayoutManager(ProductGroupActivity.this, RecyclerView.HORIZONTAL, false));
+        AdapterJobCategory adapterJobCategory = new AdapterJobCategory(ProductGroupActivity.this, listJobCategory);
+        recycle_done_service_type.setAdapter(adapterJobCategory);
+        recycle_done_service_type.addOnItemTouchListener(new RecyclerItemClickListener(context, recycle_done_service_type, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                for (int i = 0; i < listJobCategory.size(); i++) {
+                    listJobCategory.get(i).setStatus(0);
+                }
+                saveIds();
+                listJobCategory.get(position).setStatus(1);
+                adapterJobCategory.notifyDataSetChanged();
+                G.preference.edit().putInt("CasheSelectedJobCategory", listJobCategory.get(position).getId()).apply();
+                getJob_services("", G.preference.getInt("CasheSelectedJobCategory", 0));
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // do whatever
+            }
+        }));
+
+    }
+
     public void saveIds() {
         for (int j = 0; j < listGroup.size(); j++) {
             for (int x = 0; x < enables.size(); x++) {
                 PG pg = enables.get(x);
-                if (pg.id == listGroup.get(j).getId()) {
+                if (pg.id.equals(listGroup.get(j).getProductGroupId())) {
                     enables.remove(x);
                 }
             }
             PG pg = new PG();
-            pg.id = listGroup.get(j).getId();
-            pg.status = listGroup.get(j).isCheck();
+            pg.id = listGroup.get(j).getProductGroupId();
+            pg.status = listGroup.get(j).isExist();
             enables.add(pg);
         }
     }
@@ -342,7 +358,6 @@ public class ProductGroupActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
         img_add_message = findViewById(R.id.img_add_message);
         checkAll = findViewById(R.id.checkAll);
-        btn_save = findViewById(R.id.btn_save);
         recycle_produce_group = findViewById(R.id.recycle_produce_group);
     }
 
@@ -357,15 +372,6 @@ public class ProductGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogOfferGroup(ProductGroupActivity.this);
-            }
-        });
-
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                G.stop_loading();
-                G.toast("ثبت انجام شد");
-                finish();
             }
         });
     }
@@ -431,12 +437,10 @@ public class ProductGroupActivity extends AppCompatActivity {
             job_category_id = G.preference.getInt("job_category_id", 1);
         }
         String where = "eq";
-        if (job_category_id == -1) {
-            where = "gt";
-        }
-        String d_id = PreferenceUtil.getD_id();
+        int service_center_id = Integer.parseInt(PreferenceUtil.getD_id());
+
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
-        Call<ResponseBody> request = api.getProduct_groups("job_category_id," + where + "," + job_category_id);
+        Call<ResponseBody> request = api.getProductGroups(service_center_id, String.valueOf(job_category_id));
         if (key.length() > 0) {
             swipeRefreshLayout.setRefreshing(true);
             request = api.getProduct_groupsBySearch("job_category_id," + where + "," + job_category_id, "title,cs," + key);
@@ -450,52 +454,40 @@ public class ProductGroupActivity extends AppCompatActivity {
                 assert response.body() != null;
                 listGroup.clear();
                 try {
-                    String result = response.body().string();
-                    G.Log(call.request().toString());
-                    JSONObject object = G.StringtoJSONObject(result);
-                    if (object != null) {
-                        JSONArray records = object.getJSONArray("records");
-                        if (records.length() > 0) {
-                            List<SliderItem> sliderItemList = new ArrayList<>();
+                    String result = G.getResult(response);
 
-                            for (int i = 0; i < records.length(); i++) {
-                                JSONObject obj = records.getJSONObject(i);
-                                SliderItem sliderItem = new SliderItem();
-                                int id = obj.getInt("id");
-                                String km_usagex = obj.getString("km_usage") + "";
-                                int km_usage = 0;
-                                if (!km_usagex.contains("null")) {
-                                    km_usage = obj.getInt("km_usage");
-                                }
-                                String title = obj.getString("title");
-                                String send_msgx = (obj.getString("send_msg") + "").replace("null", "0");
-                                boolean send_msg = send_msgx.contains("1");
-//                                check = checkProductGroup(id);
-                                check = false;
-                                listGroup.add(new ModelProduceGroup(id, title, km_usage, check, send_msg));
+//                    JSONObject object = G.StringtoJSONObject(result);
+//                    JSONArray record = object.getJSONArray("records");
+                    JSONArray records = new JSONArray(result);
+                    if (records.length() > 0) {
+                        for (int i = 0; i < records.length(); i++) {
+                            JSONObject obj = records.getJSONObject(i);
+                            String product_group_id = obj.getString("product_group_id");
+                            String title = obj.getString("title");
+                            String serviceCenterProductGroupId = obj.optString("service_center_product_group_id", "N/A"); // Handle null
+                            String changeWage = obj.optString("change_wage", "N/A"); // Handle empty value
+                            check = obj.getBoolean("exist");
+                            listGroup.add(new ModelProduceGroup(product_group_id, title, check, serviceCenterProductGroupId, changeWage));
 
-
-                            }
-
-
-                            listServiceAvailable();
-
-                        } else {
-                            G.stop_loading();
-                            G.toast("هیچ گروه کالا\u200Cای در این دسته شغلی یافت نشد");
                         }
+
+                        G.stop_loading();
+//                            listServiceAvailable();
+
+                    } else {
+                        G.stop_loading();
+                        G.toast("هیچ گروه کالا\u200Cای در این دسته شغلی یافت نشد");
                     }
-                } catch (JSONException | IOException e) {
+
+                } catch (JSONException e) {
                     G.stop_loading();
                     G.toast("مشکل در تجزیه اطلاعات");
                     e.printStackTrace();
                 }
                 recycle_produce_group.setLayoutManager(new LinearLayoutManager(ProductGroupActivity.this, RecyclerView.VERTICAL, false));
                 adapterListProduceGroup = new AdapterListProduceGroup(ProductGroupActivity.this, listGroup, onItemClickListener);
-//        adapterListProduceGroup = new AdapterListProduceGroup(ProductGroupActivity.this, mDBHelper.getListProductGroup(mDatabase));
                 recycle_produce_group.setAdapter(adapterListProduceGroup);
                 swipeRefreshLayout.setRefreshing(false);
-
                 adapterListProduceGroup.notifyDataSetChanged();
                 fromrefresh = false;
 
@@ -557,10 +549,10 @@ public class ProductGroupActivity extends AppCompatActivity {
                             for (int j = 0; j < listGroup.size(); j++) {
 
 
-                                if ((listGroup.get(j).getId() + "").equals(obj.getString("product_group_id"))) {
+                                if ((listGroup.get(j).getProductGroupId() + "").equals(obj.getString("product_group_id"))) {
                                     boolean status = obj.getInt("status") == 1;
-                                    listGroup.get(j).setCheck(status);
-                                    listGroup.get(j).setJob_id(job_id);
+                                    listGroup.get(j).setExist(status);
+                                    listGroup.get(j).setJob_category_id(job_id);
                                 }
 
                             }
@@ -594,28 +586,31 @@ public class ProductGroupActivity extends AppCompatActivity {
 
     public int countxx = 0;
 
-    public void addServiceAvailable(int position, boolean status) {
-        String id = listGroup.get(position).getId() + "";
-        String d_id = PreferenceUtil.getD_id();
+    public void updateCheckServiceAvailable(int position, boolean status) {
+        String id = listGroup.get(position).getProductGroupId() + "";
+        int service_center_id = Integer.parseInt(PreferenceUtil.getD_id());
         String created_at = G.converToEn(DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date()).toString());
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         JSONObject objectSend = new JSONObject();
         try {
-            objectSend.put("service_center_id", d_id);
+            objectSend.put("service_center_id", service_center_id);
             objectSend.put("product_group_id", id);
-            if (status) {
-                objectSend.put("status", "1");
-            } else {
-                objectSend.put("status", "0");
-            }
+//            if (status) {
+//                objectSend.put("status", "1");
+//            } else {
+//                objectSend.put("status", "0");
+//            }
+            objectSend.put("status", status);
+
             objectSend.put("created_at", created_at);
             objectSend.put("updated_at", created_at);
+            objectSend.put("change_vage", listGroup.get(position).getChange_wage());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Call<ResponseBody> request = api.checkProductGroupAvailable("service_center_id,eq," + d_id, "product_group_id,eq," + id);
+        Call<ResponseBody> request = api.checkProductGroupAvailable("service_center_id,eq," + service_center_id, "product_group_id,eq," + id);
         request.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -640,6 +635,8 @@ public class ProductGroupActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                                    G.stop_loading();
+                                    G.toast("مشکل در برقراری ارتباط با سرور");
                                 }
                             });
 
@@ -654,6 +651,8 @@ public class ProductGroupActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط با سرور");
             }
         });
     }
@@ -669,8 +668,78 @@ public class ProductGroupActivity extends AppCompatActivity {
                 G.Log(call.request().toString());
                 G.Log(result);
             }
+
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط با سرور");
+            }
+        });
+    }
+
+    public void updateWageProductGroup(ModelProduceGroup model, String changeWage) {
+        String product_groups_id = model.getProductGroupId();
+        int service_center_id = Integer.parseInt(PreferenceUtil.getD_id());
+        Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
+
+        Call<ResponseBody> request = api.checkProductGroupAvailable("service_center_id,eq," + service_center_id, "product_group_id,eq," + product_groups_id);
+        request.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    String result = G.getResult(response);
+                    G.Log(call.request().toString());
+                    G.Log(result);
+                    JSONObject object = G.StringtoJSONObject(result);
+                    JSONArray records = object.getJSONArray("records");
+                    if (records.length() > 0) {
+                        for (int i = 0; i < records.length(); i++) {
+                            JSONObject obj = records.getJSONObject(i);
+                            JSONObject objectSend = new JSONObject();
+                            try {
+                                objectSend.put("id", obj.get("id"));
+                                objectSend.put("service_center_id", service_center_id);
+                                objectSend.put("product_groups_id", product_groups_id);
+                                objectSend.put("status", model.isExist());
+                                objectSend.put("change_vage", changeWage);
+                                objectSend.put("created_at", obj.get("created_at"));
+                                objectSend.put("updated_at", obj.get("updated_at"));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Call<ResponseBody> request = api.updateProductGroupAvailable(obj.getInt("id"), G.returnBody(objectSend.toString()));
+                            request.enqueue(new retrofit2.Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+                                    if (response.code() == 200) {
+                                        G.toast("تغییرات با موفقیت صورت گرفت.");
+                                    }
+                                    String result = G.getResult(response);
+                                    G.Log(call.request().toString());
+                                    G.Log(result);
+
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                                    G.stop_loading();
+                                    G.toast("مشکل در برقراری ارتباط با سرور");
+                                }
+                            });
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط با سرور");
             }
         });
     }

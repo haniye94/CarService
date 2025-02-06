@@ -1,75 +1,66 @@
 package ir.servicea.model.dbModel;
 
 public class ModelProduceGroup {
-    int id;
-    String onvan;
-    int job_id;
-    int km_usage;
-    int performance;
-    boolean check;
-    boolean send_msg;
+    String product_group_id;
+    String title;
+    private String change_wage;
+    int job_category_id;
+    private String service_center_product_group_id;
+    boolean exist;
 
-    public ModelProduceGroup(int id, String onvan,int km_usage,boolean check,  boolean send_msg) {
-        this.id = id;
-        this.onvan = onvan;
-        this.check = check;
-        this.send_msg = send_msg;
-        this.km_usage = km_usage;
+    public ModelProduceGroup(String product_group_id, String title, boolean exist, String service_center_product_group_id, String change_wage) {
+        this.product_group_id = product_group_id;
+        this.title = title;
+        this.exist = exist;
+        this.setService_center_product_group_id(service_center_product_group_id);
+        this.change_wage = change_wage;
     }
 
-    public int getKm_usage() {
-        return km_usage;
+    public String getProductGroupId() {
+        return product_group_id;
     }
 
-    public void setKm_usage(int km_usage) {
-        this.km_usage = km_usage;
+    public void setProductGroupId(String id) {
+        this.product_group_id = id;
     }
 
-    public boolean isSend_msg() {
-        return send_msg;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSend_msg(boolean send_msg) {
-        this.send_msg = send_msg;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getId() {
-        return id;
+    public int getJob_category_id() {
+        return job_category_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setJob_category_id(int job_category_id) {
+        this.job_category_id = job_category_id;
     }
 
-    public String getOnvan() {
-        return onvan;
+    public boolean isExist() {
+        return exist;
     }
 
-    public void setOnvan(String onvan) {
-        this.onvan = onvan;
+    public void setExist(boolean exist) {
+        this.exist = exist;
     }
 
-    public int getJob_id() {
-        return job_id;
+    public String getChange_wage() {
+        return change_wage;
     }
 
-    public void setJob_id(int job_id) {
-        this.job_id = job_id;
+    public void setChange_wage(String change_wage) {
+        this.change_wage = change_wage;
     }
 
-    public int getPerformance() {
-        return performance;
+    public String getService_center_product_group_id() {
+        return service_center_product_group_id;
     }
 
-    public void setPerformance(int performance) {
-        this.performance = performance;
-    }
-
-    public boolean isCheck() {
-        return check;
-    }
-
-    public void setCheck(boolean check) {
-        this.check = check;
+    public void setService_center_product_group_id(String service_center_product_group_id) {
+        this.service_center_product_group_id = service_center_product_group_id;
     }
 }

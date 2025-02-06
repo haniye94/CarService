@@ -65,7 +65,7 @@ public static TextView show_msg ;
         G.context = this;
         FindView();
         onClick();
-        txt_tile_action_bar.setText("مدیریت پیامک\u200Cbtn_saveها");
+        txt_tile_action_bar.setText("مدیریت پیامک\u200Cها");
         txt_tile_action_bar.setTypeface(G.Bold);
         swipeRefreshLayout = findViewById(R.id.swipe);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.button));
@@ -288,7 +288,6 @@ public static TextView show_msg ;
     }
 
     private void FindView() {
-        txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
         txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
         recycle = findViewById(R.id.recycle_done_service_type);
         img_add_message = findViewById(R.id.img_add_message);

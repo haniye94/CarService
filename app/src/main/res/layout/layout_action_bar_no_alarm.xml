@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="@color/background"
+    android:gravity="left|center"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:textDirection="rtl">
+
+
+    <TextView
+        android:id="@+id/txt_tile_action_bar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="7dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="عنوان"
+        android:textColor="@color/text_low_dark"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_left_arrow"/>
+
+</LinearLayout>

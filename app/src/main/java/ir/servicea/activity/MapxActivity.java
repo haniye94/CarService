@@ -381,7 +381,7 @@ public class MapxActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 String formatted_address = (object.getString("formatted_address") + "").replace("null", "");
                                 if (neighbourhood.length() == 0 && object.has("formatted_address")) {
                                     String[] addressTitle = object.getString("formatted_address").split("،");
-                                    neighbourhood = addressTitle[1] + "،" + addressTitle[2];
+//                                    neighbourhood = addressTitle[1] + "،" + addressTitle[2];
                                 }
                                 String city = object.getString("city").trim();
                                 addressTextView.setText(formatted_address); // Show the address in the TextView
