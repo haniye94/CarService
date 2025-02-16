@@ -383,4 +383,9 @@ public interface Api {
 
     @POST("api.php/records/users_banks_account")
     Call<ResponseBody> addBankCard(@Body RequestBody body);
+
+    @GET("api.php/records/users_banks_account")
+    Call<ResponseBody> getBankCardList(@Query("service_center_id") int service_center_id);
+
+
 }
