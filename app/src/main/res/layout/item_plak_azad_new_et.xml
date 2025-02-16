@@ -12,7 +12,7 @@
     >
     <EditText
         android:id="@+id/edt1"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -22,13 +22,13 @@
         android:layoutDirection="ltr"
         android:textColor="@color/text_low_dark"
         android:textDirection="rtl"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt2"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:inputType="number"
@@ -36,13 +36,13 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt3"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:inputType="number"
@@ -50,13 +50,13 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt4"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:inputType="number"
@@ -64,14 +64,14 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
 
     <EditText
         android:id="@+id/edt5"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:inputType="number"
@@ -79,21 +79,22 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt6"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:inputType="number"
         android:layoutDirection="ltr"
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
+        android:layout_marginEnd="2dp"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="1"
         android:textColorHint="@color/text_hint_plak"/>
 
@@ -117,7 +118,7 @@
         android:maxLength="5"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:hint="11"
         android:textColorHint="@color/text_hint_plak"/>
 </LinearLayout>

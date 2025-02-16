@@ -21,7 +21,7 @@ public class SettingActivity extends AppCompatActivity {
 
     TextView txt_tile_action_bar;
     TextView /*txt_charge_total,*/ txt_charge_mande;
-    Button btn_produce_group, btn_manage_message, btn_intro, btn_msglog, btn_menage_notif, btn_introduce_product, btn_my_product_list;
+    Button btn_produce_group, btn_manage_message, btn_intro, btn_msglog, btn_menage_notif, btn_introduce_product, btn_my_product_list, btn_banck_card;
     ImageView img_back;
 
     @Override
@@ -61,6 +61,7 @@ public class SettingActivity extends AppCompatActivity {
         btn_manage_message = findViewById(R.id.btn_manage_message);
         btn_intro = findViewById(R.id.btn_intro);
         btn_msglog = findViewById(R.id.btn_msglog);
+        btn_banck_card = findViewById(R.id.btn_add_bank_card);
         btn_menage_notif = findViewById(R.id.btn_menage_notif);
         img_back = findViewById(R.id.img_back);
 //        txt_charge_total = findViewById(R.id.txt_charge_total);
@@ -107,6 +108,13 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, MessageLogActivity.class));
+            }
+        });
+        btn_banck_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, BankCardActivity.class));
+
             }
         });
         btn_intro.setOnClickListener(new View.OnClickListener() {

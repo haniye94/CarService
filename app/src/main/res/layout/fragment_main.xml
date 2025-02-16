@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,28 +8,47 @@
     android:orientation="vertical"
     android:textDirection="rtl">
 
-    <!--    <include layout="@layout/layout_action_bar" />-->
     <LinearLayout
+        android:id="@+id/ll_toolbar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/background"
         android:gravity="left|center"
         android:layoutDirection="ltr"
         android:orientation="horizontal"
-        android:textDirection="rtl">
+        android:textDirection="rtl"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:padding="6dp"
             android:src="@drawable/ic_notifications" />
 
         <ImageView
-            android:id="@+id/ic_reserve_list"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="8dp"
+            android:id="@+id/iv_reserve_list"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:padding="4dp"
             android:src="@drawable/ic_reserve_list" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_profile" />
+
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_home" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -54,10 +73,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_charge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_toolbar">
 
         <LinearLayout
             android:id="@+id/chargepanel"
@@ -72,40 +94,38 @@
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/remaincharge"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="6dp"
-
                 android:layout_marginRight="6dp"
                 android:gravity="center"
-                android:text="شارژ باقیمانده: "
+                android:text="شارژ مانده "
                 android:textColor="#222"
-                android:textSize="13dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/charge"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="28dp"
                 android:gravity="center|right"
                 android:text="1000"
                 android:textColor="#222"
-                android:textSize="15dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/toman"
                 android:layout_width="wrap_content"
-
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginStart="28dp"
                 android:gravity="center|right"
                 android:text="تومان"
                 android:textColor="#222"
-                android:textSize="10dp" />
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -115,372 +135,292 @@
             <TextView
                 android:id="@+id/buysharge"
                 android:layout_width="wrap_content"
-
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:text="خرید شارژ"
                 android:textColor="@color/button"
-
-
                 android:textSize="14dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="7dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingRight="10dp">
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/ic_blue" />
-
-            <TextView
-                android:id="@+id/txt_title_advertisetop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="-0.1dp"
-                android:text="جستجوی پلاک خودرو"
-                android:textColor="@color/text_dark"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchpelak"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shap_simple_rec"
-            android:elevation="1dp"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-
-                    <include
-                        android:id="@+id/ly_plk_general"
-                        layout="@layout/item_plak_general_et" />
-
-                    <include
-                        android:id="@+id/ly_plk_azad_new"
-                        layout="@layout/item_plak_azad_new_et"
-                        android:visibility="gone" />
-
-                    <include
-                        android:id="@+id/ly_plk_azad_old"
-                        layout="@layout/item_plak_azad_old_et"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edt_phone"
-                    style="@style/edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:focusableInTouchMode="true"
-                    android:hint="موبایل"
-                    android:inputType="number"
-                    android:visibility="gone"
-                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                    app:boxStrokeErrorColor="#CCFD2D2D"
-                    app:boxStrokeWidthFocused="1dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_phone_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:focusableInTouchMode="true"
-                        android:inputType="number"
-                        android:textColor="@color/text_low_dark"
-                        android:textColorHint="@color/text_low_dark"
-                        android:textSize="13dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_plk_type_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shap_button"
-                    android:backgroundTint="@color/gray_btn_bg_pressed_color"
-                    android:gravity="center"
-                    android:letterSpacing="-0.1"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="4dp"
-                    android:text="@string/plk_type"
-                    android:textColor="@color/white"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="10dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/graymenu" />
-
-                <TextView
-                    android:id="@+id/txt_search_plak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shap_button"
-                    android:gravity="center"
-                    android:letterSpacing="-0.1"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="4dp"
-                    android:text="جستجو"
-                    android:textColor="@color/white"
-                    android:textSize="13dp" />
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/border_edt"
-                    android:paddingTop="7dp"
-                    android:paddingBottom="7dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/txt_search_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="33dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/back_gray"
-                    android:gravity="center"
-                    android:letterSpacing="-0.1"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="پلاک خوان"
-                    android:textColor="@color/white"
-                    android:textSize="13dp"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <include
-            android:id="@+id/ly_pelak_type"
-            layout="@layout/layout_plak_type"
-            android:visibility="gone" />
     </LinearLayout>
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/fl_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_charge">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical">
-
+            android:layout_gravity="top">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/gridView_main"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/gridView_main"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clipChildren="true"
+                            android:clipToPadding="true"
+                            android:layoutDirection="ltr" />
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:cardCornerRadius="6dp">
+
+                        <com.smarteist.autoimageslider.SliderView
+                            android:id="@+id/sliderView"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            app:sliderAnimationDuration="600"
+                            app:sliderAutoCycleDirection="back_and_forth"
+                            app:sliderAutoCycleEnabled="true"
+                            app:sliderIndicatorAnimationDuration="600"
+                            app:sliderIndicatorGravity="center_horizontal|bottom"
+                            app:sliderIndicatorMargin="15dp"
+                            app:sliderIndicatorOrientation="horizontal"
+                            app:sliderIndicatorPadding="3dp"
+                            app:sliderIndicatorRadius="2dp"
+                            app:sliderIndicatorSelectedColor="#5A5A5A"
+                            app:sliderIndicatorUnselectedColor="#FFF"
+                            app:sliderScrollTimeInSec="1"
+                            app:sliderStartAutoCycle="true" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_bg_produce" />
+
+                            <TextView
+                                android:id="@+id/txt_title_advertisetopx"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="-0.1dp"
+                                android:text="پیشنهاد ویژه"
+                                android:textColor="@color/text_dark"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycle_advertise_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_bg_car_info" />
+
+                            <TextView
+                                android:id="@+id/txt_title_advertise1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="-0.1dp"
+                                android:text="مجله خودرو"
+                                android:textColor="@color/text_dark"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycle_advertise_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="68dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_bg_car_info" />
+
+                            <TextView
+                                android:id="@+id/txt_title_advertise2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="-0.1dp"
+                                android:text="مجله آموزشی"
+                                android:textColor="@color/text_dark"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycle_advertise_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="25dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/gradient_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="68dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp">
+
+
+                <LinearLayout
+                    android:id="@+id/searchpelak"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_search_plak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:clipChildren="true"
-                        android:clipToPadding="true"
-                        android:layoutDirection="ltr" />
-                </LinearLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    app:cardCornerRadius="6dp">
-
-                    <com.smarteist.autoimageslider.SliderView
-                        android:id="@+id/sliderView"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        app:sliderAnimationDuration="600"
-                        app:sliderAutoCycleDirection="back_and_forth"
-                        app:sliderAutoCycleEnabled="true"
-                        app:sliderIndicatorAnimationDuration="600"
-                        app:sliderIndicatorGravity="center_horizontal|bottom"
-                        app:sliderIndicatorMargin="15dp"
-                        app:sliderIndicatorOrientation="horizontal"
-                        app:sliderIndicatorPadding="3dp"
-                        app:sliderIndicatorRadius="2dp"
-                        app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="#FFF"
-                        app:sliderScrollTimeInSec="1"
-                        app:sliderStartAutoCycle="true" />
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:src="@drawable/ic_search_left" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="7dp"
+                        android:layout_width="240dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_border"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingRight="10dp">
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_bg_produce" />
 
-                        <TextView
-                            android:id="@+id/txt_title_advertisetopx"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lineSpacingExtra="-0.1dp"
-                            android:text="پیشنهاد ویژه"
-                            android:textColor="@color/text_dark"
-                            android:textSize="16dp" />
+                        <include
+                            android:id="@+id/ly_plk_general"
+                            layout="@layout/item_plak_general_et" />
+
+                        <include
+                            android:id="@+id/ly_plk_azad_new"
+                            layout="@layout/item_plak_azad_new_et"
+                            android:visibility="gone" />
+
+                        <include
+                            android:id="@+id/ly_plk_azad_old"
+                            layout="@layout/item_plak_azad_old_et"
+                            android:visibility="gone" />
+
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycle_advertise_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <androidx.appcompat.widget.AppCompatImageView
+
+                        android:id="@+id/iv_plk_type_menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:src="@drawable/ic_more" />
+
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
+            </androidx.cardview.widget.CardView>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="7dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingRight="10dp">
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_bg_car_info" />
-
-                        <TextView
-                            android:id="@+id/txt_title_advertise1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lineSpacingExtra="-0.1dp"
-                            android:text="مجله خودرو"
-                            android:textColor="@color/text_dark"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycle_advertise_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="7dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingRight="10dp">
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_bg_car_info" />
-
-                        <TextView
-                            android:id="@+id/txt_title_advertise2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lineSpacingExtra="-0.1dp"
-                            android:text="مجله آموزشی"
-                            android:textColor="@color/text_dark"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycle_advertise_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="25dp" />
-
-                </LinearLayout>
-            </LinearLayout>
+            <include
+                android:id="@+id/ly_pelak_type"
+                layout="@layout/layout_plak_type"
+                android:visibility="gone" />
         </LinearLayout>
+    </FrameLayout>
 
-    </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

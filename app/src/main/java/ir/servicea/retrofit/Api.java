@@ -144,6 +144,9 @@ public interface Api {
     @PUT("api.php/records/customers_car/{id}")
     Call<ResponseBody> editCar(@Path("id") String id, @Body RequestBody body);
 
+    @PUT("api.php/records/customers_car/{id}")
+    Call<ResponseBody> deleteCar(@Path("id") String car_id, @Body RequestBody body);
+
     @POST("api.php/records/users")
     Call<ResponseBody> newCustomer(@Body RequestBody body);
 
@@ -152,7 +155,6 @@ public interface Api {
 
     @POST("api.php/records/services")
     Call<ResponseBody> addService(@Body RequestBody body);
-
 
     @POST("api.php/records/services_detail")
     Call<ResponseBody> addServicesDetail(@Body RequestBody body);
@@ -379,4 +381,6 @@ public interface Api {
     @POST("api.php/records/products_name")
     Call<ResponseBody> addNewProducts(@Body RequestBody body);
 
+    @POST("api.php/records/users_banks_account")
+    Call<ResponseBody> addBankCard(@Body RequestBody body);
 }

@@ -14,7 +14,7 @@
 
     <EditText
         android:id="@+id/edt1"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -26,12 +26,12 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="rtl"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt2"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:hint="1"
@@ -40,12 +40,12 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt3"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:hint="1"
@@ -54,13 +54,13 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:textColorHint="@color/text_hint_plak"/>
 
 
     <EditText
         android:id="@+id/edt4"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:hint="1"
@@ -69,12 +69,12 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt5"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:hint="1"
@@ -83,49 +83,24 @@
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
         android:textDirection="ltr"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:textColorHint="@color/text_hint_plak"/>
 
     <EditText
         android:id="@+id/edt6"
-        android:layout_width="25dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:hint="1"
         android:inputType="number"
         android:layoutDirection="ltr"
+        android:layout_marginEnd="2dp"
         android:maxLength="1"
         android:textColor="@color/text_low_dark"
+        android:textColorHint="@color/text_hint_plak"
         android:textDirection="ltr"
-        android:textSize="25dp"
-        android:textColorHint="@color/text_hint_plak"/>
+        android:textSize="24dp" />
 
-    <!--    <EditText
-            android:id="@+id/edt7"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|bottom"
-            android:inputType="number"
-            android:layoutDirection="ltr"
-            android:maxLength="1"
-            android:textColor="@color/text_low_dark"
-            android:textDirection="ltr"
-            android:textSize="25dp"
-            android:hint="6"/>
-
-        <EditText
-            android:id="@+id/edt8"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|bottom"
-            android:imeOptions="actionSearch"
-            android:inputType="number"
-            android:layoutDirection="ltr"
-            android:maxLength="1"
-            android:textColor="@color/text_low_dark"
-            android:textDirection="ltr"
-            android:textSize="25dp"
-            android:hint="6"/>-->
 
     <TextView
         android:layout_width="1dp"
@@ -141,7 +116,7 @@
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="true"
         android:entries="@array/plk_azad_old_cities"
-        android:textSize="25dp"
+        android:textSize="24dp"
         android:gravity="center"/>
 
 </LinearLayout>

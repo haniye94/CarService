@@ -320,7 +320,7 @@ public class AddNewProductDialogBottomSheet extends BottomSheetDialogFragment {
             object.put("product_group_id", productAdd.getProductGroupId());
             object.put("brand_id", productAdd.getBrandId());
             object.put("grade_id", productAdd.getGradeId());
-            object.put("quality_type_id", "1"/*productAdd.getQualityTypeId()*/);
+            object.put("quality_type_id", productAdd.getQualityTypeId());
             object.put("name", edt_product_name.getText().toString());
             object.put("description", "");
             object.put("status", 0);

@@ -48,7 +48,7 @@
         android:layoutDirection="rtl">
 
     <TextView
-        android:id="@+id/txt_search_plak"
+        android:id="@+id/iv_search_plak"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"

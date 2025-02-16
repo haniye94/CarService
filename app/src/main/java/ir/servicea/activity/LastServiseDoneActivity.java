@@ -18,10 +18,8 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,7 +30,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -605,7 +602,7 @@ public class LastServiseDoneActivity extends AppCompatActivity {
         loadingPB = findViewById(R.id.idPBLoading);
         swipeRefreshLayout = findViewById(R.id.swipe);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.button));
-        tv_plk_type_menu = findViewById(R.id.tv_plk_type_menu);
+        tv_plk_type_menu = findViewById(R.id.iv_plk_type_menu);
 
         ly_plk_general = findViewById(R.id.ly_plk_general);
         ly_plk_azad_new = findViewById(R.id.ly_plk_azad_new);
@@ -840,7 +837,7 @@ public class LastServiseDoneActivity extends AppCompatActivity {
         ImageView img_close;
         TextView txt_search_plak, txt_search_phone, txt_search_name;
         img_close = view.findViewById(R.id.img_close);
-        txt_search_plak = view.findViewById(R.id.txt_search_plak);
+        txt_search_plak = view.findViewById(R.id.iv_search_plak);
         txt_search_phone = view.findViewById(R.id.txt_search_phone);
         txt_search_name = view.findViewById(R.id.txt_search_name);
         img_close.setOnClickListener(new View.OnClickListener() {

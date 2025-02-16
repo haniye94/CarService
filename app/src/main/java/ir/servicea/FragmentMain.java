@@ -24,12 +24,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -81,12 +81,10 @@ public class FragmentMain extends Fragment {
     private List<ModelAdvertise> advertisess = new ArrayList<>();
     private List<ModelAdvertise2> advertises2 = new ArrayList<>();
     private TextView txt_tile_action_bar;
-    private ImageView ic_reserve_list;
+    private ImageView ic_reserve_list, iv_search_plak, iv_plk_type_menu, iv_home, iv_profile;
 
     private EditText edt1, edt2, edt3, edt4, edt5, edt6, edt7, edt8;
-    private TextView charge, buysharge, txt_search_plak, txt_search_phone, txt_title_advertise1, txt_title_advertise2, txt_title_advertisetop;
-    private TextInputLayout edt_phone;
-    private TextInputEditText edt_phone_number;
+    private TextView charge, buysharge, txt_title_advertise1, txt_title_advertise2;
     private LinearLayout ly_plak;
     private DataBaseHelper mDBHelper;
     private SQLiteDatabase mDatabase;
@@ -103,7 +101,7 @@ public class FragmentMain extends Fragment {
     private PLAK_TYPE plak_type = PLAK_TYPE.PLAK_GENERAL;
     private ViewGroup plak_layout;
 
-    private TextView tv_plk_type_menu, tv_plk_type_general, tv_plk_type_azad_new, tv_plk_type_azad_old;
+    private TextView tv_plk_type_general, tv_plk_type_azad_new, tv_plk_type_azad_old;
 
     private boolean isVisiblePlakLayout = false;
 
@@ -117,6 +115,7 @@ public class FragmentMain extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         preferenceUtil = new PreferenceUtil(getContext());
+        number.clear();
         number.add(new ModelItemMain(4, "اطلاعات خودرو", R.drawable.ic_car_info, R.drawable.ic_bg_car_info));
         number.add(new ModelItemMain(3, "پیامک", R.drawable.ic_mail, R.drawable.ic_main_bg_message));
         number.add(new ModelItemMain(1, "سرویس\u200Cها", R.drawable.ic_services, R.drawable.ic_bg_services));
@@ -138,7 +137,6 @@ public class FragmentMain extends Fragment {
 //        txt_tile_action_bar.setTypeface(G.ExtraBold);
         txt_title_advertise1.setTypeface(G.Bold);
         txt_title_advertise2.setTypeface(G.Bold);
-        txt_title_advertisetop.setTypeface(G.Bold);
         edt1.requestFocus();
 
 //      txt_tile_action_bar.setText(preferenceUtil.getName_auto_service());
@@ -494,30 +492,16 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        txt_search_plak.setOnClickListener(new View.OnClickListener() {
+        iv_search_plak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String plak = getPlakValueForSearch();
 
-                // String plak = edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString() + edt5.getText().toString() + edt6.getText().toString() + edt7.getText().toString() + edt8.getText().toString();
-                String phone = edt_phone_number.getText().toString();
-                Log.d("PLAK", "onClick:plkk: " + plak);
-//                String endPlak = edt8.getText().toString();
-                if (!TextUtils.isEmpty(phone) || !TextUtils.isEmpty(plak)) {
-                    if (phone.equals("")) {
-                        if ((plak.length() >= 8)) {
-                            checkTag(plak);
-                        } else if ((plak.length() < 8)) edt1.setError("پلاک را به درستی وارد کنید");
-                    } else if (plak.equals("")) {
-                        if (isValidMobile(phone)) {
-                            checkPhone(phone);
-                        } else {
-                            edt_phone_number.setError("شماره موبایل را به درستی وارد کنید");
-                        }
-                    }
-                } else if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(plak)) {
-                    Toast.makeText(getContext(), "پلاک را وارد کنید", Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(plak)) {
 
+                    if ((plak.length() >= 8)) {
+                        checkTag(plak);
+                    } else if ((plak.length() < 8)) edt1.setError("پلاک را به درستی وارد کنید");
                 } else {
                     Toast.makeText(getContext(), "پلاک را وارد کنید", Toast.LENGTH_SHORT).show();
                 }
@@ -525,36 +509,22 @@ public class FragmentMain extends Fragment {
 
             }
         });
-
-        txt_search_phone.setOnClickListener(new View.OnClickListener() {
+        iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), SimpleScannerActivity.class));
-//                if (txt_search_phone.getText().equals("جستجو شماره موبایل")) {
-//                    txt_search_phone.setText("جستجو پلاک");
-//                    edt1.setText("");
-//                    edt2.setText("");
-//                    edt3.setText("");
-//                    edt4.setText("");
-//                    edt5.setText("");
-//                    edt6.setText("");
-//                    edt7.setText("");
-//                    edt8.setText("");
-//                    ly_plak.setVisibility(View.GONE);
-//                    edt_phone.setVisibility(View.VISIBLE);
-//                    txt_search_phone.setTextColor(getResources().getColor(R.color.text_low_dark));
-//
-//                } else if (txt_search_phone.getText().equals("جستجو پلاک")) {
-//                    edt_phone_number.setText("");
-//                    txt_search_phone.setText("جستجو شماره موبایل");
-//                    ly_plak.setVisibility(View.VISIBLE);
-//                    edt_phone.setVisibility(View.GONE);
-//                    txt_search_phone.setTextColor(getResources().getColor(R.color.text_low_dark));
-//                }
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                Fragmentprofile fragmentProfile = new Fragmentprofile();
+                fragmentTransaction.replace(R.id.fragment_container, fragmentProfile);
+                fragmentTransaction.addToBackStack(null); // Enables back navigation
+
+                fragmentTransaction.commit();
             }
         });
 
-        tv_plk_type_menu.setOnClickListener(v -> {
+
+        iv_plk_type_menu.setOnClickListener(v -> {
             isVisiblePlakLayout = !isVisiblePlakLayout;
             showPlakTypeMenu(isVisiblePlakLayout);
         });
@@ -660,7 +630,7 @@ public class FragmentMain extends Fragment {
         edt8.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 edt1.requestFocus();
-                txt_search_plak.performClick();
+                iv_search_plak.performClick();
                 return true;
             }
             return false;
@@ -717,24 +687,22 @@ public class FragmentMain extends Fragment {
         edt8 = view.findViewById(R.id.edt8);
         gridView_main = view.findViewById(R.id.gridView_main);
 //        txt_tile_action_bar = view.findViewById(R.id.txt_tile_action_bar);
-        txt_search_plak = view.findViewById(R.id.txt_search_plak);
-        txt_search_phone = view.findViewById(R.id.txt_search_phone);
-        edt_phone = view.findViewById(R.id.edt_phone);
+        iv_search_plak = view.findViewById(R.id.iv_search_plak);
         ly_plak = view.findViewById(R.id.ly_plak);
-        edt_phone_number = view.findViewById(R.id.edt_phone_number);
         recycle_advertise_two = view.findViewById(R.id.recycle_advertise_two);
         recycle_advertise_one = view.findViewById(R.id.recycle_advertise_one);
         txt_title_advertise1 = view.findViewById(R.id.txt_title_advertise1);
         txt_title_advertise2 = view.findViewById(R.id.txt_title_advertise2);
-        txt_title_advertisetop = view.findViewById(R.id.txt_title_advertisetop);
         recycle_advertise_top = view.findViewById(R.id.recycle_advertise_top);
         sliderView = view.findViewById(R.id.sliderView);
         searchpelak = view.findViewById(R.id.searchpelak);
         chargepanel = view.findViewById(R.id.chargepanel);
         charge = view.findViewById(R.id.charge);
         buysharge = view.findViewById(R.id.buysharge);
-        ic_reserve_list = view.findViewById(R.id.ic_reserve_list);
-        tv_plk_type_menu = view.findViewById(R.id.tv_plk_type_menu);
+        ic_reserve_list = view.findViewById(R.id.iv_reserve_list);
+        iv_plk_type_menu = view.findViewById(R.id.iv_plk_type_menu);
+        iv_home = view.findViewById(R.id.iv_home);
+        iv_profile = view.findViewById(R.id.iv_profile);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1022,7 +990,6 @@ public class FragmentMain extends Fragment {
         edt7.setText("");
         edt8.setText("");
         edt1.requestFocus();
-        edt_phone_number.setText("");
     }
 
     public void getBlogs() {

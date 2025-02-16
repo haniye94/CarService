@@ -57,9 +57,9 @@
     <string name="enable_service_msg_prov" translatable="false">برای ارسال پیامک ابتدا پیامک کارت سرویس را فعال نمایید.</string>
     <string name="timer_format"> %02d:%02d تا ارسال مجدد کد</string>
 
-    <string name="menu_plk_general">پلاک عمومی</string>
-    <string name="menu_plk_azad_new">پلاک آزاد جدید</string>
-    <string name="menu_plk_azad_old">پلاک آزاد قدیم</string>
+    <string name="menu_plk_general">پلاک ملی</string>
+    <string name="menu_plk_azad_new">منطقه آزاد جدید</string>
+    <string name="menu_plk_azad_old">منطقه آزاد قدیم</string>
     <string name="plk_type">نوع پلاک</string>
 
     <string name="next_showcase">بعدی</string>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".activity.BankCardActivity">
+
+    <include layout="@layout/layout_action_bar_no_alarm" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_bg_car_info" />
+
+        <TextView
+            android:id="@+id/txt_title_advertise1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="-0.1dp"
+            android:text=" افزودن کارت بانکی"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="12dp"
+        android:hint="شماره کارت بانکی"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:boxStrokeWidthFocused="1dp"
+        app:hintTextColor="@color/text_gray"
+        app:placeholderTextAppearance="@style/customFontStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_card_no"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="19"
+            android:maxLines="1"
+            android:nextFocusForward="@+id/edt_sheba_no"
+            android:singleLine="true"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="10dp"
+        android:hint="شماره شبا"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:boxStrokeWidthFocused="1dp"
+        app:hintTextColor="@color/text_gray"
+        app:placeholderTextAppearance="@style/customFontStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_sheba_no"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="27"
+            android:maxLines="1"
+            android:nextFocusForward="@+id/edt_bank_name"
+            android:singleLine="true"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="10dp"
+        android:hint="نام بانک"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:boxStrokeWidthFocused="1dp"
+        app:hintTextColor="@color/text_gray"
+        app:placeholderTextAppearance="@style/customFontStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_bank_name"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusForward="@+id/edt_bank_user_name"
+            android:singleLine="true"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="10dp"
+        android:hint="کد ملی دارنده حساب"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:boxStrokeWidthFocused="1dp"
+        app:hintTextColor="@color/text_gray"
+        app:placeholderTextAppearance="@style/customFontStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_national_code"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:nextFocusForward="@+id/edt_last_name"
+            android:singleLine="true"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_card"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shap_button"
+        android:stateListAnimator="@null"
+        android:text="ثبت کارت بانکی"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Product List Section -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bank_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:layoutDirection="ltr"
+            android:padding="16dp"
+            android:scrollbarStyle="insideOverlay"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_bank_card" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

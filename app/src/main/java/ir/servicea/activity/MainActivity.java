@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -26,6 +28,8 @@ import org.json.JSONObject;
 import java.util.Date;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import ir.servicea.FragmentMain;
+import ir.servicea.Fragmentprofile;
 import ir.servicea.R;
 import ir.servicea.adapter.AdapterTabLayout;
 import ir.servicea.app.Constants;
@@ -44,17 +48,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    CustomViewPager viewPager;
     PreferenceUtil preferenceUtil;
-    private int[] tabIcons = {
-
-            R.drawable.ic_home,
-            R.drawable.ic_guid,
-            R.drawable.ic_profile,
-
-    };
-
+    public static boolean profileFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,92 +58,20 @@ public class MainActivity extends AppCompatActivity {
         G.Activity = this;
         G.context = this;
         preferenceUtil = new PreferenceUtil(this);
-        FindView();
         preferenceUtil.cashFirstRun(false);
+        // Check if the fragment_container is empty to avoid adding the fragment multiple times
+        if (savedInstanceState == null) {
+            FragmentMain fragmentMain = new FragmentMain();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.add(R.id.fragment_container, fragmentMain);
+            fragmentTransaction.commit();
+        }
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("خانه"));
-        tabLayout.addTab(tabLayout.newTab().setText("راهنما"));
-        tabLayout.addTab(tabLayout.newTab().setText("پروفایل"));
-
-        tabLayout.setSelectedTabIndicatorHeight(0);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final AdapterTabLayout adapterr = new AdapterTabLayout(this, getSupportFragmentManager(),
-                tabLayout.getTabCount());
-        viewPager.setAdapter(adapterr);
-        viewPager.setPagingEnabled(false);
-        viewPager.setOffscreenPageLimit(5);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.button);
-                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.graymenu);
-                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-        setupTabIcons();
-
-
-        Uri data = getIntent().getData();
-
-//        ZarinPal.getPurchase(this).verificationPayment(data, new OnCallbackVerificationPaymentListener() {
-//            @Override
-//            public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
-////                final ArrayList<NameValuePair> params = new ArrayList<>();
-////                params.add(new BasicNameValuePair("user_id", "" + G.preferences.getString("ID", "")));
-////                if (isPaymentSuccess)
-////                    params.add(new BasicNameValuePair("isPaymentSuccess", 1 + ""));
-////                else
-////                    params.add(new BasicNameValuePair("isPaymentSuccess", 0 + ""));
-////                params.add(new BasicNameValuePair("refID", "" + refID));
-////                params.add(new BasicNameValuePair("amount", "" + paymentRequest.getAmount()));
-//                if (G.debug) {
-//                    String message = "پرداخت با موفقیت انجام شد";
-//                    changeCharge(G.preference.getInt("amount_charge", 0));
-//                    G.toast(message);
-//                } else {
-//                    if (isPaymentSuccess) {
-//                        String message = "پرداخت با موفقیت انجام شد";
-//                        changeCharge(G.preference.getInt("amount_charge", 0));
-//                        G.toast(message);
-//                    } else {
-//
-//                        String message = "پرداخت انجام نشد";
-//                        G.toast(message);
-//                    }
-//                }
-////                payment(params, paymentRequest.getAmount() + "");
-//
-//
-//            }
-//        });
         getZarinPallVerify();
         cheack_update();
-    }
-
-
-    private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-    }
-
-    private void FindView() {
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
-
     }
 
     @Override
@@ -180,13 +103,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        if (viewPager.getCurrentItem() != 0) {
-            viewPager.setCurrentItem(0);
+        if (profileFragment) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            }
         } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
             G.toast("برای خروج دوباره کلیک کنید");
             this.doubleBackToExitPressedOnce = true;
             new Handler().postDelayed(new Runnable() {
@@ -197,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 2000);
         }
+
 
     }
 
@@ -324,11 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
         SweetAlertDialog s = new SweetAlertDialog(G.context, SweetAlertDialog.WARNING_TYPE)
 
-                .setTitleText("بروزرسانی برنامه")
-                .setContentText("لطفا نسخه جدید برنامه را نصب کنید")
-                .setCancelText(" بستن ")
-                .setConfirmText(" دانلود ")
-                .showCancelButton(false)
+                .setTitleText("بروزرسانی برنامه").setContentText("لطفا نسخه جدید برنامه را نصب کنید").setCancelText(" بستن ").setConfirmText(" دانلود ").showCancelButton(false)
 
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -380,10 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getZarinPallVerify() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(G.zarinPallBaseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(G.zarinPallBaseUrl).addConverterFactory(GsonConverterFactory.create()).build();
 
         SharedPreferences prefs = getSharedPreferences("AUTHORITY_PREFS_NAME", MODE_PRIVATE);
         String authority = prefs.getString("authority", "");
@@ -396,10 +316,11 @@ public class MainActivity extends AppCompatActivity {
         zarinVerify.setAmount(amount);
         zarinVerify.setAuthority(authority);
         Call<ResponseBody> call = apiService.verifyZarinPall(Constants.reserve_service_accept, Constants.reserve_service_content, zarinVerify);
-      if (!verified){        call.enqueue(new Callback<ResponseBody>() {
-          @Override
-          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              String result = G.getResult(response);
+        if (!verified) {
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    String result = G.getResult(response);
         /*        if (result.equals("") && !verified) {
                     try {
                         result = G.getErrorResult(response);
@@ -413,32 +334,32 @@ public class MainActivity extends AppCompatActivity {
                         throw new RuntimeException(e);
                     }
                 } else {*/
-              try {
-                  JSONObject verifyResponse = new JSONObject(result);
-                  JSONObject data = verifyResponse.getJSONObject("data");
-                  String message = data.getString("message");
-                  int code = data.getInt("code");
+                    try {
+                        JSONObject verifyResponse = new JSONObject(result);
+                        JSONObject data = verifyResponse.getJSONObject("data");
+                        String message = data.getString("message");
+                        int code = data.getInt("code");
 
-                  if (code == 100) {
-                      if (message.equals("Paid")) {
-                          G.saveAuthority(authority, amount, true);
-                          changeCharge(G.preference.getInt("amount_charge", 0));
-                          G.toast("پرداخت با موفقیت انجام شد");
-                      }
-                  } else {
-                      G.toast("پرداخت انجام نشد");
-                  }
-              } catch (JSONException e) {
-              }
-          }
+                        if (code == 100) {
+                            if (message.equals("Paid")) {
+                                G.saveAuthority(authority, amount, true);
+                                changeCharge(G.preference.getInt("amount_charge", 0));
+                                G.toast("پرداخت با موفقیت انجام شد");
+                            }
+                        } else {
+                            G.toast("پرداخت انجام نشد");
+                        }
+                    } catch (JSONException e) {
+                    }
+                }
 
 //            }
 
-          @Override
-          public void onFailure(Call<ResponseBody> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-          }
-      });
-      }
+                }
+            });
+        }
     }
 }

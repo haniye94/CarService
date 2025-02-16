@@ -166,7 +166,7 @@
                 android:textSize="14dp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_bank_card"
+                android:id="@+id/btn_add_bank_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shap_simple"

@@ -1,9 +1,5 @@
 package ir.servicea.activity;
 
-import static ir.servicea.app.Constants.PLAK_TYPE.PLAK_AZAD_NEW;
-import static ir.servicea.app.Constants.PLAK_TYPE.PLAK_AZAD_OLD;
-import static ir.servicea.app.Constants.PLAK_TYPE.PLAK_GENERAL;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +13,6 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -35,7 +30,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
@@ -1381,7 +1375,7 @@ G.Log(car_id+"Mashin");
         edt_last_name = findViewById(R.id.edt_last_name);
 //        edt_name_car = findViewById(R.id.edt_name_car);
         edt_phone_number = findViewById(R.id.edt_phone_number);
-        iv_plk_type_menu = findViewById(R.id.tv_plk_type_menu);
+        iv_plk_type_menu = findViewById(R.id.iv_plk_type_menu);
 
         ly_plk_general = findViewById(R.id.ly_plk_general);
         ly_plk_malolin = findViewById(R.id.ly_plk_malolin);

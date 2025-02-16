@@ -56,7 +56,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_plk_type_menu"
+                    android:id="@+id/iv_plk_type_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

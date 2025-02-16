@@ -21,6 +21,7 @@ import ir.servicea.app.G;
 import ir.servicea.R;
 import ir.servicea.activity.InformationCustomersActivity;
 import ir.servicea.app.PLakUtils;
+import ir.servicea.model.ModelAddedProductCenter;
 import ir.servicea.model.dbModel.ModelCustomer;
 
 public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustomer.ViewHolder> {
@@ -150,8 +151,7 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
                 holder.txt_plak_customer4.setText(c3);
                 break;
             }
-            case 5:
-            {
+            case 5: {
                 holder.plaks.setVisibility(View.VISIBLE);
                 String c1 = plak.substring(0, 2);
                 String c2 = plak.substring(2, plak.length() - 3);
@@ -247,4 +247,10 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
 
         }
     }
+
+    public void updateItemData(int position) {
+                models.remove(position);
+                notifyItemChanged(position);
+        }
+
 }

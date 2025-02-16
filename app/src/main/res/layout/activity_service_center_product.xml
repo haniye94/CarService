@@ -9,7 +9,6 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
-    <!-- Toolbar/Header Section -->
     <include layout="@layout/layout_action_bar_no_alarm" />
 
 

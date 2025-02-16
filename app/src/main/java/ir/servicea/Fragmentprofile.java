@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import ir.servicea.activity.AlarmsActivity;
 import ir.servicea.activity.CommentsActivity;
 import ir.servicea.activity.LoginInfoActivity;
+import ir.servicea.activity.MainActivity;
 import ir.servicea.activity.SplashActivity;
 import ir.servicea.activity.SupportActivity;
 import ir.servicea.activity.UserAccessActivity;
@@ -49,6 +50,7 @@ public class Fragmentprofile extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_profile, container, false);
         preferenceUtil = new PreferenceUtil(getContext());
+        MainActivity.profileFragment=true;
         FindView(view);
         onClick();
         txt_tile_action_bar.setText("تنظیمات حساب کاربری");

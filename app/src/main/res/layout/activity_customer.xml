@@ -8,7 +8,7 @@
     android:layoutDirection="rtl"
     android:orientation="vertical"
     android:textDirection="rtl"
-    tools:context="com.servicea.ir.servicea.itemMain.CustomerActivity">
+    tools:context=".activity.CustomerActivity">
 
     <include layout="@layout/layout_action_bar_pages" />
 
