@@ -244,7 +244,7 @@ public class ProductsActivity extends AppCompatActivity implements FilterProduct
                             }
                         } else {
                             G.stop_loading();
-                            Toast.makeText(ProductsActivity.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
+                            G.toast("مشکل در برقراری ارتباط با سرور");
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -276,7 +276,7 @@ public class ProductsActivity extends AppCompatActivity implements FilterProduct
     }
 
     private void showDialogBrandAndGroup() {
-        FilterProductDialogBottomSheet bottomSheetDialog = new FilterProductDialogBottomSheet(this);
+        FilterProductDialogBottomSheet bottomSheetDialog = new FilterProductDialogBottomSheet(this, group_id, brand_id);
         bottomSheetDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.BottomSheetDialogTheme);
         bottomSheetDialog.show(getSupportFragmentManager(), "bottomSheet");
     }

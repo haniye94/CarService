@@ -305,7 +305,7 @@ public class ServiceCenterProductActivity extends AppCompatActivity implements F
     }
 
     private void showDialogBrandAndGroup() {
-        FilterProductDialogBottomSheet bottomSheetDialog = new FilterProductDialogBottomSheet(this);
+        FilterProductDialogBottomSheet bottomSheetDialog = new FilterProductDialogBottomSheet(this, group_id, brand_id);
         bottomSheetDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.BottomSheetDialogTheme);
         bottomSheetDialog.show(getSupportFragmentManager(), "bottomSheet");
     }

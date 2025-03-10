@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() > 0) {
                 fragmentManager.popBackStack();
+                profileFragment=false;
             }
         } else {
             if (doubleBackToExitPressedOnce) {

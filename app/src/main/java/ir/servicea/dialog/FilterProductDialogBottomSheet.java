@@ -49,6 +49,10 @@ public class FilterProductDialogBottomSheet extends BottomSheetDialogFragment {
     private final List<ModelSpinner> listBrand = new ArrayList<>();
     List<String> spinnerGroup = new ArrayList<>();
     List<String> spinnerBrand = new ArrayList<>();
+    String groupId = "0";
+    String brandId = "0";
+    int selectedGroupPosition = 0;
+    int selectedBrandPosition = 0;
 
 
     Button btn_filter, btn_cancel;
@@ -83,9 +87,12 @@ public class FilterProductDialogBottomSheet extends BottomSheetDialogFragment {
         sendValueToActivity(change, groupProduct, brandProduct);
     }
 
-    public FilterProductDialogBottomSheet(@NonNull Context context) {
+    public FilterProductDialogBottomSheet(@NonNull Context context, String groupId, String brandId) {
         this.context = context;
+        this.groupId = groupId;
+        this.brandId = brandId;
     }
+
 
     @Nullable
     @Override
@@ -143,10 +150,15 @@ public class FilterProductDialogBottomSheet extends BottomSheetDialogFragment {
         }
         spinner_group.setAdapter(G.setFontToSpinner(spinnerGroup));
 
+        for (int i = 0; i < listGroup.size(); i++) {
+            if (listGroup.get(i).getId().equals(groupId))
+                selectedGroupPosition = i + 1;
+        }
+        spinner_group.setSelection(selectedGroupPosition);
+
         spinner_group.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 groupProduct = new ModelSpinner();
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("انتخاب کنید")) {
@@ -173,6 +185,12 @@ public class FilterProductDialogBottomSheet extends BottomSheetDialogFragment {
             spinnerBrand.add(listBrand.get(i).getName());
         }
         spinner_brand.setAdapter(G.setFontToSpinner(spinnerBrand));
+        for (int i = 0; i < listBrand.size(); i++) {
+            if (listBrand.get(i).getId().equals(brandId))
+                selectedBrandPosition = i + 1;
+        }
+        spinner_brand.setSelection(selectedBrandPosition);
+
         spinner_brand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,7 +232,8 @@ public class FilterProductDialogBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 G.stop_loading();
-                G.toast("مشکل در برقراری ارتباط با سرور");            }
+                G.toast("مشکل در برقراری ارتباط با سرور");
+            }
         });
 
     }

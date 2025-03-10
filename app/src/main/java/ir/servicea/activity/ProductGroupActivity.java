@@ -70,6 +70,7 @@ public class ProductGroupActivity extends AppCompatActivity {
     public static List<ModelProduceGroup> listGroup = new ArrayList<>();
     // public static List<ModelSaveKhadamat> save = new ArrayList<>();
     private AdapterListProduceGroup adapterListProduceGroup;
+    private AdapterJobCategory adapterJobCategory;
     private CheckBox checkAll;
     private boolean check = false;
 
@@ -84,6 +85,8 @@ public class ProductGroupActivity extends AppCompatActivity {
     private boolean fromrefresh = false;
     private EditText search;
     private RecyclerView recycle_done_service_type;
+    private List<ModelJobCategory> listJobCategory = new ArrayList<>();
+
 
     public void onclickAlamrs(View v) {
         startActivity(new Intent(ProductGroupActivity.this, AlarmsActivity.class));
@@ -147,6 +150,11 @@ public class ProductGroupActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
+                            for (int i = 0; i < listJobCategory.size(); i++) {
+                                listJobCategory.get(i).setStatus(0);
+                                adapterJobCategory.notifyDataSetChanged();
+                            }
                             getJob_services(search.getText().toString(), listJobsIds.get(spinner_job.getSelectedItemPosition()));
                         }
                     }, 250);
@@ -243,7 +251,7 @@ public class ProductGroupActivity extends AppCompatActivity {
                     JSONObject object = G.StringtoJSONObject(result);
                     JSONArray records = object.getJSONArray("records");
                     if (records.length() > 0) {
-                        List<ModelJobCategory> listJobCategory = new ArrayList<>();
+                        listJobCategory = new ArrayList<>();
                         ModelJobCategory modelJobCategory = new ModelJobCategory();
 
                         for (int i = 0; i < records.length(); i++) {
@@ -314,7 +322,7 @@ public class ProductGroupActivity extends AppCompatActivity {
     public void initRecycle(List<ModelJobCategory> listJobCategory) {
         recycle_done_service_type = findViewById(R.id.recycle_done_service_type);
         recycle_done_service_type.setLayoutManager(new LinearLayoutManager(ProductGroupActivity.this, RecyclerView.HORIZONTAL, false));
-        AdapterJobCategory adapterJobCategory = new AdapterJobCategory(ProductGroupActivity.this, listJobCategory);
+        adapterJobCategory = new AdapterJobCategory(ProductGroupActivity.this, listJobCategory);
         recycle_done_service_type.setAdapter(adapterJobCategory);
         recycle_done_service_type.addOnItemTouchListener(new RecyclerItemClickListener(context, recycle_done_service_type, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -433,20 +441,16 @@ public class ProductGroupActivity extends AppCompatActivity {
     }
 
     public void getJob_services(String key, int job_category_id) {
+        swipeRefreshLayout.setRefreshing(true);
         if (job_category_id == 0) {
-            job_category_id = G.preference.getInt("job_category_id", 1);
+            job_category_id = G.preference.getInt("job_category_id", job_category_id);
         }
-        String where = "eq";
         int service_center_id = Integer.parseInt(PreferenceUtil.getD_id());
 
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         Call<ResponseBody> request = api.getProductGroups(service_center_id, String.valueOf(job_category_id));
         if (key.length() > 0) {
-            swipeRefreshLayout.setRefreshing(true);
-            request = api.getProduct_groupsBySearch("job_category_id," + where + "," + job_category_id, "title,cs," + key);
-
-        } else {
-            G.loading(this);
+            request = api.getProductGroupsBySearch(key);
         }
         request.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
@@ -456,8 +460,6 @@ public class ProductGroupActivity extends AppCompatActivity {
                 try {
                     String result = G.getResult(response);
 
-//                    JSONObject object = G.StringtoJSONObject(result);
-//                    JSONArray record = object.getJSONArray("records");
                     JSONArray records = new JSONArray(result);
                     if (records.length() > 0) {
                         for (int i = 0; i < records.length(); i++) {

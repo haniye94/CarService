@@ -24,7 +24,6 @@ public class AdapterJobCategory extends RecyclerView.Adapter<AdapterJobCategory.
     Context context;
     LayoutInflater layoutInflater;
     List<ModelJobCategory> models;
-    AlertDialog alertDialogs_detect_type;
     DataBaseHelper mDBHelper;
 
     public AdapterJobCategory(Context context, List<ModelJobCategory> models) {

@@ -83,7 +83,7 @@ public class AddProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ReserveProduct> call, Throwable t) {
-                Toast.makeText(AddProductActivity.this, "خطا: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                G.toast("مشکل در برقراری ارتباط با سرور");
             }
         });
     }

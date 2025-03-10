@@ -180,11 +180,7 @@ public interface Api {
     Call<ResponseBody> queueService(@Query("filter") String filter, @Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL")
-    Call<ResponseBody> nextService(@Query("filter") String filter1,
-                                   @Query("filter") String filter2,
-                                   @Query("filter") String filter3,
-                                   @Query("order") String order,
-                                   @Query("size") int size);
+    Call<ResponseBody> nextService(@Query("filter") String filter1, @Query("filter") String filter2, @Query("filter") String filter3, @Query("order") String order, @Query("size") int size);
 
     @GET("api.php/records/servicess?filter=deleted_at,is,NULL&size=1")
     Call<ResponseBody> previousService(@Query("filter") String filter, @Query("filter") String filterx, @Query("filter1") String filter1, @Query("order") String order);
@@ -376,6 +372,9 @@ public interface Api {
 
     @GET("api-reports.php?action=getProductGroups")
     Call<ResponseBody> getProductGroups(@Query("service_center_id") int service_center_id, @Query("job_category_id") String job_category_id);
+
+    @GET("api-reports.php?action=getProductGroups")
+    Call<ResponseBody> getProductGroupsBySearch(@Query("search_key") String key);
 
 
     @POST("api.php/records/products_name")

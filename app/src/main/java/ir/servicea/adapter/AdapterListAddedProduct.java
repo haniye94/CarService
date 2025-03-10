@@ -82,8 +82,6 @@ public class AdapterListAddedProduct extends RecyclerView.Adapter<AdapterListAdd
             cl_root = itemView.findViewById(R.id.cl_root);
         }
 
-        ;
-
 
         public void bind(Context context, final ModelAddedProductCenter item, final AdapterListAddedProduct.ProductViewHolder holder, final AdapterListAddedProduct.OnAddProductClick listener, final OnHideProductClick hideListener) {
 //            if (item.getStatus() == 0)

@@ -44,7 +44,7 @@ public class AdapterListDetectGroup extends RecyclerView.Adapter<AdapterListDete
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.item_layout_produce_group, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.item_detect_group, parent, false));
     }
 
     @Override
