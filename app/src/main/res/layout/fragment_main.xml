@@ -43,13 +43,6 @@
             android:padding="6dp"
             android:src="@drawable/ic_profile" />
 
-        <ImageView
-            android:id="@+id/iv_home"
-            android:layout_width="32dp"
-            android:layout_height="34dp"
-            android:padding="6dp"
-            android:src="@drawable/ic_home" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -113,7 +106,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="28dp"
                 android:gravity="center|right"
-                android:text="1000"
                 android:textColor="#222"
                 android:textSize="16dp" />
 
