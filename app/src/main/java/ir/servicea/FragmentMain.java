@@ -81,7 +81,7 @@ public class FragmentMain extends Fragment {
     private List<ModelAdvertise> advertisess = new ArrayList<>();
     private List<ModelAdvertise2> advertises2 = new ArrayList<>();
     private TextView txt_tile_action_bar;
-    private ImageView ic_reserve_list, iv_search_plak, iv_plk_type_menu, iv_profile;
+    private ImageView ic_reserve_list, iv_search_plak, iv_plk_type_menu, iv_profile, iv_notification;
 
     private EditText edt1, edt2, edt3, edt4, edt5, edt6, edt7, edt8;
     private TextView charge, buysharge, txt_title_advertise1, txt_title_advertise2;
@@ -523,6 +523,12 @@ public class FragmentMain extends Fragment {
             }
         });
 
+        iv_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onclickAlamrs(view);
+            }
+        });
 
         iv_plk_type_menu.setOnClickListener(v -> {
             isVisiblePlakLayout = !isVisiblePlakLayout;
@@ -702,6 +708,7 @@ public class FragmentMain extends Fragment {
         ic_reserve_list = view.findViewById(R.id.iv_reserve_list);
         iv_plk_type_menu = view.findViewById(R.id.iv_plk_type_menu);
         iv_profile = view.findViewById(R.id.iv_profile);
+        iv_notification = view.findViewById(R.id.notification);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

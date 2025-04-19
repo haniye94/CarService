@@ -84,8 +84,8 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layout = R.layout.item_list_customer;
-        switch (viewType) {
+        int layout = R.layout.item_list_customer_new;
+        /*switch (viewType) {
             case 1:
                 layout = R.layout.item_list_customer;
                 break;
@@ -114,7 +114,7 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
                 layout = R.layout.item_list_customer_azad_old;
                 break;
 
-        }
+        }*/
         return new ViewHolder(layoutInflater.inflate(layout, parent, false));
     }
 
@@ -123,67 +123,70 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
         ModelCustomer customer = models.get(position);
         String plak = (customer.getPlak() + "").replace(" ", "").replace("null", "");
 //        String plak = "12345666کیش";
-        if (plak.length() > 3) {
-            setPlakBasedViewType(plak, holder);
-        } else {
-            holder.plaks.setVisibility(View.GONE);
-        }
+//        if (plak.length() > 3) {
+//            setPlakBasedViewType(plak, holder);
+//        } else {
+//            holder.plaks.setVisibility(View.GONE);
+//        }
         holder.txt_name_customer.setText(customer.getFirst_name().toString() + " " + customer.getLast_name().toString());
         holder.txt_name_car.setText(customer.getName_car());
-        holder.txt_phone_customer.setText(customer.getPhone());
+//        holder.txt_phone_customer.setText(customer.getPhone());
+        if (customer.getType_car().contains("null")) holder.txt_car_type.setText("ندارد");
+        else holder.txt_car_type.setText(customer.getType_car());
+        holder.txt_created.setText(customer.getDate_save_customer());
         holder.bind(context, customer, holder, listener);
     }
 
-    private void setPlakBasedViewType(String plak, ViewHolder holder) {
-        switch (holder.getItemViewType()) {
-            case 1:
-            case 2:
-            case 3:
-            case 4: {
-                holder.plaks.setVisibility(View.VISIBLE);
-                String c1 = plak.substring(0, 2);
-                String c2 = plak.substring(2, plak.length() - 3);
-                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
-                String c4 = plak.substring(plak.length() - 1);
-                holder.txt_plak_customer1.setText(c1);
-                holder.txt_plak_customer2.setText(c4);
-                holder.txt_plak_customer3.setText(c2);
-                holder.txt_plak_customer4.setText(c3);
-                break;
-            }
-            case 5: {
-                holder.plaks.setVisibility(View.VISIBLE);
-                String c1 = plak.substring(0, 2);
-                String c2 = plak.substring(2, plak.length() - 3);
-                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
-                holder.txt_plak_customer1.setText(c1);
-                holder.txt_plak_customer2.setVisibility(View.GONE);
-                holder.txt_plak_customer3.setText(c2);
-                holder.txt_plak_customer4.setText(c3);
-                break;
-            }
-            case 6: {
-                holder.plaks.setVisibility(View.VISIBLE);
-                String c1 = plak.substring(0, 6);
-                String c4 = plak.substring(6, plak.length());
-                holder.txt_plak_customer1.setText(c1);
-                holder.txt_plak_customer2.setText(c4);
-                holder.txt_plak_customer3.setText(PLakUtils.convertPersianToEnglish(c1));
-                holder.txt_plak_customer4.setText(PLakUtils.convertPersianToEnglish(c4));
-                break;
-            }
-            case 7: {
-                holder.plaks.setVisibility(View.VISIBLE);
-                String c1 = plak.substring(0, 6);
-                String c4 = plak.substring(6, plak.length());
-                holder.txt_plak_customer1.setText(c1);
-                holder.txt_plak_customer2.setText(PLakUtils.convertPersianToEnglish(c1));
-                holder.txt_plak_customer3.setText(c4);
-                holder.txt_plak_customer4.setVisibility(View.GONE);
-                break;
-            }
-        }
-    }
+//    private void setPlakBasedViewType(String plak, ViewHolder holder) {
+//        switch (holder.getItemViewType()) {
+//            case 1:
+//            case 2:
+//            case 3:
+//            case 4: {
+//                holder.plaks.setVisibility(View.VISIBLE);
+//                String c1 = plak.substring(0, 2);
+//                String c2 = plak.substring(2, plak.length() - 3);
+//                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
+//                String c4 = plak.substring(plak.length() - 1);
+//                holder.txt_plak_customer1.setText(c1);
+//                holder.txt_plak_customer2.setText(c4);
+//                holder.txt_plak_customer3.setText(c2);
+//                holder.txt_plak_customer4.setText(c3);
+//                break;
+//            }
+//            case 5: {
+//                holder.plaks.setVisibility(View.VISIBLE);
+//                String c1 = plak.substring(0, 2);
+//                String c2 = plak.substring(2, plak.length() - 3);
+//                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
+//                holder.txt_plak_customer1.setText(c1);
+//                holder.txt_plak_customer2.setVisibility(View.GONE);
+//                holder.txt_plak_customer3.setText(c2);
+//                holder.txt_plak_customer4.setText(c3);
+//                break;
+//            }
+//            case 6: {
+//                holder.plaks.setVisibility(View.VISIBLE);
+//                String c1 = plak.substring(0, 6);
+//                String c4 = plak.substring(6, plak.length());
+//                holder.txt_plak_customer1.setText(c1);
+//                holder.txt_plak_customer2.setText(c4);
+//                holder.txt_plak_customer3.setText(PLakUtils.convertPersianToEnglish(c1));
+//                holder.txt_plak_customer4.setText(PLakUtils.convertPersianToEnglish(c4));
+//                break;
+//            }
+//            case 7: {
+//                holder.plaks.setVisibility(View.VISIBLE);
+//                String c1 = plak.substring(0, 6);
+//                String c4 = plak.substring(6, plak.length());
+//                holder.txt_plak_customer1.setText(c1);
+//                holder.txt_plak_customer2.setText(PLakUtils.convertPersianToEnglish(c1));
+//                holder.txt_plak_customer3.setText(c4);
+//                holder.txt_plak_customer4.setVisibility(View.GONE);
+//                break;
+//            }
+//        }
+//    }
 
     @Override
     public int getItemCount() {
@@ -191,10 +194,11 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_name_customer, txt_name_car, txt_phone_customer;
+        TextView txt_name_customer, txt_name_car, /*txt_phone_customer,*/
+                txt_created, txt_car_type;
         ImageView icon_menu;
-        TextView txt_plak_customer1, txt_plak_customer2, txt_plak_customer3, txt_plak_customer4;
-        ViewGroup plaks, root;
+        //        TextView txt_plak_customer1, txt_plak_customer2, txt_plak_customer3, txt_plak_customer4;
+        ViewGroup root/*plaks*/;
 
         public void bind(Context context, final ModelCustomer item, final ViewHolder holder, final OnItemClickListener listener) {
             icon_menu.setOnClickListener(new View.OnClickListener() {
@@ -203,54 +207,58 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
                     listener.onItemClick(item, icon_menu, holder, getAdapterPosition());
                 }
             });
-            root.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, InformationCustomersActivity.class);
-                    intent.putExtra("idCustomer", item.getId() + "");
-                    intent.putExtra("id_car", item.getCar_id() + "");
-                    intent.putExtra("firstName", item.getFirst_name());
-                    intent.putExtra("lastName", item.getLast_name());
-                    intent.putExtra("phone", item.getPhone());
-                    intent.putExtra("nameCar", item.getName_car());
-                    intent.putExtra("plak", item.getPlak());
-                    intent.putExtra(Constants.CAR_PLATE_TYPE, item.getPlak_type());
-                    intent.putExtra("gender", item.getGender());
-                    intent.putExtra("date_birthday", item.getDate_birthday());
-                    intent.putExtra("type_fule", item.getType_fuel());
-                    intent.putExtra("date_save", item.getDate_save_customer());
-                    intent.putExtra("type_car", item.getType_car());
-                    intent.putExtra("car_name_id", item.getCar_name_id());
-                    intent.putExtra("car_tip_id", item.getCar_tip_id());
-                    intent.putExtra("car_model_id", item.getCar_model_id());
-                    intent.putExtra("fuel_type_id", item.getFuel_type_id());
-                    context.startActivity(intent);
-                }
-            });
+//            root.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(context, InformationCustomersActivity.class);
+//                    intent.putExtra("idCustomer", item.getId() + "");
+//                    intent.putExtra("id_car", item.getCar_id() + "");
+//                    intent.putExtra("firstName", item.getFirst_name());
+//                    intent.putExtra("lastName", item.getLast_name());
+//                    intent.putExtra("phone", item.getPhone());
+//                    intent.putExtra("nameCar", item.getName_car());
+//                    intent.putExtra("plak", item.getPlak());
+//                    intent.putExtra(Constants.CAR_PLATE_TYPE, item.getPlak_type());
+//                    intent.putExtra("gender", item.getGender());
+//                    intent.putExtra("date_birthday", item.getDate_birthday());
+//                    intent.putExtra("type_fule", item.getType_fuel());
+//                    intent.putExtra("date_save", item.getDate_save_customer());
+//                    intent.putExtra("type_car", item.getType_car());
+//                    intent.putExtra("car_name_id", item.getCar_name_id());
+//                    intent.putExtra("car_tip_id", item.getCar_tip_id());
+//                    intent.putExtra("car_model_id", item.getCar_model_id());
+//                    intent.putExtra("fuel_type_id", item.getFuel_type_id());
+//                    context.startActivity(intent);
+//                }
+//            });
         }
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_name_customer = itemView.findViewById(R.id.txt_name_customer);
             txt_name_car = itemView.findViewById(R.id.txt_name_car);
-            plaks = itemView.findViewById(R.id.plaks);
-            txt_phone_customer = itemView.findViewById(R.id.txt_phone_customer);
-            txt_plak_customer1 = itemView.findViewById(R.id.txt_plak_customer1);
-            txt_plak_customer2 = itemView.findViewById(R.id.txt_plak_customer2);
-            txt_plak_customer3 = itemView.findViewById(R.id.txt_plak_customer3);
-            txt_plak_customer4 = itemView.findViewById(R.id.txt_plak_customer4);
+//            plaks = itemView.findViewById(R.id.plaks);
+//            txt_phone_customer = itemView.findViewById(R.id.txt_phone_customer);
+//            txt_plak_customer1 = itemView.findViewById(R.id.txt_plak_customer1);
+//            txt_plak_customer2 = itemView.findViewById(R.id.txt_plak_customer2);
+//            txt_plak_customer3 = itemView.findViewById(R.id.txt_plak_customer3);
+//            txt_plak_customer4 = itemView.findViewById(R.id.txt_plak_customer4);
             icon_menu = itemView.findViewById(R.id.icon_menu);
             root = itemView.findViewById(R.id.root);
             txt_name_customer.setTypeface(G.ExtraBold);
             txt_name_car.setTypeface(G.ExtraBold);
-            txt_phone_customer.setTypeface(G.Normal);
+//            txt_phone_customer.setTypeface(G.Normal);
+            txt_created = itemView.findViewById(R.id.txt_created);
+            txt_car_type = itemView.findViewById(R.id.txt_tip_car);
+            txt_created.setTypeface(G.ExtraBold);
+            txt_car_type.setTypeface(G.ExtraBold);
 
         }
     }
 
     public void updateItemData(int position) {
-                models.remove(position);
-                notifyItemChanged(position);
-        }
+        models.remove(position);
+        notifyItemChanged(position);
+    }
 
 }

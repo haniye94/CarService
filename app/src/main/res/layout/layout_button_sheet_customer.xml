@@ -68,12 +68,14 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:gravity="right|center"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginRight="15dp"
+            android:visibility="gone"
             android:src="@drawable/dayere_gray" />
 
 
@@ -94,6 +96,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
+        android:visibility="gone"
         android:layout_marginBottom="5dp"
         android:background="#E8E8E8" />
 
@@ -102,6 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="5dp"
+        android:visibility="gone"
         android:gravity="right|center"
         android:orientation="horizontal">
 
@@ -118,6 +122,7 @@
             android:layout_marginRight="10dp"
             android:lineSpacingExtra="-0.01dp"
             android:text="ویرایش اطلاعات مشتری"
+
             android:textColor="@color/gray"
             android:textSize="13dp" />
 
@@ -130,6 +135,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
+        android:visibility="gone"
         android:background="#E8E8E8" />
 
     <LinearLayout

@@ -88,27 +88,33 @@ public class AdapterListServices extends RecyclerView.Adapter<AdapterListService
                 break;
 
             case 2:
-                layout = R.layout.item_list_service_taxi;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_taxi;
                 break;
 
             case 3:
-                layout = R.layout.item_list_service_edari;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_edari;
                 break;
 
             case 4:
-                layout = R.layout.item_list_service_entezami;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_entezami;
                 break;
 
             case 5:
-                layout = R.layout.item_list_service_malolin;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_malolin;
                 break;
 
             case 6:
-                layout = R.layout.item_list_service_azad_new;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_azad_new;
                 break;
 
             case 7:
-                layout = R.layout.item_list_service_azad_old;
+                layout = R.layout.item_list_service;
+//                layout = R.layout.item_list_service_azad_old;
                 break;
 
 

@@ -277,6 +277,7 @@ public class CustomerActivity extends AppCompatActivity {
                                 modelCustomer.setCar_company_id(car_company_id);
                                 modelCustomer.setFuel_type_id(fuel_type_id);
                                 modelCustomer.setCar_id(car_id);
+                                modelCustomer.setType_car(car_type);
                                 Log.d("Service!", "onClick: 1" + "id_car:" + car_id);
 
                                 modelCustomer.setDate_save_customer(register_date);
@@ -476,61 +477,61 @@ public class CustomerActivity extends AppCompatActivity {
                 txt_info_name.setText(model.getFirst_name() + " " + model.getLast_name());
                 txt_info_plak.setText(model.getName_car());
 
-                ly_show_info.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        bottomSheetDialog.dismiss();
-                        Intent intent = new Intent(CustomerActivity.this, InformationCustomersActivity.class);
-                        intent.putExtra("idCustomer", model.getId() + "");
+//                ly_show_info.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        bottomSheetDialog.dismiss();
+//                        Intent intent = new Intent(CustomerActivity.this, InformationCustomersActivity.class);
+//                        intent.putExtra("idCustomer", model.getId() + "");
+//
+//                        intent.putExtra("id_car", model.getCar_id() + "");
+//                        intent.putExtra("firstName", model.getFirst_name());
+//                        intent.putExtra("lastName", model.getLast_name());
+//                        intent.putExtra("phone", model.getPhone());
+//                        intent.putExtra("nameCar", model.getName_car());
+//                        intent.putExtra("plak", model.getPlak());
+//                        intent.putExtra(Constants.CAR_PLATE_TYPE, model.getPlak_type());
+//                        intent.putExtra("gender", model.getGender());
+//                        intent.putExtra("date_birthday", model.getDate_birthday());
+//                        intent.putExtra("type_fule", model.getType_fuel());
+//                        intent.putExtra("date_save", model.getDate_save_customer());
+//                        intent.putExtra("type_car", model.getType_car());
+//                        intent.putExtra("car_name_id", model.getCar_name_id());
+//                        intent.putExtra("car_tip_id", model.getCar_tip_id());
+//                        intent.putExtra("car_model_id", model.getCar_model_id());
+//                        intent.putExtra("car_company_id", model.getCar_company_id());
+//                        intent.putExtra("fuel_type_id", model.getFuel_type_id());
+//
+//                        CustomerActivity.this.startActivity(intent);
+//                    }
+//                });
 
-                        intent.putExtra("id_car", model.getCar_id() + "");
-                        intent.putExtra("firstName", model.getFirst_name());
-                        intent.putExtra("lastName", model.getLast_name());
-                        intent.putExtra("phone", model.getPhone());
-                        intent.putExtra("nameCar", model.getName_car());
-                        intent.putExtra("plak", model.getPlak());
-                        intent.putExtra(Constants.CAR_PLATE_TYPE, model.getPlak_type());
-                        intent.putExtra("gender", model.getGender());
-                        intent.putExtra("date_birthday", model.getDate_birthday());
-                        intent.putExtra("type_fule", model.getType_fuel());
-                        intent.putExtra("date_save", model.getDate_save_customer());
-                        intent.putExtra("type_car", model.getType_car());
-                        intent.putExtra("car_name_id", model.getCar_name_id());
-                        intent.putExtra("car_tip_id", model.getCar_tip_id());
-                        intent.putExtra("car_model_id", model.getCar_model_id());
-                        intent.putExtra("car_company_id", model.getCar_company_id());
-                        intent.putExtra("fuel_type_id", model.getFuel_type_id());
-
-                        CustomerActivity.this.startActivity(intent);
-                    }
-                });
-
-                ly_edit_customer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        bottomSheetDialog.dismiss();
-                        Intent intent = new Intent(CustomerActivity.this, AddCustomerActivity.class);
-                        intent.putExtra("idCustomer", model.getId() + "");
-                        intent.putExtra("id_car", model.getCar_id() + "");
-                        intent.putExtra("firstName", model.getFirst_name());
-                        intent.putExtra("lastName", model.getLast_name());
-                        intent.putExtra("phone", model.getPhone());
-                        intent.putExtra("nameCar", model.getName_car());
-                        intent.putExtra("plak", model.getPlak());
-                        intent.putExtra(Constants.CAR_PLATE_TYPE, model.getPlak_type());
-                        intent.putExtra("gender", model.getGender());
-                        intent.putExtra("date_birthday", model.getDate_birthday());
-                        intent.putExtra("type_fule", model.getType_fuel());
-                        intent.putExtra("date_save", model.getDate_save_customer());
-                        intent.putExtra("type_car", model.getType_car());
-                        intent.putExtra("car_name_id", model.getCar_name_id());
-                        intent.putExtra("car_tip_id", model.getCar_tip_id());
-                        intent.putExtra("car_model_id", model.getCar_model_id());
-                        intent.putExtra("car_company_id", model.getCar_company_id());
-                        intent.putExtra("fuel_type_id", model.getFuel_type_id());
-                        CustomerActivity.this.startActivity(intent);
-                    }
-                });
+//                ly_edit_customer.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        bottomSheetDialog.dismiss();
+//                        Intent intent = new Intent(CustomerActivity.this, AddCustomerActivity.class);
+//                        intent.putExtra("idCustomer", model.getId() + "");
+//                        intent.putExtra("id_car", model.getCar_id() + "");
+//                        intent.putExtra("firstName", model.getFirst_name());
+//                        intent.putExtra("lastName", model.getLast_name());
+//                        intent.putExtra("phone", model.getPhone());
+//                        intent.putExtra("nameCar", model.getName_car());
+//                        intent.putExtra("plak", model.getPlak());
+//                        intent.putExtra(Constants.CAR_PLATE_TYPE, model.getPlak_type());
+//                        intent.putExtra("gender", model.getGender());
+//                        intent.putExtra("date_birthday", model.getDate_birthday());
+//                        intent.putExtra("type_fule", model.getType_fuel());
+//                        intent.putExtra("date_save", model.getDate_save_customer());
+//                        intent.putExtra("type_car", model.getType_car());
+//                        intent.putExtra("car_name_id", model.getCar_name_id());
+//                        intent.putExtra("car_tip_id", model.getCar_tip_id());
+//                        intent.putExtra("car_model_id", model.getCar_model_id());
+//                        intent.putExtra("car_company_id", model.getCar_company_id());
+//                        intent.putExtra("fuel_type_id", model.getFuel_type_id());
+//                        CustomerActivity.this.startActivity(intent);
+//                    }
+//                });
                 ly_service_customer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
