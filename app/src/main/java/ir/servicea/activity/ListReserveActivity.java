@@ -24,6 +24,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import ir.servicea.adapter.AdapterListServices;
 import ir.servicea.app.CalendarTool;
+import ir.servicea.app.Constants;
 import ir.servicea.app.G;
 import ir.servicea.app.PreferenceUtil;
 import ir.servicea.model.ModelServicesCustomer;
@@ -103,13 +104,15 @@ public class ListReserveActivity extends AppCompatActivity {
         txt_tile_action_bar.setTypeface(G.Bold);
         onItemClickService = new AdapterListServices.OnItemClickListener() {
             @Override
-            public void onItemClick(ModelServicesCustomer model, ImageView item, AdapterListServices.ViewHolder holder, int position, boolean isFromMenu) {
+            public void onItemClick(ModelServicesCustomer model, ImageView item, AdapterListServices.ViewHolder holder, int position, boolean isMenuClicked) {
                 showServiceInformationActivity(model, position);
+
             }
         };
         recycle_services.setLayoutManager(new LinearLayoutManager(ListReserveActivity.this, RecyclerView.VERTICAL, false));
-        adapterListService = new AdapterListServices(ListReserveActivity.this, ListReserveActivity.this, doingReserve, onItemClickService);
+        adapterListService = new AdapterListServices(ListReserveActivity.this, ListReserveActivity.this, doingReserve, onItemClickService,true);
         recycle_services.setAdapter(adapterListService);
+        GetFactorDetails();
         listReserve();
     }
 
@@ -186,6 +189,8 @@ public class ListReserveActivity extends AppCompatActivity {
         G.loading(this);
         clearReservedList();
 
+//        String service_center_id = PreferenceUtil.getD_id();
+
         String user_id = PreferenceUtil.getUser_id();
         Log.d("ReserveList", "listReserve: " + user_id);
         Call<ResponseBody> request = api.getReservedServices(user_id);
@@ -219,7 +224,7 @@ public class ListReserveActivity extends AppCompatActivity {
                             String car_company = obj.getString("car_company");
                             msc.setName_car(car_company + "-" + car_name + "-" + car_tip);
                             msc.setCenter_name(obj.getString("center_name"));
-                            msc.setDetail_service(obj.getString("detail_service"));
+                            msc.setDetail_service(obj.getString("service_detail"));
 
                             int car_name_id = 0, car_tip_id = 0, car_model_id = 0, fuel_type_id = 0;
                            /* if (obj.has("car_name_id")) {
@@ -239,7 +244,7 @@ public class ListReserveActivity extends AppCompatActivity {
                             msc.setId_customer(obj.getInt("user_id"));
                             msc.setPlak(obj.getString("car_plate"));
 
-                            msc.setDate_services(obj.getString("reserve_date_time").replace("00:00:00", ""));
+                            msc.setDate_services(obj.getString("reservation_datetime").replace("00:00:00", ""));
                             String date = msc.getDate_services();
                             if (date.contains("-") && date.contains(":") && date.contains(" ")) {
                                 CalendarTool calendarTool = new CalendarTool();
@@ -264,27 +269,26 @@ public class ListReserveActivity extends AppCompatActivity {
                             }
 
                             msc.setDescription((obj.getString("description")).replace("null", ""));
-                            msc.setAll_services_price(obj.getString("prepayment_amount"));
                             msc.setCenter_id((obj.getString("service_center_id")).replace("null", ""));
-                            //  msc.setCenter_id((obj.getString("center_id") + ""));
-                            msc.setCenter_name((obj.getString("center_name")));
-                            msc.setJob_category_id(obj.getString("job_category_id").replace("null", "0"));
-                            msc.setKm_now("");
-                            msc.setKm_next("");
                             String deleted_at = obj.getString("deleted_at");
-                            String status = obj.getString("status");
-                            String reserve_date_time = obj.getString("reserve_date_time");
-                            String reserve_time = reserve_date_time.substring(0, reserve_date_time.lastIndexOf(" "));
-                            Log.d("Reserve:", "reserve_time:" + reserve_time);
-                            Log.d("Reserve:", "currentTime:" + currentTime);
-                            if (deleted_at.equals("null") && status.equals("2")) {
-                                doneReserve.add(msc);
-                            }else if ((reserve_time.compareTo(currentTime) < 0) && deleted_at.equals("null")) {
-                                expiredReserve.add(msc);
-                            } else if (deleted_at.equals("null") && status.equals("1")) {
-                                doingReserve.add(msc);
-                            } else if (!deleted_at.equals("null")) {
-                                canceledReserve.add(msc);
+                            String pay_status = obj.getString("pay_status");
+                            String reserve_status = obj.getString("reserve_status");
+                            msc.setPlak_type(Constants.PLAK_TYPE.PLAK_GENERAL);
+                            if (pay_status.equals("1")) {
+                                switch (reserve_status) {
+                                    case "2":
+                                        doneReserve.add(msc);
+                                        break;
+                                    case "3":
+                                        expiredReserve.add(msc);
+                                        break;
+                                    case "1":
+                                        doingReserve.add(msc);
+                                        break;
+                                    case "0":
+                                        canceledReserve.add(msc);
+                                        break;
+                                }
                             }
                         }
 
@@ -309,6 +313,56 @@ public class ListReserveActivity extends AppCompatActivity {
             }
         });
     }
+    private void GetFactorDetails() {
+
+        String user_id = PreferenceUtil.getUser_id();
+        Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
+        Call<ResponseBody> request = api.getshoppingcart(user_id);
+//        Call<ResponseBody> request = api.getshoppingcart("118185", "315");
+        request.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                String result = G.getResult(response);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.has("error")) {
+                        if (jsonObject.getString("error").equals("هیچ رکوردی برای این service_request_id پیدا نشد")) {
+
+                        }
+                    }
+//                    else {
+//                        btn_payment.setBackgroundResource(R.drawable.shap_button);
+//                        btn_payment.setEnabled(true);
+//                        ll_empty_factor.setVisibility(View.INVISIBLE);
+//                        JSONObject totals = jsonObject.getJSONObject("totals");
+//                        JSONArray products = jsonObject.getJSONArray("products");
+//                        tv_description.setText(String.format("تعداد کالا انتخابی در سبد خرید :%dقلم کالا", products.length()));
+//                        int real_price = Integer.parseInt(totals.getString("total_real_price"));
+//                        int final_price = Integer.parseInt(totals.getString("total_final_price"));
+//                        int change_wage = Integer.parseInt(totals.getString("total_change_wage"));
+//                        tv_total_real_price.setText(String.format("%s تومان  ", real_price));
+//                        tv_total_change_wage.setText(String.format("%s تومان  ", change_wage));
+//                        tv_total_discount.setText(String.format("%s تومان ", real_price - final_price));
+//                        tv_final_price_payment.setText(String.format("%s تومان ", final_price + change_wage));
+//                        tv_customer_price.setText(String.format("%s تومان ", final_price));
+//
+//                        tv_copon.setText(String.format("%s تومان ", "0"));
+//                        final_price_payment = Integer.parseInt(totals.getString("total_real_price"));
+//                    }
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                G.stop_loading();
+                G.toast("مشکل در برقراری ارتباط");
+            }
+        });
+
+    }
 
     private void clearReservedList() {
         doneReserve = new ArrayList<>();
@@ -329,7 +383,7 @@ public class ListReserveActivity extends AppCompatActivity {
                 break;
             case CANCELED:
                 adapterListService.swapList(canceledReserve);
-                showEmptyView(CANCELED,canceledReserve);
+                showEmptyView(CANCELED, canceledReserve);
                 break;
             case EXPIRED:
                 adapterListService.swapList(expiredReserve);
@@ -339,7 +393,7 @@ public class ListReserveActivity extends AppCompatActivity {
     }
 
     private void showEmptyView(RESERVE_TYPE reserve_type, List<ModelServicesCustomer> reserve_list) {
-        if(reserve_list.isEmpty()) {
+        if (reserve_list.isEmpty()) {
             String empty_text = getString(R.string.doing_reserve);
             switch (reserve_type) {
                 case DOING:
@@ -357,7 +411,7 @@ public class ListReserveActivity extends AppCompatActivity {
             }
             hideRecyclerView();
             txt_empty_text.setText(getResources().getString(R.string.empty_view_text, empty_text));
-        }else{
+        } else {
             showRecyclerView();
         }
     }

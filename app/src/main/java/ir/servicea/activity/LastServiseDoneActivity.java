@@ -142,7 +142,7 @@ public class LastServiseDoneActivity extends AppCompatActivity {
         G.mscs.clear();
 
         recycle_services.setLayoutManager(new LinearLayoutManager(LastServiseDoneActivity.this, RecyclerView.VERTICAL, false));
-        adapterListService = new AdapterListServices(LastServiseDoneActivity.this, LastServiseDoneActivity.this, G.mscs, onItemClickService);
+        adapterListService = new AdapterListServices(LastServiseDoneActivity.this, LastServiseDoneActivity.this, G.mscs, onItemClickService,false);
         recycle_services.setAdapter(adapterListService);
         if (getIntent().getExtras().getInt("idCustomer") > 0) {
             fromCustomerActivity = true;

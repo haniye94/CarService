@@ -7,9 +7,10 @@
     android:background="@drawable/shap_simple_rec"
     android:layoutDirection="rtl"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:paddingTop="20dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="20dp"
     android:textDirection="rtl">
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -26,29 +27,6 @@
             android:textColor="@color/text_dark_gray"
             android:textSize="13dp" />
 
-        <LinearLayout
-            android:id="@+id/ly_km_now"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="کیلومتر فعلی:"
-                android:textColor="@color/text_dark_gray"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/txt_km_now"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10000"
-                android:textColor="@color/text_dark_gray"
-                android:textSize="13dp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -81,7 +59,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
@@ -91,32 +69,6 @@
             android:text="خودرو 206"
             android:textColor="@color/text_dark_gray"
             android:textSize="13dp" />
-
-        <LinearLayout
-            android:id="@+id/ly_km_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="کیلومتر بعدی:"
-                android:textColor="@color/text_dark_gray"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/txt_km_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12000"
-                android:textColor="@color/text_dark_gray"
-                android:textSize="13dp" />
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/ly_service_time"
@@ -129,8 +81,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:text="ساعت:"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/text_dark_gray"
                 android:textSize="13dp" />
 
@@ -145,18 +97,8 @@
 
         </LinearLayout>
 
+
     </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/icon_menu"
-        android:layout_width="50dp"
-        android:layout_height="55dp"
-        android:elevation="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:src="@drawable/ic_menu_dot" />
 
 
 </LinearLayout>

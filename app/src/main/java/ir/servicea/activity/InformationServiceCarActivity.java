@@ -48,7 +48,7 @@ import retrofit2.Response;
 public class InformationServiceCarActivity extends AppCompatActivity {
 
     private TextView txt_tile_action_bar;
-    private TextView txt_detail_title,txt_name_customer, txt_phone_customer, txt_name_car, txt_plak_customer1, txt_plak_customer2, txt_plak_customer3, txt_plak_customer4, txt_show_km_now, txt_show_km_next, txt_date_service, txt_avg_function, txt_description, txt_price_service, txt_edit_cart_service;
+    private TextView txt_detail_title, txt_name_customer, txt_phone_customer, txt_name_car, txt_plak_customer1, txt_plak_customer2, txt_plak_customer3, txt_plak_customer4, txt_show_km_now, txt_show_km_next, txt_date_service, txt_avg_function, txt_description, txt_price_service, txt_edit_cart_service;
     private TextView txt_time_service;
 
     private ImageView img_back;
@@ -63,10 +63,10 @@ public class InformationServiceCarActivity extends AppCompatActivity {
     int count = 0;
     int position = 0;
     int current_id = 0;
-    private ViewGroup previous, next, ly_km,ly_avg_km, ly_time_services;
+    private ViewGroup previous, next, ly_km, ly_avg_km, ly_time_services,ll_visit;
     private ModelServicesCustomer msc;
-    ModelServicesCustomer mscPrevious= new ModelServicesCustomer();
-    ModelServicesCustomer mscNext= new ModelServicesCustomer();
+    ModelServicesCustomer mscPrevious = new ModelServicesCustomer();
+    ModelServicesCustomer mscNext = new ModelServicesCustomer();
     JSONObject currentServiceJsonObj = new JSONObject();
 
     private String plak;
@@ -77,20 +77,23 @@ public class InformationServiceCarActivity extends AppCompatActivity {
 
     private static final String TAG = "InformationServiceCarAc";
 
-    private ViewGroup ly_plk_general,ly_plk_taxi,ly_plk_edari,ly_plk_entezami,ly_plk_malolin,ly_plk_azad_new,ly_plk_azad_old;
+    private ViewGroup ly_plk_general, ly_plk_taxi, ly_plk_edari, ly_plk_entezami, ly_plk_malolin, ly_plk_azad_new, ly_plk_azad_old, ly_description;
 
     Constants.PLAK_TYPE plak_type = PLAK_GENERAL;
     ViewGroup plak_layout;
 
     private String carId = "0";
+    private String source = "source";
 
     private Intent intentThatOpenInformationService;
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         G.Activity = this;
         G.context = this;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +106,13 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         previous = findViewById(R.id.previous);
         next = findViewById(R.id.next);
 
+        Intent intent = getIntent();
+        intentThatOpenInformationService = getIntent();
+        source = intent.getStringExtra("source");
 
         FindView();
         onClick();
-        Intent intent = getIntent();
-        intentThatOpenInformationService = getIntent();
+
         setPlakLayout();
         is_reserve_list = intent.getBooleanExtra("is_reserve_list", false);
         Log.d(TAG, "onCreate: is_reserve_list:" + is_reserve_list);
@@ -122,12 +127,12 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // queueService("gt", service_id + "", true);
+                // queueService("gt", service_id + "", true);
 //                if ((position + 1) <= G.services.size()) {
 //                    showService(position + 1);
 //                }
                 try {
-                    updateServiceDetails( currentServiceJsonObj, mscNext);
+                    updateServiceDetails(currentServiceJsonObj, mscNext);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -137,12 +142,12 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  queueService("lt", service_id + "", false);
+                //  queueService("lt", service_id + "", false);
 //                if (position > 0) {
 //                    showService(position - 1);
 //                }
                 try {
-                    updateServiceDetails( currentServiceJsonObj, mscPrevious);
+                    updateServiceDetails(currentServiceJsonObj, mscPrevious);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -192,17 +197,19 @@ public class InformationServiceCarActivity extends AppCompatActivity {
             setPlakBasedViewType(plak, plak_type);
 
         }
-        if(is_reserve_list){
+        if (is_reserve_list) {
             reserved_service_id = intent.getStringExtra("id");
             ly_km.setVisibility(View.GONE);
             txt_detail_title.setText("سرویس های رزرو شده");
             next.setVisibility(View.GONE);
             previous.setVisibility(View.GONE);
             ly_avg_km.setVisibility(View.GONE);
+            ly_description.setVisibility(View.GONE);
             txt_edit_cart_service.setVisibility(View.GONE);
             ly_time_services.setVisibility(View.VISIBLE);
+            ll_visit.setVisibility(View.GONE);
 
-        }else{
+        } else {
             txt_show_km_now.setText(G.getDecimalFormattedString(getIntent().getExtras().getString("km_now") + ""));
             txt_show_km_now.setTypeface(G.ExtraBold);
             txt_show_km_next.setText(G.getDecimalFormattedString(getIntent().getExtras().getString("km_next") + ""));
@@ -211,17 +218,17 @@ public class InformationServiceCarActivity extends AppCompatActivity {
             ly_time_services.setVisibility(View.GONE);
             last_service_id = G.preference.getInt("last_service_id", 0);
             first_service_id = G.preference.getInt("first_service_id", 0);
-        if (service_id == last_service_id) {
-            next.setVisibility(View.INVISIBLE);
-        } else {
-            next.setVisibility(View.VISIBLE);
+            if (service_id == last_service_id) {
+                next.setVisibility(View.INVISIBLE);
+            } else {
+                next.setVisibility(View.VISIBLE);
 
-        }
-        if (service_id == first_service_id) {
-            previous.setVisibility(View.INVISIBLE);
-        } else {
-            previous.setVisibility(View.VISIBLE);
-        }
+            }
+            if (service_id == first_service_id) {
+                previous.setVisibility(View.INVISIBLE);
+            } else {
+                previous.setVisibility(View.VISIBLE);
+            }
 
         }
 
@@ -234,7 +241,6 @@ public class InformationServiceCarActivity extends AppCompatActivity {
             txt_price_service.setTypeface(G.ExtraBold);
             txt_price_service.setText(G.getDecimalFormattedString(price));
         }
-
 
 
         String detail_service = intent.getExtras().getString("detail_service");
@@ -257,9 +263,9 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         String d_id = PreferenceUtil.getD_id();
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         String order = "service_id,desc";
-        if(isNext) order = "service_id,asc";
+        if (isNext) order = "service_id,asc";
         String size = "2";
-        if(isNext) size = "";
+        if (isNext) size = "";
 
         String idCustomer = getIntent().getExtras().getString("idCustomer");
         String car_plate = G.CreateSyntaxPlak(plak);
@@ -318,14 +324,14 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                                 } else {
                                     G.toast("موردی یافت نشد");
                                 }
-                            } else if (i == 1){
-                                ModelServicesCustomer msc2= new ModelServicesCustomer();
+                            } else if (i == 1) {
+                                ModelServicesCustomer msc2 = new ModelServicesCustomer();
                                 msc2.setId(obj.getInt("service_id"));
                                 if (isNext) {
                                     mscNext = msc1;
                                     last_service_id = msc2.getId();
                                     G.preference.edit().putInt("last_service_id", last_service_id).apply();
-                                } else{
+                                } else {
                                     mscPrevious = msc1;
                                     first_service_id = msc2.getId();
                                     G.preference.edit().putInt("first_service_id", first_service_id).apply();
@@ -339,7 +345,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                             overridePendingTransition(0, 0);
                             finish();
                         }
-                    }catch (JSONException e) {
+                    } catch (JSONException e) {
                         G.toast("مشکل در دریافت اطلاعات");
                         e.printStackTrace();
                     }
@@ -358,13 +364,13 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         });
     }
 
-    public void checkNextServiceExistence( String filter,String key, boolean isNext) {
+    public void checkNextServiceExistence(String filter, String key, boolean isNext) {
         G.loading(this);
         G.services.clear();
         String d_id = PreferenceUtil.getD_id();
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         String order = "service_id,desc";
-        if(isNext) order = "service_id,asc";
+        if (isNext) order = "service_id,asc";
         String idCustomer = getIntent().getExtras().getString("idCustomer");
         String car_plate = G.CreateSyntaxPlak(plak);
         Call<ResponseBody> request = api.nextService("user_id,eq," + idCustomer, "car_plate,cs," + car_plate, "", order, 1);
@@ -390,13 +396,13 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                 if (array.length() > 0) {
                     ModelServicesCustomer msc1 = new ModelServicesCustomer();
                     try {
-                             currentServiceJsonObj = array.getJSONObject(0);
-                              msc1.setId(currentServiceJsonObj.getInt("service_id"));
-                                if (msc1.getId() != service_id) {
-                                    newx = true;
-                                   // updateServiceDetails(currentServiceJsonObj, msc1);
+                        currentServiceJsonObj = array.getJSONObject(0);
+                        msc1.setId(currentServiceJsonObj.getInt("service_id"));
+                        if (msc1.getId() != service_id) {
+                            newx = true;
+                            // updateServiceDetails(currentServiceJsonObj, msc1);
 
-                                    service_id = msc1.getId();
+                            service_id = msc1.getId();
 
                              /*   if (isNext) {
                                     service_id = msc.getId();
@@ -407,25 +413,25 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                                     first_service_id = service_id;
                                     G.preference.edit().putInt("first_service_id", first_service_id).apply();
                                 }*/
-                                    // Update first_service_id and last_service_id as needed
-                                    if (service_id > last_service_id) {
-                                        last_service_id = service_id;
-                                        G.preference.edit().putInt("last_service_id", last_service_id).apply();
-                                        Log.d(TAG, "queueService:onResponse:last_service_id " + last_service_id);
-                                    }
-
-                                } else {
-                                    G.toast("موردی یافت نشد");
-                                }
-                            if (isNext) {
-                                mscNext = msc1;
+                            // Update first_service_id and last_service_id as needed
+                            if (service_id > last_service_id) {
+                                last_service_id = service_id;
                                 G.preference.edit().putInt("last_service_id", last_service_id).apply();
-                            } else{
-                                mscPrevious = msc1;
-                                G.preference.edit().putInt("first_service_id", first_service_id).apply();
+                                Log.d(TAG, "queueService:onResponse:last_service_id " + last_service_id);
                             }
 
-                    }catch (JSONException e) {
+                        } else {
+                            G.toast("موردی یافت نشد");
+                        }
+                        if (isNext) {
+                            mscNext = msc1;
+                            G.preference.edit().putInt("last_service_id", last_service_id).apply();
+                        } else {
+                            mscPrevious = msc1;
+                            G.preference.edit().putInt("first_service_id", first_service_id).apply();
+                        }
+
+                    } catch (JSONException e) {
                         G.toast("مشکل در دریافت اطلاعات");
                         e.printStackTrace();
                     }
@@ -433,7 +439,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                     handleEmptyResponse(isNext);
                 }
                 G.stop_loading();
-               // updateButtonVisibility();
+                // updateButtonVisibility();
             }
 
             @Override
@@ -451,12 +457,12 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         String d_id = PreferenceUtil.getD_id();
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         String order = "service_id,desc";
-        if(isNext) order = "service_id,asc";
+        if (isNext) order = "service_id,asc";
         String size = "1";
 
         String idCustomer = getIntent().getExtras().getString("idCustomer");
         String car_plate = G.CreateSyntaxPlak(plak);
-        Call<ResponseBody> request = api.nextService("user_id,eq," + idCustomer, "car_plate,cs," + car_plate,"", order, 1);
+        Call<ResponseBody> request = api.nextService("user_id,eq," + idCustomer, "car_plate,cs," + car_plate, "", order, 1);
 
         if (key.length() > 0 && !key.equals("0")) {
             request = api.nextService("user_id,eq," + idCustomer, "car_plate,cs," + car_plate, "service_id" + "," + filter + "," + key, order, 1);
@@ -510,14 +516,14 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                                 } else {
                                     G.toast("موردی یافت نشد");
                                 }
-                            } else if (i == 1){
-                                ModelServicesCustomer msc2= new ModelServicesCustomer();
+                            } else if (i == 1) {
+                                ModelServicesCustomer msc2 = new ModelServicesCustomer();
                                 msc2.setId(obj.getInt("service_id"));
                                 if (isNext) {
                                     mscNext = msc1;
                                     last_service_id = msc2.getId();
                                     G.preference.edit().putInt("last_service_id", last_service_id).apply();
-                                } else{
+                                } else {
                                     mscPrevious = msc1;
                                     first_service_id = msc2.getId();
                                     G.preference.edit().putInt("first_service_id", first_service_id).apply();
@@ -531,7 +537,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                             overridePendingTransition(0, 0);
                             finish();
                         }
-                    }catch (JSONException e) {
+                    } catch (JSONException e) {
                         G.toast("مشکل در دریافت اطلاعات");
                         e.printStackTrace();
                     }
@@ -551,7 +557,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
     }
 
     private void handleEmptyResponse(boolean isNext) {
-        if(isNext) next.setVisibility(View.GONE);
+        if (isNext) next.setVisibility(View.GONE);
         else previous.setVisibility(View.GONE);
 
         Log.d(TAG, "queueService:onResponse:id:first_service_id* " + first_service_id);
@@ -604,9 +610,9 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         Intent intent = new Intent(InformationServiceCarActivity.this, InformationServiceCarActivity.class);
         fillIntentWithServiceData(intent, msc);
 
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-            finish();
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
 
     }
 
@@ -864,7 +870,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                 }, 0);
                 Intent intent = new Intent(InformationServiceCarActivity.this, AddServicesActivity.class);
                 intent.putExtra("idCustomer", getIntent().getExtras().getInt("idCustomer") + "");
-                intent.putExtra("id_service", service_id + "" );
+                intent.putExtra("id_service", service_id + "");
                 intent.putExtra("firstName", getIntent().getExtras().getString("firstName"));
                 intent.putExtra("lastName", getIntent().getExtras().getString("lastName"));
                 intent.putExtra("phone", getIntent().getExtras().getString("phone"));
@@ -1019,7 +1025,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
     }
 
     private void FindView() {
-        txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
+            txt_tile_action_bar = findViewById(R.id.txt_tile_action_bar);
         img_back = findViewById(R.id.img_back);
         txt_name_customer = findViewById(R.id.txt_name_customer);
         txt_phone_customer = findViewById(R.id.txt_phone_customer);
@@ -1042,17 +1048,19 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         ly_km = findViewById(R.id.ly_km);
         ly_avg_km = findViewById(R.id.ly_avg_km);
         ly_time_services = findViewById(R.id.ly_time_services);
+        ll_visit=findViewById(R.id.ll_visit);
         txt_detail_title = findViewById(R.id.txt_detail_title);
         previous = findViewById(R.id.previous);
         next = findViewById(R.id.next);
 
         ly_plk_general = findViewById(R.id.ly_plk_general);
         ly_plk_taxi = findViewById(R.id.ly_plk_taxi);
-        ly_plk_edari= findViewById(R.id.ly_plk_edari);
+        ly_plk_edari = findViewById(R.id.ly_plk_edari);
         ly_plk_entezami = findViewById(R.id.ly_plk_entezami);
         ly_plk_malolin = findViewById(R.id.ly_plk_malolin);
         ly_plk_azad_new = findViewById(R.id.ly_plk_azad_new);
         ly_plk_azad_old = findViewById(R.id.ly_plk_azad_old);
+        ly_description=findViewById(R.id.ly_description);
         plak_layout = ly_plk_general;
     }
 
@@ -1114,11 +1122,11 @@ public class InformationServiceCarActivity extends AppCompatActivity {
     }
 
     private void setPlakLayout() {
-        if(intentThatOpenInformationService.hasExtra(Constants.CAR_PLATE_TYPE)){
+        if (intentThatOpenInformationService.hasExtra(Constants.CAR_PLATE_TYPE)) {
             plak_type = (Constants.PLAK_TYPE) intentThatOpenInformationService.getSerializableExtra(Constants.CAR_PLATE_TYPE);
         }
 
-        switch (plak_type){
+        switch (plak_type) {
             case PLAK_GENERAL: {
                 plak_layout = ly_plk_general;
                 ly_plk_general.setVisibility(View.VISIBLE);
@@ -1204,7 +1212,7 @@ public class InformationServiceCarActivity extends AppCompatActivity {
         // plaks.setVisibility(View.VISIBLE);
 
         List<TextView> textViewsInPlakLayout = findTextsInLayout(plak_layout);
-        Log.d("PLAK", "setPlakBasedViewType:addService: " + plak_layout );
+        Log.d("PLAK", "setPlakBasedViewType:addService: " + plak_layout);
 
         switch (plakType) {
             case PLAK_GENERAL:
@@ -1219,12 +1227,11 @@ public class InformationServiceCarActivity extends AppCompatActivity {
                 textViewsInPlakLayout.get(1).setText(c4);
                 textViewsInPlakLayout.get(2).setText(c2);
                 textViewsInPlakLayout.get(3).setText(c3);
-                Log.d("PLAK", "setPlakBasedViewType:addService: " + plak_layout );
+                Log.d("PLAK", "setPlakBasedViewType:addService: " + plak_layout);
 
                 break;
             }
-            case PLAK_MAOLOIN:
-            {
+            case PLAK_MAOLOIN: {
                 String c1 = plak.substring(0, 2);
                 String c2 = plak.substring(2, plak.length() - 3);
                 String c3 = plak.substring(plak.length() - 3, plak.length() - 1);

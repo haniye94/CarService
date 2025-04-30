@@ -336,6 +336,13 @@ public interface Api {
     @GET("api-reports.php?action=getReservedServices")
     Call<ResponseBody> getReservedServices(@Query("user_id") String user_id);
 
+//    @GET("api-reports.php?action=service_center_shopping_cart")
+//    Call<ResponseBody> getReservedServices(@Query("service_center_id") String service_center_id);
+
+    @GET("api-reports.php?action=getShoppingCart")
+    Call<ResponseBody> getshoppingcart(@Query("user_id") String user_id);
+
+
     // Reserve Product
     @POST("products")
     Call<ReserveProduct> addProduct(@Body ReserveProduct product);
