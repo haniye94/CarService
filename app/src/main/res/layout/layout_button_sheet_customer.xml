@@ -294,7 +294,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:lineSpacingExtra="-0.01dp"
-            android:text="حذف مشتری"
+            android:text="حذف خودرو"
             android:textColor="@color/gray"
             android:textSize="13dp" />
 

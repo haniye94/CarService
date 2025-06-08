@@ -6,8 +6,7 @@
     android:background="@color/background"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:textDirection="rtl"
-    >
+    android:textDirection="rtl">
 
 
     <LinearLayout
@@ -41,7 +40,6 @@
                 android:textSize="12dp" />
 
 
-
         </LinearLayout>
 
         <TextView
@@ -60,21 +58,124 @@
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
             android:onClick="onclickBack"
             android:padding="10dp"
-            android:layout_marginLeft="2dp"
-            android:src="@drawable/ic_left_arrow"/>
+            android:src="@drawable/ic_left_arrow" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/shap_simple_rec"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_name_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="محمود جعفری همدانی"
+                android:layout_weight="2"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+            <TextView
+                android:id="@+id/txt_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="091222222222"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:textColor="@color/gray"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_car_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center"
+                android:text="خودروی 206"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:paddingEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/ly_plk_general"
+                    layout="@layout/item_plak_general" />
+
+                <include
+                    android:id="@+id/ly_plk_taxi"
+                    layout="@layout/item_plak_taxi"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_edari"
+                    layout="@layout/item_plak_edari"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_entezami"
+                    layout="@layout/item_plak_entezami"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_malolin"
+                    layout="@layout/item_plak_malolin"
+                    android:visibility="gone" />
+
+
+                <include
+                    android:id="@+id/ly_plk_azad_new"
+                    layout="@layout/item_plak_azad_new"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ly_plk_azad_old"
+                    layout="@layout/item_plak_azad_old"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ly_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginTop="150dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="100dp"
@@ -87,10 +188,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:text= "هیچ گروه کالایی انتخاب نشده است. لطفا ابتدا گروه کالای خود را در صفحه تنظیمات انتخاب کنید"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="هیچ گروه کالایی انتخاب نشده است. لطفا ابتدا گروه کالای خود را در صفحه تنظیمات انتخاب کنید"
             android:textColor="@color/gray"
             android:textSize="12dp" />
     </LinearLayout>
@@ -109,7 +210,6 @@
         android:paddingBottom="10dp">
 
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/showsavabegh"
             android:layout_width="0dp"
@@ -124,6 +224,7 @@
             android:textSize="14dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -165,12 +266,12 @@
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/shap_button"
-        android:text="تایید"
-        android:stateListAnimator="@null"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shap_button"
+        android:stateListAnimator="@null"
+        android:text="تایید"
         android:textColor="@color/white"
         android:textSize="14dp" />
 </LinearLayout>

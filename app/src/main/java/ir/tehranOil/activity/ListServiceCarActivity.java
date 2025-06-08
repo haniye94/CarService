@@ -1,5 +1,7 @@
 package ir.tehranOil.activity;
 
+import static ir.tehranOil.app.Constants.CAR_PLATE_TYPE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ import ir.tehranOil.adapter.AdapterListServiceCar;
 import ir.tehranOil.app.Constants;
 import ir.tehranOil.app.DataBaseHelper;
 import ir.tehranOil.app.G;
+import ir.tehranOil.app.PLakUtils;
 import ir.tehranOil.app.PreferenceUtil;
 import ir.tehranOil.app.Utils;
 import ir.tehranOil.model.SliderItem;
@@ -54,13 +58,21 @@ public class ListServiceCarActivity extends AppCompatActivity {
     List<ModelKhadamat> modelKhadamats = new ArrayList<>();
     List<ModelKhadamat> tempmodelKhadamats = new ArrayList<>();
     Button btn_save;
-    TextView add_text;
+    TextView add_text, txt_customer_name, txt_car_name, txt_phone;
     ImageView img_back;
     DataBaseHelper mDBHelper;
     private SQLiteDatabase mDatabase;
     private AdapterListServiceCar.OnItemClickListener onItemClickService;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Handler handler;
+    private ViewGroup ly_plk_general, ly_plk_taxi, ly_plk_edari, ly_plk_entezami, ly_plk_malolin, ly_plk_azad_new, ly_plk_azad_old;
+
+    Constants.PLAK_TYPE plak_type = Constants.PLAK_TYPE.PLAK_GENERAL;
+    ViewGroup plak_layout;
+    ViewGroup plaks;
+    public String plak = "";
+    private Intent intent;
+
 
     public void onclickAlamrs(View v) {
         startActivity(new Intent(ListServiceCarActivity.this, AlarmsActivity.class));
@@ -77,16 +89,23 @@ public class ListServiceCarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_service_car);
         G.Activity = this;
         G.context = this;
+        intent = getIntent();
         FindView();
         onClick();
-        if(getIntent().hasExtra(Constants.IS_EDIT_SERVICE)){
+        setPlakLayout();
+        String customer_name = intent.getStringExtra("firstName") + intent.getStringExtra("lastName");
+        txt_customer_name.setText("نام : " + customer_name);
+        txt_car_name.setText("خودرو : " + intent.getStringExtra("nameCar"));
+        txt_phone.setText("شماره : " + intent.getStringExtra("phone"));
+
+        if (getIntent().hasExtra(Constants.IS_EDIT_SERVICE)) {
             isEditService = getIntent().getBooleanExtra(Constants.IS_EDIT_SERVICE, false);
         }
-        if(isEditService){
+        if (isEditService) {
             txt_tile_action_bar.setText(getString(R.string.edit_service_car_list));
             btnShowSavabegh.setVisibility(View.GONE);
 
-        }else{
+        } else {
             txt_tile_action_bar.setText(getString(R.string.show_service_car_list));
             btnShowSavabegh.setVisibility(View.VISIBLE);
         }
@@ -106,6 +125,12 @@ public class ListServiceCarActivity extends AppCompatActivity {
                 startActivity(new Intent(ListServiceCarActivity.this, ProductGroupActivity.class));
             }
         });
+        plak = (getIntent().getExtras().getString("plak") + "").replace(" ", "").replace("null", "");
+        if (plak.length() > 3) {
+            setPlakBasedViewType(plak, plak_type);
+        } else {
+            // plaks.setVisibility(View.GONE);
+        }
         mDBHelper = new DataBaseHelper(this);
         mDatabase = mDBHelper.getReadableDatabase();
 
@@ -119,7 +144,7 @@ public class ListServiceCarActivity extends AppCompatActivity {
                     model.setSelectT("true");
                     mDBHelper.deleteRow(getIntent().getExtras().getInt("idService") + "", model.getTitle());
                     //  mDBHelper.updateKhadamat(models.get(position).getId(), 1, idCustomer);
-                    mDBHelper.insertdetectProGroup(model.getTitle(), 1, getIntent().getExtras().getInt("idService"),model.getType(),model.getValue());
+                    mDBHelper.insertdetectProGroup(model.getTitle(), 1, getIntent().getExtras().getInt("idService"), model.getType(), model.getValue());
                 } else {
                     itemB.setBackgroundResource(R.drawable.shap_btn_simple_right_off);
                     model.setSelectB("true");
@@ -140,7 +165,7 @@ public class ListServiceCarActivity extends AppCompatActivity {
                     model.setSelectT("false");
                     mDBHelper.deleteRow(getIntent().getExtras().getInt("idService") + "", model.getTitle());
                     // mDBHelper.updateKhadamat(models.get(position).getId(), 2, idCustomer);
-                    mDBHelper.insertdetectProGroup(model.getTitle(), 2, getIntent().getExtras().getInt("idService"),model.getType(),model.getValue());
+                    mDBHelper.insertdetectProGroup(model.getTitle(), 2, getIntent().getExtras().getInt("idService"), model.getType(), model.getValue());
 
                 } else {
                     itemT.setBackgroundResource(R.drawable.shap_btn_simple_left_off);
@@ -269,18 +294,18 @@ public class ListServiceCarActivity extends AppCompatActivity {
                                 String title = obj.getString("title");
 
                                 boolean send_msg = obj.getBoolean("send_msg");
-                                G.Log("send_msgx: "+send_msg);
+                                G.Log("send_msgx: " + send_msg);
 
 //                                check = checkProductGroup(id);
 //                                check = false;
 //                                listGroup.add(new ModelProduceGroup(id, title, km_usage, check, send_msg));
-                                String product_name ="";
+                                String product_name = "";
                                 int product_name_id = 0;
                                 String value = "";
                                 try {
                                     JSONArray historyKhadamat = new JSONArray(G.preference.getString("historyKhadamat", "[]"));
-                                    G.Log("historyKhadamat: "+historyKhadamat);
-                                    for (int j= 0; j < historyKhadamat.length();j++) {
+                                    G.Log("historyKhadamat: " + historyKhadamat);
+                                    for (int j = 0; j < historyKhadamat.length(); j++) {
                                         JSONObject objx = historyKhadamat.getJSONObject(j);
                                         String product_group_title = "";
                                         int product_group_id = 0;
@@ -289,28 +314,28 @@ public class ListServiceCarActivity extends AppCompatActivity {
                                             product_group_id = product_group.getInt("id");
                                             product_group_title = product_group.getString("title");
                                         }
-                                        if(product_group_id==id) {
-                                            product_name = (objx.getString("product_name")+"").replace("null","");
-                                            product_name_id =0;
-                                            if((objx.getString("product_name_id")+"").replace("null","").replace(" ","").length()>0) {
+                                        if (product_group_id == id) {
+                                            product_name = (objx.getString("product_name") + "").replace("null", "");
+                                            product_name_id = 0;
+                                            if ((objx.getString("product_name_id") + "").replace("null", "").replace(" ", "").length() > 0) {
                                                 product_name_id = objx.getInt("product_name_id");
                                             }
-                                            value = (objx.getString("value")+"").replace("null","");
-                                            String visited_change = (objx.getString("visited_change")+"").replace("null","");
+                                            value = (objx.getString("value") + "").replace("null", "");
+                                            String visited_change = (objx.getString("visited_change") + "").replace("null", "");
                                         }
                                     }
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
-                                G.Log("product_name_id: "+product_name_id);
-                                G.Log("product_name: "+product_name);
-                                G.Log("value: "+value);
+                                G.Log("product_name_id: " + product_name_id);
+                                G.Log("product_name: " + product_name);
+                                G.Log("value: " + value);
                                 if (key.length() > 0) {
                                     if (title.contains(key)) {
-                                        modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", product_name, product_name_id, value, km_usage,send_msg));
+                                        modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", product_name, product_name_id, value, km_usage, send_msg));
                                     }
                                 } else {
-                                    modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", product_name, product_name_id, value, km_usage,send_msg));
+                                    modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", product_name, product_name_id, value, km_usage, send_msg));
                                 }
 
                             }
@@ -343,7 +368,6 @@ public class ListServiceCarActivity extends AppCompatActivity {
 
 
     }
-
 
 
     public void listServiceAvailable() {
@@ -448,7 +472,7 @@ public class ListServiceCarActivity extends AppCompatActivity {
 
         sequence.setConfig(config);
 
-        sequence.addSequenceItem(Utils.createCustomShowcaseView(this,AdapterListServiceCar.baztaviz, getString(R.string.showcase_baztaviz), getString(R.string.next_showcase)));
+        sequence.addSequenceItem(Utils.createCustomShowcaseView(this, AdapterListServiceCar.baztaviz, getString(R.string.showcase_baztaviz), getString(R.string.next_showcase)));
         sequence.addSequenceItem(Utils.createCustomShowcaseView(this, AdapterListServiceCar.noet, getString(R.string.showcase_note), getString(R.string.next_showcase)));
         sequence.start();
     }
@@ -465,10 +489,10 @@ public class ListServiceCarActivity extends AppCompatActivity {
                 int km_usage = obj.getInt("km_usage");
                 if (key.length() > 0) {
                     if (title.contains(key)) {
-                        modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0,false));
+                        modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0, false));
                     }
                 } else {
-                    modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0,false));
+                    modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0, false));
                 }
 
             }
@@ -538,7 +562,7 @@ public class ListServiceCarActivity extends AppCompatActivity {
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
                             if (checkProductGroup(id)) {
-                                modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0,false));
+                                modelKhadamats.add(new ModelKhadamat(id, title, "true", "true", "", 0, "", 0, false));
                             }
 
                         }
@@ -628,7 +652,18 @@ public class ListServiceCarActivity extends AppCompatActivity {
         btn_save = findViewById(R.id.btn_save);
         add_text = findViewById(R.id.add_text);
         btnShowSavabegh = findViewById(R.id.showsavabegh);
-
+        txt_car_name = findViewById(R.id.txt_car_name);
+        txt_customer_name = findViewById(R.id.txt_name_customer);
+        txt_phone = findViewById(R.id.txt_phone);
+        plaks = findViewById(R.id.plaks);
+        ly_plk_general = findViewById(R.id.ly_plk_general);
+        ly_plk_taxi = findViewById(R.id.ly_plk_taxi);
+        ly_plk_edari = findViewById(R.id.ly_plk_edari);
+        ly_plk_entezami = findViewById(R.id.ly_plk_entezami);
+        ly_plk_malolin = findViewById(R.id.ly_plk_malolin);
+        ly_plk_azad_new = findViewById(R.id.ly_plk_azad_new);
+        ly_plk_azad_old = findViewById(R.id.ly_plk_azad_old);
+        plak_layout = ly_plk_general;
     }
 
     private void onClick() {
@@ -672,11 +707,11 @@ public class ListServiceCarActivity extends AppCompatActivity {
 
                 G.Log("detail_service: " + array.toString());
                 G.Log("AvgKm: " + AvgKm);
-                G.preference.edit().putBoolean("ChangeAvgKm",true).apply();
+                G.preference.edit().putBoolean("ChangeAvgKm", true).apply();
                 G.preference.edit().putString("detail_service", array.toString()).apply();
-                if(AvgKm<1000000000) {
+                if (AvgKm < 1000000000) {
                     G.preference.edit().putInt("AvgKm", AvgKm).apply();
-                }else{
+                } else {
                     G.preference.edit().putInt("AvgKm", 5000).apply();
                 }
                 G.preference.edit().putInt("CountKm", CountKm).apply();
@@ -698,11 +733,170 @@ public class ListServiceCarActivity extends AppCompatActivity {
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(context));
     }
-    public boolean disableBack=false;
+
+    public boolean disableBack = false;
+
     @Override
     public void onBackPressed() {
         if (!disableBack) {
             super.onBackPressed();
         }
+    }
+
+    private void setPlakLayout() {
+        if (intent.hasExtra(CAR_PLATE_TYPE)) {
+            plak_type = (Constants.PLAK_TYPE) intent.getSerializableExtra(CAR_PLATE_TYPE);
+        }
+        Log.d("TestPlakLayout", "setPlakLayout: " + plak_type);
+
+        switch (plak_type) {
+            case PLAK_GENERAL: {
+                plak_layout = ly_plk_general;
+                ly_plk_general.setVisibility(View.VISIBLE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_TAXI: {
+                plak_layout = ly_plk_taxi;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.VISIBLE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_EDARI: {
+                plak_layout = ly_plk_edari;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.VISIBLE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_ENTEZAMI: {
+                plak_layout = ly_plk_entezami;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.VISIBLE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_MAOLOIN: {
+                plak_layout = ly_plk_malolin;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.VISIBLE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_AZAD_NEW: {
+                plak_layout = ly_plk_azad_new;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.VISIBLE);
+                ly_plk_azad_old.setVisibility(View.GONE);
+                break;
+            }
+            case PLAK_AZAD_OLD: {
+                plak_layout = ly_plk_azad_old;
+                ly_plk_general.setVisibility(View.GONE);
+                ly_plk_taxi.setVisibility(View.GONE);
+                ly_plk_edari.setVisibility(View.GONE);
+                ly_plk_entezami.setVisibility(View.GONE);
+                ly_plk_malolin.setVisibility(View.GONE);
+                ly_plk_azad_new.setVisibility(View.GONE);
+                ly_plk_azad_old.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
+
+    }
+
+    private void setPlakBasedViewType(String plak, Constants.PLAK_TYPE plakType) {
+        // plaks.setVisibility(View.VISIBLE);
+
+        List<TextView> textViewsInPlakLayout = findTextsInLayout(plak_layout);
+        Log.d("PLAK", "setPlakBasedViewType:addService: " + plak_layout);
+
+        switch (plakType) {
+            case PLAK_GENERAL:
+            case PLAK_TAXI:
+            case PLAK_EDARI:
+            case PLAK_ENTEZAMI: {
+                String c1 = plak.substring(0, 2);
+                String c2 = plak.substring(2, plak.length() - 3);
+                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
+                String c4 = plak.substring(plak.length() - 1);
+                textViewsInPlakLayout.get(0).setText(c1);
+                textViewsInPlakLayout.get(1).setText(c4);
+                textViewsInPlakLayout.get(2).setText(c2);
+                textViewsInPlakLayout.get(3).setText(c3);
+                break;
+            }
+            case PLAK_MAOLOIN: {
+                String c1 = plak.substring(0, 2);
+                String c2 = plak.substring(2, plak.length() - 3);
+                String c3 = plak.substring(plak.length() - 3, plak.length() - 1);
+                textViewsInPlakLayout.get(0).setText(c1);
+                textViewsInPlakLayout.get(1).setVisibility(View.GONE);
+                textViewsInPlakLayout.get(2).setText(c2);
+                textViewsInPlakLayout.get(3).setText(c3);
+                break;
+            }
+            case PLAK_AZAD_NEW: {
+                String c1 = plak.substring(0, 6);
+                String c4 = plak.substring(6, plak.length());
+                textViewsInPlakLayout.get(0).setText(c1);
+                textViewsInPlakLayout.get(1).setText(c4);
+                textViewsInPlakLayout.get(2).setText(PLakUtils.convertPersianToEnglish(c1));
+                textViewsInPlakLayout.get(3).setText(PLakUtils.convertPersianToEnglish(c4));
+                break;
+            }
+            case PLAK_AZAD_OLD: {
+                String c1 = plak.substring(0, 6);
+                String c4 = plak.substring(6, plak.length());
+                textViewsInPlakLayout.get(0).setText(c4);
+                textViewsInPlakLayout.get(1).setText(c1);
+                textViewsInPlakLayout.get(2).setText(PLakUtils.convertPersianToEnglish(c1));
+                textViewsInPlakLayout.get(3).setVisibility(View.GONE);
+                break;
+            }
+        }
+      /* txt_plak_customer1.setTypeface(G.ExtraBold);
+       txt_plak_customer2.setTypeface(G.ExtraBold);
+       txt_plak_customer3.setTypeface(G.ExtraBold);
+       txt_plak_customer4.setTypeface(G.ExtraBold);*/
+    }
+
+    private List<TextView> findTextsInLayout(ViewGroup layout) {
+        List<TextView> textViews = new ArrayList<>();
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View view = layout.getChildAt(i);
+            if (view instanceof TextView) {
+                textViews.add((TextView) view);
+            } else if (view instanceof ViewGroup) {
+                textViews.addAll(findTextsInLayout((ViewGroup) view));
+            }
+        }
+        return textViews;
     }
 }

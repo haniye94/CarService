@@ -2,14 +2,14 @@
   "project_info": {
     "project_number": "367358640919",
     "project_id": "servicea-7dda4",
-    "storage_bucket": "servicea-7dda4.appspot.com"
+    "storage_bucket": "servicea-7dda4.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:367358640919:android:472e6fc2b03777f483ad52",
         "android_client_info": {
-          "package_name": "ir.tehranOil"
+          "package_name": "ir.servicea"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "367358640919-ffp65j00f20i782i1c5pj9ui4tm6eadu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "ir.tehranOil",
+            "package_name": "ir.servicea",
             "certificate_hash": "d4d3d6023006283da4bd2bdfc07696fb86b0a3c1"
           }
         },

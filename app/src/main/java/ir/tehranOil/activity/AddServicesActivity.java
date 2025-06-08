@@ -1227,27 +1227,11 @@ public class AddServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddServicesActivity.this, AddCustomerActivity.class);
-                intent.putExtra("idCustomer", getIntent().getExtras().getString("idCustomer"));
-//                intent.putExtra("id_car", getIntent().getExtras().getString("id_car"));
-                intent.putExtra("id_car", carId);
-                intent.putExtra("firstName", getIntent().getExtras().getString("firstName"));
-                intent.putExtra("lastName", getIntent().getExtras().getString("lastName"));
-                intent.putExtra("phone", getIntent().getExtras().getString("phone"));
-                intent.putExtra("nameCar", getIntent().getExtras().getString("nameCar"));
-                intent.putExtra("plak", getIntent().getExtras().getString("plak"));
-                intent.putExtra(CAR_PLATE_TYPE, plak_type);
-                intent.putExtra("gender", getIntent().getExtras().getString("gender"));
-                intent.putExtra("date_birthday", getIntent().getExtras().getString("date_birthday"));
-                intent.putExtra("type_fule", getIntent().getExtras().getString("type_fule"));
-                intent.putExtra("date_save", getIntent().getExtras().getString("date_save"));
-                intent.putExtra("type_car", getIntent().getExtras().getString("type_car"));
-                intent.putExtra("car_name_id", getIntent().getExtras().getInt("car_name_id"));
-                intent.putExtra("car_tip_id", getIntent().getExtras().getInt("car_tip_id"));
-                intent.putExtra("car_model_id", getIntent().getExtras().getInt("car_model_id"));
-                intent.putExtra("car_company_id", getIntent().getExtras().getInt("car_company_id"));
-                intent.putExtra("fuel_type_id", getIntent().getExtras().getInt("fuel_type_id"));
+                AddIntentDetail(intent);
                 startActivity(intent);
             }
+
+
         });
 
         txt_late_service.setOnClickListener(new View.OnClickListener() {
@@ -1258,7 +1242,27 @@ public class AddServicesActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void AddIntentDetail(Intent intent) {
+        intent.putExtra("idCustomer", getIntent().getExtras().getString("idCustomer"));
+//                intent.putExtra("id_car", getIntent().getExtras().getString("id_car"));
+        intent.putExtra("id_car", carId);
+        intent.putExtra("firstName", getIntent().getExtras().getString("firstName"));
+        intent.putExtra("lastName", getIntent().getExtras().getString("lastName"));
+        intent.putExtra("phone", getIntent().getExtras().getString("phone"));
+        intent.putExtra("nameCar", getIntent().getExtras().getString("nameCar"));
+        intent.putExtra("plak", getIntent().getExtras().getString("plak"));
+        intent.putExtra(CAR_PLATE_TYPE, plak_type);
+        intent.putExtra("gender", getIntent().getExtras().getString("gender"));
+        intent.putExtra("date_birthday", getIntent().getExtras().getString("date_birthday"));
+        intent.putExtra("type_fule", getIntent().getExtras().getString("type_fule"));
+        intent.putExtra("date_save", getIntent().getExtras().getString("date_save"));
+        intent.putExtra("type_car", getIntent().getExtras().getString("type_car"));
+        intent.putExtra("car_name_id", getIntent().getExtras().getInt("car_name_id"));
+        intent.putExtra("car_tip_id", getIntent().getExtras().getInt("car_tip_id"));
+        intent.putExtra("car_model_id", getIntent().getExtras().getInt("car_model_id"));
+        intent.putExtra("car_company_id", getIntent().getExtras().getInt("car_company_id"));
+        intent.putExtra("fuel_type_id", getIntent().getExtras().getInt("fuel_type_id"));
+    }
     private void checkDateHasEdited(String dateService) {
         if(dateService.equals(service_date_time[0])){
             dateHasEdited = false;
@@ -1269,7 +1273,7 @@ public class AddServicesActivity extends AppCompatActivity {
 
     public void chooseService() {
         Intent intent = new Intent(AddServicesActivity.this, ListServiceCarActivity.class);
-        intent.putExtra("idCustomer", getIntent().getExtras().getString("idCustomer"));
+        AddIntentDetail(intent);
         intent.putExtra("idService", mDBHelper.getLastIdService(mDatabase) + 1);
         intent.putExtra(Constants.IS_EDIT_SERVICE, isEditService);
         G.preference.edit().putInt("idService", mDBHelper.getLastIdService(mDatabase) + 1).apply();

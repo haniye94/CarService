@@ -96,6 +96,9 @@ public interface Api {
     @PUT("api.php/records/users/{id}")
     Call<ResponseBody> deleteCustomer(@Path("id") String id, @Body RequestBody body);
 
+    @PUT("api.php/records/customers_car/{id}")
+    Call<ResponseBody> deleteCar(@Path("id") String car_id, @Body RequestBody body);
+
     @GET("api.php/records/customers?filter=cust_deleted_at,is,NULL&order=cust_id,desc")
 //&filter=center_id,gt,0
     Call<ResponseBody> listCustomer(@Query("filter1") String filter, @Query("filter2") String filter2, @Query("page") int page);

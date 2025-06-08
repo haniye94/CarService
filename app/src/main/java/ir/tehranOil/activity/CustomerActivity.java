@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.tehranOil.app.Constants;
@@ -121,7 +122,7 @@ public class CustomerActivity extends AppCompatActivity {
 
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-                if (!isLoading && productList.size() >= 20 && last_key.length()==0) {
+                if (!isLoading && productList.size() >= 20 && last_key.length() == 0) {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == productList.size() - 1) {
                         isLoading = true;
                         page++;
@@ -141,7 +142,7 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         G.Activity = this;
         G.context = this;
@@ -166,7 +167,8 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
-String last_key = "";
+    String last_key = "";
+
     public void listCustomer(String key) {
         last_key = key;
         if (key.length() > 0) {
@@ -180,6 +182,7 @@ String last_key = "";
             }
         }
         if (page == 1) {
+            productList.clear();
             swipeRefreshLayout.setRefreshing(true);
         }
         if (PreferenceUtil.getD_id() != null) {
@@ -225,10 +228,12 @@ String last_key = "";
                                 String car_model = "";
                                 String car_type = "";
                                 String fuel_type = "";
-                                int car_name_id = 0, car_tip_id = 0, car_model_id = 0, fuel_type_id = 0,car_company_id=0;
+                                String car_deleted_at = null;
+                                int car_name_id = 0, car_tip_id = 0, car_model_id = 0, fuel_type_id = 0, car_company_id = 0;
                                 if (info.has("car_id")) {
                                     car_id = info.getInt("car_id");
                                     car_tag = info.getString("car_plate");
+                                    car_deleted_at = info.getString("car_deleted_at");
                                     car_plate_type = info.getInt(Constants.CAR_PLATE_TYPE);
                                     String car_company_name = (info.getString("car_company_name") + "").replace("null", "");
                                     String car_tip = (info.getString("car_tip") + "").replace("null", "");
@@ -247,8 +252,8 @@ String last_key = "";
                                         car_tip_id = info.getInt("car_tip_id");
                                     }
 //                                    if(!info.getString("car_model_id").contains("null")) {
-                                        car_model_id = info.getInt("car_model_id");
-                                        car_company_id = info.getInt("car_company_id");
+                                    car_model_id = info.getInt("car_model_id");
+                                    car_company_id = info.getInt("car_company_id");
 //                                    }
                                     fuel_type_id = info.getInt("fuel_type_id");
                                 }
@@ -269,17 +274,22 @@ String last_key = "";
                                 modelCustomer.setCar_company_id(car_company_id);
                                 modelCustomer.setFuel_type_id(fuel_type_id);
                                 modelCustomer.setCar_id(car_id);
-                                Log.d("Service!", "onClick: 1" + "id_car:"+car_id);
+                                modelCustomer.setType_car(car_type);
+                                Log.d("Service!", "onClick: 1" + "id_car:" + car_id);
 
                                 modelCustomer.setDate_save_customer(register_date);
-                                String full_name = name+" "+lastname;
-                                if (finalKey.length() >= 1) {
-                                    if (full_name.contains(finalKey) || name.contains(finalKey) || lastname.contains(finalKey) || phone.contains(finalKey)) {
+                                String full_name = name + " " + lastname;
+                                if (Objects.equals(car_deleted_at, "null")) {
+
+                                    if (finalKey.length() >= 1) {
+                                        if (full_name.contains(finalKey) || name.contains(finalKey) || lastname.contains(finalKey) || phone.contains(finalKey)) {
+                                            productList.add(modelCustomer);
+                                        }
+                                    } else {
                                         productList.add(modelCustomer);
                                     }
-                                } else {
-                                    productList.add(modelCustomer);
                                 }
+
 
                             }
 
@@ -317,9 +327,9 @@ String last_key = "";
         }
     }
 
-    public void deleteCustomer(String cust_id) {
+    public void deleteCar(ModelCustomer modelCustomer, int position) {
         G.loading(CustomerActivity.this);
-        String d_id = PreferenceUtil.getD_id();
+        String car_id = String.valueOf(modelCustomer.getCar_id());
         Api api = RetrofitClient.createService(Api.class, G.api_username, G.api_password);
         JSONObject object = new JSONObject();
         try {
@@ -328,18 +338,16 @@ String last_key = "";
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        G.Log(cust_id);
-        Call<ResponseBody> request = api.deleteCustomer(cust_id + "", G.returnBody(object.toString()));
+        Call<ResponseBody> request = api.deleteCar(car_id + "", G.returnBody(object.toString()));
         request.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                assert response.body() != null;
                 G.stop_loading();
                 String result = G.getResult(response);
-                Log.e("dsdsdsd", result);
-                if (result.length() > 0 && result.length() < 10) {
-                    finish();
-                    startActivity(new Intent(CustomerActivity.this, CustomerActivity.class));
+
+                if (response.code() == 200 && result.equals("1")) {
+                    G.toast("خودرو با موفقیت حذف شد.");
+                    refreshDeleteItem(position);
                 }
 
             }
@@ -353,6 +361,7 @@ String last_key = "";
 
 
     }
+
 
     private Handler mHandler = new Handler();
 
@@ -548,10 +557,10 @@ String last_key = "";
                                 }
                             }
                         }, 0);
-                        Log.d("Service!", "onClick: " + "id_car:"+ model.getCar_id());
+                        Log.d("Service!", "onClick: " + "id_car:" + model.getCar_id());
                         Intent intent = new Intent(CustomerActivity.this, AddServicesActivity.class);
                         intent.putExtra("idCustomer", model.getId() + "");
-                        intent.putExtra(Constants.CAR_ID, model.getCar_id()+"");
+                        intent.putExtra(Constants.CAR_ID, model.getCar_id() + "");
                         Log.d("CARRRR", "onResponse:CustomerActivity:onClick " + model.getCar_id());
                         intent.putExtra("firstName", model.getFirst_name());
                         intent.putExtra("lastName", model.getLast_name());
@@ -604,8 +613,7 @@ String last_key = "";
                     @Override
                     public void onClick(View view) {
                         bottomSheetDialog.dismiss();
-                        deleteCustomer(model.getId() + "");
-
+                        deleteCar(model, position);
                     }
                 });
 
@@ -622,6 +630,20 @@ String last_key = "";
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(context));
+    }
+
+    private void refreshDeleteItem(int position) {
+        swipeRefreshLayout.setRefreshing(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                listCustomers.clear();
+                listCustomer("");
+//                adapterListCustomer.updateItemData(position);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 
 }
