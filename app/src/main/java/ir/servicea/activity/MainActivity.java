@@ -1,11 +1,14 @@
 package ir.servicea.activity;
 
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
@@ -14,11 +17,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.tabs.TabLayout;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import org.json.JSONArray;
@@ -29,11 +32,8 @@ import java.util.Date;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.servicea.FragmentMain;
-import ir.servicea.Fragmentprofile;
 import ir.servicea.R;
-import ir.servicea.adapter.AdapterTabLayout;
 import ir.servicea.app.Constants;
-import ir.servicea.app.CustomViewPager;
 import ir.servicea.app.G;
 import ir.servicea.app.PreferenceUtil;
 import ir.servicea.model.ZarinVerify;
@@ -72,8 +72,28 @@ public class MainActivity extends AppCompatActivity {
 
         getZarinPallVerify();
         cheack_update();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{POST_NOTIFICATIONS},
+                        100);
+            }
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, you can now show notifications
+            } else {
+                // Permission denied, handle accordingly
+            }
+        }
+    }
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(context));

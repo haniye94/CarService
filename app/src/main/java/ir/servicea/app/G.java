@@ -31,8 +31,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.pusher.client.Pusher;
 import com.pusher.client.PusherOptions;
@@ -151,7 +154,20 @@ public class G extends Application {
             e.printStackTrace();
         }
         FirebaseApp.initializeApp(context);
-        G.Pusher();
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(Task<String> task) {
+                if (task.isSuccessful()) {
+                    String fcmToken = task.getResult();
+                    if (fcmToken != null) {
+                        Log.d(TAG, "firebaseMessaging token is:  " + fcmToken);
+                    }
+                } else {
+                    Log.d(TAG, "firebaseMessaging token retrieve fail");
+                }
+            }
+        });
+//        G.Pusher();
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -188,6 +204,7 @@ public class G extends Application {
         return "";
     }
 
+    //TODO comment in fragmentMain
     public static void PusherBeam(String user_id) {
         String regID = FirebaseInstanceId.getInstance().getToken();
         Log.e("regID", regID);
