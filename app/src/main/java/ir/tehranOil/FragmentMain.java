@@ -204,7 +204,7 @@ public class FragmentMain extends Fragment {
                         .putExtra("TITLE", "مجله خودرو"));
             }
         });
-        G.PusherBeam(PreferenceUtil.getUser_id());
+//        G.PusherBeam(PreferenceUtil.getUser_id());
 
         return view;
     }

@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "367358640919",
-    "project_id": "servicea-7dda4",
-    "storage_bucket": "servicea-7dda4.firebasestorage.app"
+    "project_number": "1052701775718",
+    "project_id": "tehranoil-90c02",
+    "storage_bucket": "tehranoil-90c02.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:367358640919:android:472e6fc2b03777f483ad52",
+        "mobilesdk_app_id": "1:1052701775718:android:4fd998e32ec11c15861aa7",
         "android_client_info": {
-          "package_name": "ir.servicea"
+          "package_name": "ir.tehranOil"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "367358640919-ffp65j00f20i782i1c5pj9ui4tm6eadu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ir.servicea",
-            "certificate_hash": "d4d3d6023006283da4bd2bdfc07696fb86b0a3c1"
-          }
-        },
-        {
-          "client_id": "367358640919-ct5c4tjrcu0tjpi22123cap3j4na145d.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDH3TgraX1tYIz01JdlxMqSDXNiJvUPlAw"
+          "current_key": "AIzaSyDip6-dCO5-30eAgiTHleu8F6lFLrIkHTo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "367358640919-ct5c4tjrcu0tjpi22123cap3j4na145d.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

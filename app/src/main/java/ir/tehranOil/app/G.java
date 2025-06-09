@@ -150,7 +150,7 @@ public class G extends Application {
             e.printStackTrace();
         }
         FirebaseApp.initializeApp(context);
-        G.Pusher();
+//        G.Pusher();
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -187,6 +187,7 @@ public class G extends Application {
         return "";
     }
 
+    //TODO comment in fragmentMain
     public static void PusherBeam(String user_id) {
         String regID = FirebaseInstanceId.getInstance().getToken();
         Log.e("regID", regID);
